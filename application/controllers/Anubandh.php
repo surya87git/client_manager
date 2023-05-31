@@ -16,7 +16,7 @@ class Anubandh extends CI_Controller {
 	    $this->load->model("Master_model");    
 	}	 
 	public function index()
-	{		
+	{	
 		//$this->load->view('dashboard');
 		$this->load->view('header');
 		$this->load->view('top_sidebar');
@@ -136,6 +136,10 @@ class Anubandh extends CI_Controller {
 		$this->load->view('new_header/header');
 		$this->load->view('top_sidebar');
 		$this->load->view('anubandh_details');
+	}
+	public function testing()
+	{
+		
 	}
 
 }
