@@ -137,8 +137,5 @@ class Anubandh extends CI_Controller {
 		$this->load->view('top_sidebar');
 		$this->load->view('anubandh_details');
 	}
-	public function test()
-	{
-		echo "Hello Word";
-	}
+
 }
