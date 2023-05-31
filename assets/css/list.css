@@ -1,0 +1,20 @@
+  
+   
+        #list{
+            color: #405189;
+            background: white;
+            font-size: 15px;
+        }
+  
+       
+        li{
+            list-style: none;
+        }
+  
+        
+  
+        li::before{
+  
+          
+            content: "\00BB";
+        }
