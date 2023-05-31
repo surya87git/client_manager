@@ -59,9 +59,7 @@ class Anubandh extends CI_Controller {
 		  "create_date" => date("Y-m-d H:i:s"),
 		  "ip"=> $this->input->ip_address(),	
 		);
-
 		$column_id = $this->input->post("column_id") ?? "";
-
 		if($column_id != ""){
 
 			$frm_data['id'] = $column_id;
@@ -138,5 +136,9 @@ class Anubandh extends CI_Controller {
 		$this->load->view('new_header/header');
 		$this->load->view('top_sidebar');
 		$this->load->view('anubandh_details');
+	}
+	public function test()
+	{
+		echo "Hello Word";
 	}
 }
