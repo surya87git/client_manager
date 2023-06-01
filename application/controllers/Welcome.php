@@ -64,9 +64,7 @@ class Welcome extends CI_Controller {
 	public function client_review()
 	{
 		$encode_data = urldecode($this->uri->segment(3));
-		
 		$new_data = json_decode(base64_decode($encode_data));
-		
 		$booking_id = $new_data->id ?? "";
 
 		$qry = "SELECT * FROM bkf_booking_form where id = $booking_id";

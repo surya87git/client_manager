@@ -43,6 +43,7 @@
                             <span style="color:#212529; text-decoration:underline; font-weight:bold;">Import Data From Booking Form</span>
                         <a type="button" class="btn  btn-success" id="" data-bs-toggle="modal" data-bs-target="#myModal" style="color:#ffff;">IMPORT</a>
                       </div>
+<!---------Import Modal------------------------->
                       <div id="myModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel">
                         <div class="modal-dialog">
                           <div class="modal-content">
@@ -65,7 +66,8 @@
                           <!-- /.modal-content -->
                         </div>
                       </div>
-                      
+
+<!---------END Import Modal------------------------->                      
                      
                       <!-- end nav -->
                     </div>
@@ -73,49 +75,63 @@
                       <div class="col-lg-9">
                         <div class="px-lg-4">
                           <div class="tab-content">
+
                            <!--------Start of Personal Information-------->
                           <div class="tab-pane active" id="v-pills-bill-info" role="tabpanel" aria-labelledby="v-pills-bill-info-tab">
-                            <div>
+                            
+                          <div>
                               <h5>Personal Information</h5>
                               <p class="text-muted">Fill all persoanl information below</p>
                             </div>
                             <div>
-                              <form action="">
+                            <form id="frmClientInfo">
+
                                 <div class="row g-3">
+
                                   <div class="col-sm-6">
-                                    <label for="firstName" class="form-label">Client name</label>
-                                    <input type="text" class="form-control" id="client_name" placeholder="Enter Client Name" value="">
-                                  </div>
-                                  <div class="col-sm-6">
-                                    <label for="phone" class="form-label">Mobile Number</label>
-                                    <input type="number" class="form-control" id="phone" placeholder="Enter Mobile Number">
+                                      <label for="clientname" class="form-label">Client Name<span class="text-danger">*</span></label>
+                                      <input type="text" id="client_name" name="client_name" value="" class="form-control"  placeholder="Enter Client Name" require>
                                   </div>
                                   <div class="col-sm-6">
-                                    <label for="father/husbandname" class="form-label">Father/ Husband Name</label>
-                                    <input type="text" class="form-control" id="father/husbandname" placeholder="Enter Father/Husband Name" value="">
+                                      <label for="fsname" class="form-label">Father/Spouse Name<span class="text-danger">*</span></label>
+                                      <input type="text" id="spouse_name" name="spouse_name" value="" class="form-control"  placeholder="Enter Father/Spouse Name" require>
+                                  </div>
+                                  <div class="col-sm-3">
+                                      <label for="age" class="form-label">Age<span class="text-danger">*</span></label>
+                                      <input type="number" id="age" name="age" value="" class="form-control"  placeholder="Enter Age" require>
+                                  </div>
+                                  <div class="col-sm-3">
+                                      <label for="sex" class="form-label">Gender<span class="text-danger">*</span></label>
+                                      <select id="gender" name="gender" class="form-select mb-3" aria-label="Default select example">
+                                      <option selected>Select Gender</option>
+                                      <option value="male">Male</option>
+                                      <option value="female">Female</option>                       
+                                      </select>
                                   </div>
                                   <div class="col-sm-6">
-                                    <label for="email" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="email" placeholder="Enter Email">
+                                      <label for="occupation" class="form-label">Occupation<span class="text-danger">*</span></label>
+                                      <input type="text" id="occupation" name="occupation" value="" class="form-control"  placeholder="Enter Occupation" require>
                                   </div>
-                                  <div class="col-3">
-                                    <label for="age" class="form-label">Age</label>
-                                    <input type="number" class="form-control" id="age" placeholder="Enter Age">
+                                  <div class="col-sm-6">
+                                      <label for="mobile" class="form-label">Mobile Number<span class="text-danger">*</span></label>
+                                      <input type="number" id="mobile_no" name="mobile_no" value="" class="form-control"  placeholder="Enter Mobile Number" require>
                                   </div>
-                                  <div class="col-6">
-                                    <label for="occupation" class="form-label">Occupation</label>
-                                    <input type="text" class="form-control" id="occupation" placeholder="Enter Occupation">
+                                  <div class="col-sm-6">
+                                      <label for="email" class="form-label">Email ID<span class="text-danger">*</span></label>
+                                      <input type="email" id="email_id" name="email_id" value="" class="form-control"  placeholder="Enter Email Address" require>
                                   </div>
-                                  <div class="col-6">
-                                    <label for="adharnumber" class="form-label">Adhar Number</label>
-                                    <input type="number" class="form-control" id="adharnumber" placeholder="Enter adhar number">
+                                  <div class="col-sm-6">
+                                      <label for="pan_number" class="form-label">PAN Number<span class="text-danger">*</span></label>
+                                      <input type="text" id="pan_no" name="pan_no" value="" class="form-control"  placeholder="Enter PAN number" require>
                                   </div>
-                                  <div class="col-6">
-                                    <label for="pannumber" class="form-label">Pan Number</label>
-                                    <input type="text" class="form-control" id="pannumber" placeholder="Enter Pan Number">
+                                  <div class="col-sm-6">
+                                      <label for="aadhar_number" class="form-label">Aadhar Number<span class="text-danger">*</span></label>
+                                      <input type="number" id="aadhar_no" name="aadhar_no" value="" class="form-control"  placeholder="Enter Aadhar Number" require>
                                   </div>
-                                  <span class="text-primary">Present Address</span>
+                                  <br><br>
                                   <!--------Permanent Address-------------->
+                                  <h5 class="text-primary font-weight-bold">Permanent Address</h5>
+                                  
                                       <div class="col-sm-6">
                                           <label for="address" class="form-label">House No.</label>
                                           <input type="text" id="p_hno" name="p_hno" value="" class="form-control"  placeholder="Enter House No." require>
@@ -139,45 +155,51 @@
                                       <div class="col-sm-6">
                                           <label for="address" class="form-label">Pin Code</label>
                                           <input type="text" id="p_pincode" name="p_pincode" value="" class="form-control"  placeholder="Enter Pin-Code" require>
-                                      </div>            
+                                      </div>  
+
                                   <!--------End Permanent Address-------------->
-                                  <span class="text-primary">Permanent Address</span>
-                                   <!--------Permanent Address-------------->
-                                      <div class="col-sm-6">
-                                          <label for="address" class="form-label">House No.</label>
-                                          <input type="text" id="p_hno" name="p_hno" value="" class="form-control"  placeholder="Enter House No." require>
-                                      </div>
-                                      <div class="col-sm-6">
-                                          <label for="address" class="form-label">Street/ Colony</label>
-                                          <input type="text" id="p_street" name="p_street" value="" class="form-control"  placeholder="Enter Street/ Colony Name" require>
-                                      </div>
-                                      <div class="col-sm-6">
-                                          <label for="address" class="form-label">Landmark</label>
-                                          <input type="text" id="p_landmark" name="p_landmark" value="" class="form-control"  placeholder="Enter Landmark" require>
-                                      </div>
-                                      <div class="col-sm-6">
-                                          <label for="address" class="form-label">City</label>
-                                          <input type="text" id="p_city" name="p_city" value="" class="form-control"  placeholder="Enter City" require>
-                                      </div>
-                                      <div class="col-sm-6">
-                                          <label for="address" class="form-label">State</label>
-                                          <input type="text" id="p_state" name="p_state" value="" class="form-control"  placeholder="Enter State" require>
-                                      </div>
-                                      <div class="col-sm-6">
-                                          <label for="address" class="form-label">Pin Code</label>
-                                          <input type="text" id="p_pincode" name="p_pincode" value="" class="form-control"  placeholder="Enter Pin-Code" require>
-                                      </div>            
+                                  
+                                  <!--------Present Address-------------->
+                                  <h5 class="text-primary font-weight-bold">Present Address</h5>
+                                  <div class="col-sm-6">
+                                      <label for="address" class="form-label">House No.<span class="text-danger">*</span></label>
+                                      <input type="text" id="p_hno" name="p_hno" value="" class="form-control"  placeholder="Enter House No." require>
+                                  </div>
+                                  <div class="col-sm-6">
+                                      <label for="address" class="form-label">Street/ Colony<span class="text-danger">*</span></label>
+                                      <input type="text" id="p_street" name="p_street" value="" class="form-control"  placeholder="Enter Street/ Colony Name" require>
+                                  </div>
+                                  <div class="col-sm-6">
+                                      <label for="address" class="form-label">Landmark<span class="text-danger">*</span></label>
+                                      <input type="text" id="p_landmark" name="p_landmark" value="" class="form-control"  placeholder="Enter Landmark" require>
+                                  </div>
+                                  <div class="col-sm-6">
+                                      <label for="address" class="form-label">City<span class="text-danger">*</span></label>
+                                      <input type="text" id="p_city" name="p_city" value="" class="form-control"  placeholder="Enter City" require>
+                                  </div>
+                                  <div class="col-sm-6">
+                                      <label for="address" class="form-label">State<span class="text-danger">*</span></label>
+                                      <input type="text" id="p_state" name="p_state" value="" class="form-control"  placeholder="Enter State" require>
+                                  </div>
+                                  <div class="col-sm-6">
+                                      <label for="address" class="form-label">Pin Code<span class="text-danger">*</span></label>
+                                      <input type="text" id="p_pincode" name="p_pincode" value="" class="form-control"  placeholder="Enter Pin-Code" require>
+                                  </div>            
                                   <!--------End Permanent Address-------------->
                                 </div>
-                              </form>
+                             
                             </div>
+
                             <div class="d-flex align-items-start gap-3 mt-4">
+                               <input type="submit" value="Save and Next" class="btn btn-success" data-nexttab="v-pills-bill-address-tab">
                               <button type="button" class="btn btn-success btn-label right ms-auto nexttab nexttab" data-nexttab="v-pills-bill-address-tab">
-                                <i class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>Go to Payment Details </button>
+                              <i class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>Go to Payment Details </button>
                             </div>
-                          </div>
-                          <!--------End of Personal Information-------->
-                            <!-----Start of Payment Details-------->
+                        </form>
+                    </div>
+                  <!--------End of Personal Information-------->
+
+                  <!-----Start of Payment Details-------->
                           <div class="tab-pane fade show " id="v-pills-bill-address" role="tabpanel" aria-labelledby="v-pills-bill-address-tab">
                             <div>
                               <label for="" class="form-label">Payment Mode</label>

@@ -59,6 +59,7 @@ class Anubandh extends CI_Controller {
 		  "create_date" => date("Y-m-d H:i:s"),
 		  "ip"=> $this->input->ip_address(),	
 		);
+		
 		$column_id = $this->input->post("column_id") ?? "";
 		if($column_id != ""){
 
@@ -94,25 +95,21 @@ class Anubandh extends CI_Controller {
 		$this->load->view('header');
 		$this->load->view('top_sidebar');
 		$this->load->view('booking');
-		//$this->load->view('foooter');
 	}
 
-
-
-	public function add_anubandh()
+	/*public function add_anubandh()
 	{
 		$this->load->view('new_header/header');
 		$this->load->view('top_sidebar');
 		$this->load->view('add_anubandh');
-	}
+	}*/
 	
 	public function makeanubadh()
 	{
 		$this->load->view('new_header/header');
 		$this->load->view('top_sidebar');
 		$this->load->view('makeanubadh');
-	}
-	
+	}	
 	public function anubadh_agreement_list()
 	{
 		$this->load->view('new_header/header');
