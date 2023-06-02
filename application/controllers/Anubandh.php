@@ -104,11 +104,17 @@ class Anubandh extends CI_Controller {
 		$this->load->view('add_anubandh');
 	}*/
 	
-	public function makeanubadh()
+	public function make_anubadh()
 	{
+		$data['booking_id'] = 4;
+		$data['client_name'] = "Surya Chandra";
+
+		$qry = "SELECT * FROM anu_aggrement_column where id <> 0 and status = 1 order by column_name asc";
+		$data['column_list'] = $this->Master_model->getCustom($qry);
+		
 		$this->load->view('new_header/header');
 		$this->load->view('top_sidebar');
-		$this->load->view('makeanubadh');
+		$this->load->view('make_anubadh', $data);
 	}	
 	public function anubadh_agreement_list()
 	{

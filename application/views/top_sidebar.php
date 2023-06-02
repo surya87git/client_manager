@@ -284,7 +284,7 @@
                                   <a href="<?php echo site_url('anubandh/anubandh_column_list')?>" class="nav-link" data-key="t-chat">Column List</a>
                                 </li>
                                 <li class="nav-item">
-                                  <a href="<?php echo site_url('anubandh/add_anubandh')?>" class="nav-link" data-key="t-calendar">Add Anubandh</a>
+                                  <a href="<?php echo site_url('anubandh/')?>" class="nav-link" data-key="t-calendar">Add Anubandh</a>
                                 </li>
                                 <li class="nav-item">
                                   <a href="<?php echo site_url('anubandh/anubadh_agreement_list')?>" class="nav-link" data-key="t-chat">Agreement List</a>

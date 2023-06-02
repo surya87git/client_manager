@@ -20,24 +20,50 @@
                         <div class="col-xxl-12">
                             <div class="card">
                                 <div class="card-header align-items-center d-flex">
-                                    <h4 class="card-title mb-0 flex-grow-1">Anubadh</h4>
-                                    
+                                    <h4 class="card-title mb-0 flex-grow-1"><?php echo $client_name;?></h4>
                                 </div><!-- end card header -->
                                 <div class="card-body">                                  
                                     <div class="live-preview">
                                         <div class="accordion custom-accordionwithicon custom-accordion-border accordion-border-box accordion-success" id="accordionBordered">
-                                            <!--------Select Coloum----->
+                                            
+                                            
+                                            <!----Outer Loop--->
+                                            <?php 
+                                            if($column_list){
+                                                
+                                                $cnt = 0;
+                                                $tmp="";
+
+                                                foreach($column_list as $row){
+                                                
+                                                $create_date = date("d-m-Y", strtotime($row->create_date));
+                                                $cname = $row->column_name ?? "";
+                                                if($cname != $tmp){
+                                                    $cnt = 1;
+                                                    $tmp = $cname;
+                                                }
+                                                else{
+                                                ?>
+                                               
+                                                <?php 
+                                                    $cnt++;
+                                                }
+                                            }
+                                        }
+                                            ?>
+                                            
                                             <div class="accordion-item">
-                                                <h2 class="accordion-header" id="accordionborderedExample1">
-                                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#accor_borderedExamplecollapse1" aria-expanded="true" aria-controls="accor_borderedExamplecollapse1">
-                                                        Column C
-                                                    </button>
-                                                </h2>
+                                                    <h2 class="accordion-header" id="accordionborderedExample1">
+                                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#accor_borderedExamplecollapse1" aria-expanded="true" aria-controls="accor_borderedExamplecollapse1">
+                                                            Column C
+                                                        </button>
+                                                    </h2>
+                                                <!--Inner Loop---->
                                                 <div id="accor_borderedExamplecollapse1" class="accordion-collapse collapse show" aria-labelledby="accordionborderedExample1" data-bs-parent="#accordionBordered">
-                                                    <div class="accordion-body">
-                                                        <label>Anubandh Column C</label>                                                       
+                                                    <div class="accordion-body">                                                
                                                         <table class="table  table-stripped align-middle  mb-0">
                                                             <tbody>
+
                                                                 <tr>
                                                                    <td>भूमि की रजिस्ट्री कापी प्रदान करेंगे</td>
                                                                     <td width="15%">
@@ -50,8 +76,8 @@
                                                                                 <label title="Checked" for="No" id="">No</label>
                                                                             </div>                             
                                                                     </td>
-                                                                    
                                                                 </tr>
+
                                                                 <tr>
                                                                    <td>निर्माण नक्शा स्वयं के निर्देष पर बनवा कर हस्ताक्षर करके निर्माण कार्य हेतु दिये</td>
                                                                     <td width="15%">
@@ -84,8 +110,11 @@
                                                         </table>
                                                     </div>
                                                 </div>
+                                                <!--End Inner Loop---->
                                             </div>
-                                            <!--------End of Select Coloum----->
+
+                                            <!---End Outer Loop---->
+                                         
                                             <div class="accordion-item">
                                                 <h2 class="accordion-header" id="accordionborderedExample2">
                                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accor_borderedExamplecollapse2" aria-expanded="false" aria-controls="accor_borderedExamplecollapse2">
@@ -141,48 +170,17 @@
                                                     </table>
                                                 </div>
                                             </div>
-                                            <div class="accordion-item">
-                                                <h2 class="accordion-header" id="accordionborderedExample3">
-                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accor_borderedExamplecollapse3" aria-expanded="false" aria-controls="accor_borderedExamplecollapse3">
-                                                        Column G
-                                                    </button>
-                                                </h2>
-                                                <div id="accor_borderedExamplecollapse3" class="accordion-collapse collapse" aria-labelledby="accordionborderedExample3" data-bs-parent="#accordionBordered">
-                                                    <div class="accordion-body">
-                                                        Cras ultricies mi eu turpis hendrerit fringilla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In ac dui quis mi consectetuer lacinia. Nam pretium turpis et arcu arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis aliquam ultrices mauris.
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="accordion-item">
-                                                <h2 class="accordion-header" id="accordionborderedExample4">
-                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accor_borderedExamplecollapse4" aria-expanded="false" aria-controls="accor_borderedExamplecollapse4">
-                                                        Column H
-                                                    </button>
-                                                </h2>
-                                                <div id="accor_borderedExamplecollapse4" class="accordion-collapse collapse" aria-labelledby="accordionborderedExample4" data-bs-parent="#accordionBordered">
-                                                    <div class="accordion-body">
-                                                        Cras ultricies mi eu turpis hendrerit fringilla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In ac dui quis mi consectetuer lacinia. Nam pretium turpis et arcu arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis aliquam ultrices mauris.
-                                                    </div>
-                                                </div>
-                                            </div>
+
                                             <center><a class="btn btn-success  mt-5">Submit</a></center>
                                         </div>
-                                    </div>
-                                    <div class="d-none code-view">
-
                                     </div>
                                 </div><!-- end card-body -->
                             </div><!-- end card -->
                         </div>
                         <!--end col-->
                     </div>
-                    <!--end row-->
-
-                    
-
-                    
-
-                </div>
+                   <!--end row-->
+               </div>
                 <!-- container-fluid -->
             </div>
             <!-- End Page-content -->
