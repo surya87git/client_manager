@@ -907,7 +907,7 @@ class BookingApi extends CI_Controller {
 				// echo json_encode($calc_list, true);
 				$data['status'] = 'Successfully';
 				$data['code'] = 200;
-				$data['result'] = $calc_list;
+				$data['result'] = $calc_list[0];
 			}
 			else
 			{

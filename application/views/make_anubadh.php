@@ -29,150 +29,64 @@
                                             
                                             <!----Outer Loop--->
                                             <?php 
-                                            if($column_list){
+                                            if($column_name){
                                                 
                                                 $cnt = 0;
+                                                $rcont = 0;
                                                 $tmp="";
-
-                                                foreach($column_list as $row){
-                                                
-                                                $create_date = date("d-m-Y", strtotime($row->create_date));
-                                                $cname = $row->column_name ?? "";
-                                                if($cname != $tmp){
-                                                    $cnt = 1;
-                                                    $tmp = $cname;
-                                                }
-                                                else{
-                                                ?>
-                                               
-                                                <?php 
+                                                $CI = & get_instance();
+                                                foreach($column_name as $row){
                                                     $cnt++;
-                                                }
-                                            }
-                                        }
-                                            ?>
-                                            
-                                            <div class="accordion-item">
-                                                    <h2 class="accordion-header" id="accordionborderedExample1">
-                                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#accor_borderedExamplecollapse1" aria-expanded="true" aria-controls="accor_borderedExamplecollapse1">
-                                                            Column C
+                                                    $create_date = date("d-m-Y", strtotime($row->create_date));
+                                                    $cname = $row->column_name ?? "";
+                                                
+                                            echo '<div class="accordion-item">
+                                                    <h2 class="accordion-header" id="accordionborderedExample'.$cnt.'">
+                                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#accor_borderedExamplecollapse'.$cnt.'" aria-expanded="true" aria-controls="accor_borderedExamplecollapse'.$cnt.'">
+                                                            Column '.$cname.'
                                                         </button>
-                                                    </h2>
-                                                <!--Inner Loop---->
-                                                <div id="accor_borderedExamplecollapse1" class="accordion-collapse collapse show" aria-labelledby="accordionborderedExample1" data-bs-parent="#accordionBordered">
-                                                    <div class="accordion-body">                                                
-                                                        <table class="table  table-stripped align-middle  mb-0">
-                                                            <tbody>
-
-                                                                <tr>
-                                                                   <td>भूमि की रजिस्ट्री कापी प्रदान करेंगे</td>
-                                                                    <td width="15%">
-                                                                            <div class="icheck-success d-inline">
-                                                                                <input type="radio" class="switcher" name="radio1" value="" id="Yes">
-                                                                                <label title="Checked" for="Yes" id="">Yes</label>
-                                                                            </div>&nbsp;
-                                                                            <div class="icheck-success d-inline">
-                                                                                <input type="radio" class="switcher" name="radio1" value="" id="No">
-                                                                                <label title="Checked" for="No" id="">No</label>
-                                                                            </div>                             
-                                                                    </td>
-                                                                </tr>
-
-                                                                <tr>
-                                                                   <td>निर्माण नक्शा स्वयं के निर्देष पर बनवा कर हस्ताक्षर करके निर्माण कार्य हेतु दिये</td>
-                                                                    <td width="15%">
-                                                                            <div class="icheck-success d-inline">
-                                                                                <input type="radio" class="switcher" name="r2" value="" id="Yes2">
-                                                                                <label title="Checked" for="Yes2" id="">Yes</label>
-                                                                            </div>&nbsp;
-                                                                            <div class="icheck-success d-inline">
-                                                                                <input type="radio" class="switcher" name="r2" value="" id="No2">
-                                                                                <label title="Checked" for="No2" id="">No</label>
-                                                                            </div>                             
-                                                                    </td>
-                                                                    
-                                                                </tr>
-                                                                <tr>
-                                                                   <td>किसी भी प्रकार के लाइट, पंखे गीजर, टीवी, कोई भी applinces, फर्निचर, चिमनी, कैमरा, dvr, अन्य सिस्टम कार्य में शामिल हैं ?</td>
-                                                                    <td width="15%">
-                                                                            <div class="icheck-success d-inline">
-                                                                                <input type="radio" class="switcher" name="r3" value="" id="yes3">
-                                                                                <label title="Checked" for="yes3" id="">Yes</label>
-                                                                            </div>&nbsp;
-                                                                            <div class="icheck-success d-inline">
-                                                                                <input type="radio" class="switcher" name="r3" value="" id="no3">
-                                                                                <label title="Checked" for="no3" id="">No</label>
-                                                                            </div>                             
-                                                                    </td>
-                                                                    
-                                                                </tr>
-                                                            </tbody>
+                                                    </h2>';
+                                           
+                                                echo '<div id="accor_borderedExamplecollapse'.$cnt.'" class="accordion-collapse collapse show" aria-labelledby="accordionborderedExample'.$cnt.'" data-bs-parent="#accordionBordered">
+                                                            <div class="accordion-body">                                                
+                                                                <table class="table  table-stripped align-middle  mb-0">
+                                                                    <tbody>'; 
+                                                       
+                                                    $qry = "SELECT * FROM anu_aggrement_column where id <> 0 and status = 1 and column_name = '$cname' order by column_name";
+                                                    $column_list = $CI->Master_model->getCustom($qry);
+                                                    
+                                                    foreach($column_list as $res){
+                                                        $rcont++;                                     
+                                                        echo '<tr>
+                                                                <td>'.$res->column_desc.'</td>
+                                                                <td width="15%">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" class="switcher" id="yes_'.$rcont.'" name="radio'.$rcont.'" value="">
+                                                                        <label title="Checked" for="yes_'.$rcont.'">Yes</label>
+                                                                    </div>&nbsp;
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" class="switcher" id="no_'.$rcont.'" name="radio'.$rcont.'" value="">
+                                                                        <label title="Checked" for="no_'.$rcont.'">No</label>
+                                                                    </div>                             
+                                                                </td>
+                                                                </tr>';
+                                                            }
+                                                                          
+                                                        echo '</tbody>
                                                         </table>
                                                     </div>
-                                                </div>
-                                                <!--End Inner Loop---->
-                                            </div>
+                                                </div>';
+                                            
 
-                                            <!---End Outer Loop---->
-                                         
-                                            <div class="accordion-item">
-                                                <h2 class="accordion-header" id="accordionborderedExample2">
-                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accor_borderedExamplecollapse2" aria-expanded="false" aria-controls="accor_borderedExamplecollapse2">
-                                                        Column F
-                                                    </button>
-                                                </h2>
-                                                <div id="accor_borderedExamplecollapse2" class="accordion-collapse collapse" aria-labelledby="accordionborderedExample2" data-bs-parent="#accordionBordered">
-                                                    <table class="table  table-stripped align-middle  mb-0">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>प्लिन्थ भराई भुमि स्वामी के जमीन से 1’-6” किया जाएगा, अतिरिक्त भराई पार्टी न. 2 35/- क्यूबिक फिट से अनुबंध</td>
-                                                                <td width="15%">
-                                                                        <div class="icheck-success d-inline">
-                                                                            <input type="radio" class="switcher" name="radiocolf" value="" id="Yesradiocolf">
-                                                                            <label title="Checked" for="Yesradiocolf" id="">Yes</label>
-                                                                        </div>&nbsp;
-                                                                        <div class="icheck-success d-inline">
-                                                                            <input type="radio" class="switcher" name="radiocolf" value="" id="Noradiocolf">
-                                                                            <label title="Checked" for="Noradiocolf" id="">No</label>
-                                                                        </div>                             
-                                                                </td>
-                                                                
-                                                            </tr>
-                                                            <tr>
-                                                                <td>प्लिन्थ के ऊपर से अंदर बाहर लाल ईंट, बाउन्ड्रीवाल, सेप्टिक, पेरफिट इत्यादि में काली ईंट लगेगी</td>
-                                                                <td width="15%">
-                                                                        <div class="icheck-success d-inline">
-                                                                            <input type="radio" class="switcher" name="r2.1" value="" id="Yes2.1">
-                                                                            <label title="Checked" for="Yes2.1" id="">Yes</label>
-                                                                        </div>&nbsp;
-                                                                        <div class="icheck-success d-inline">
-                                                                            <input type="radio" class="switcher" name="r2.1" value="" id="No2.1">
-                                                                            <label title="Checked" for="No2.1" id="">No</label>
-                                                                        </div>                             
-                                                                </td>
-                                                                
-                                                            </tr>
-                                                            <tr>
-                                                                <td>किसी भी प्रकार के लाइट, पंखे गीजर, टीवी, कोई भी applinces, फर्निचर, चिमनी, कैमरा, dvr, अन्य सिस्टम कार्य में शामिल हैं ?</td>
-                                                                <td width="15%">
-                                                                        <div class="icheck-success d-inline">
-                                                                            <input type="radio" class="switcher" name="r3.1" value="" id="yes3.1">
-                                                                            <label title="Checked" for="yes3.1" id="">Yes</label>
-                                                                        </div>&nbsp;
-                                                                        <div class="icheck-success d-inline">
-                                                                            <input type="radio" class="switcher" name="r3.1" value="" id="no3.1">
-                                                                            <label title="Checked" for="no3.1" id="">No</label>
-                                                                        </div>                             
-                                                                </td>
-                                                                
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
+                                            }
 
+                                            echo '</div>'; ///end outer loop div
+
+                                           }
+                                        ?>    
                                             <center><a class="btn btn-success  mt-5">Submit</a></center>
-                                        </div>
+                                         <br/>
+                                       </div>
                                     </div>
                                 </div><!-- end card-body -->
                             </div><!-- end card -->

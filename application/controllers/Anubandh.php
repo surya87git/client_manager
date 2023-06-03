@@ -33,7 +33,7 @@ class Anubandh extends CI_Controller {
 			$data['row_data'] = $this->Master_model->getCustom($qry);
 		}
 		
-		$qry = "SELECT * FROM anul_anubandh_col_head where id <> 0 and status = 1";
+		$qry = "SELECT * FROM anul_aggrement_col_head where id <> 0 and status = 1";
 		$data['col_head'] = $this->Master_model->getCustom($qry);
 
 		$this->load->view('new_header/header');
@@ -109,8 +109,9 @@ class Anubandh extends CI_Controller {
 		$data['booking_id'] = 4;
 		$data['client_name'] = "Surya Chandra";
 
-		$qry = "SELECT * FROM anu_aggrement_column where id <> 0 and status = 1 order by column_name asc";
-		$data['column_list'] = $this->Master_model->getCustom($qry);
+		$qry = "SELECT column_name FROM anu_aggrement_column where id <> 0 and status = 1 group by column_name order by column_name asc ";
+		$data['column_name'] = $this->Master_model->getCustom($qry);
+
 		
 		$this->load->view('new_header/header');
 		$this->load->view('top_sidebar');
