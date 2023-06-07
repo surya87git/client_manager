@@ -108,10 +108,11 @@
         <div class="row">
           <div class="col-xl-9">
           <!--Alert------>
-            
             <?php 
               if($client_info[0]->link_request == 1)
-              {?>
+              {
+                
+              ?>
                 <div id="link_request" class="alert alert-danger" role="alert">
                   New Booking <a href="#div_mail" class="alert-link">Link Request</a> from client...
                 </div>
@@ -126,7 +127,7 @@
              
                 <div class="d-flex align-items-center">
                   <h5 class="card-title flex-grow-1 mb-0">Client Information</h5>
-                
+                <a href="<?php echo base_url("index.php/anubandh/make_anubadh/$booking_id");?>" style="margin-right: 25%;" class="btn btn-success btn-sm waves-effect waves-light">Manage Aggrement Column</a>
                   <button type="button" class="btn btn-success btn-sm btn-label waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#zoomInModal"><i class=" ri-edit-2-fill label-icon align-middle fs-16 me-2"></i>Edit</button>
                 </div>
               </div>
@@ -582,7 +583,7 @@
 
                     foreach($chk_arr as $key=>$c_id){
                             
-                       $commitment = $CI->Master_model->getNameById("bkf_commitment_list","commitment",$c_id);
+                      $commitment = $CI->Master_model->getNameById("bkf_commitment_list","commitment",$c_id);
                      
                   ?>
                   <div class="col-md-3">
@@ -591,6 +592,7 @@
                         <?php echo $commitment; ?>
                     </div>
                   </div>
+
                 <?php } }?>
                   
                   <div class="col-md-3">
@@ -1989,7 +1991,7 @@ $("#adhar_copy").on("click", function(){
                   if(spl_txt[1] == 1)
                   { 
                     alert("Successfully updated...");
-                    //location.reload();
+                    location.reload();
                   }
                   else
                   { 
@@ -2306,7 +2308,6 @@ $('#frmPayee').validate({
       }
 
   });
-
 /**---------------------Transaction Details--------------------------------------- */  
 $('#frmTrans').validate({
     rules: {
@@ -2440,6 +2441,7 @@ $('#frmPlot').validate({
       }
   });  
 
+  
 /**---------------------Attached Details--------------------------------------- */  
 
 $('#frmDoc').validate({

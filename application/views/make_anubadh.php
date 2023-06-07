@@ -26,7 +26,7 @@
                                     <div class="live-preview">
                                         <div class="accordion custom-accordionwithicon custom-accordion-border accordion-border-box accordion-success" id="accordionBordered">
                                             
-                                            
+                                        <form id="frmColumn">
                                             <!----Outer Loop--->
                                             <?php 
                                             if($column_name){
@@ -56,42 +56,43 @@
                                                     $column_list = $CI->Master_model->getCustom($qry);
                                                     
                                                     foreach($column_list as $res){
-                                                        $rcont++;                                     
+                                                        $rcont++;                   
+                                                        $c_id = $res->id;
                                                         echo '<tr>
                                                                 <td>'.$res->column_desc.'</td>
-                                                                <td width="15%">
-                                                                    <div class="icheck-success d-inline">
-                                                                        <input type="radio" class="switcher" id="yes_'.$rcont.'" name="radio'.$rcont.'" value="">
-                                                                        <label title="Checked" for="yes_'.$rcont.'">Yes</label>
-                                                                    </div>&nbsp;
-                                                                    <div class="icheck-success d-inline">
-                                                                        <input type="radio" class="switcher" id="no_'.$rcont.'" name="radio'.$rcont.'" value="">
-                                                                        <label title="Checked" for="no_'.$rcont.'">No</label>
-                                                                    </div>                             
-                                                                </td>
+                                                                    <td width="15%">
+                                                                        <div class="icheck-success d-inline">
+                                                                            <input type="radio" class="switcher" id="yes_'.$rcont.'" name="column'.'['.$c_id.']'.'" value="YES">
+                                                                            <label title="Checked" for="yes_'.$rcont.'">Yes</label>
+                                                                        </div>&nbsp;
+                                                                        <div class="icheck-success d-inline">
+                                                                            <input type="radio" class="switcher" id="no_'.$rcont.'" name="column'.'['.$c_id.']'.'" value="NO">
+                                                                            <label title="Checked" for="no_'.$rcont.'">No</label>
+                                                                        </div>                             
+                                                                    </td>
                                                                 </tr>';
-                                                            }
-                                                                          
+                                                            }               
                                                         echo '</tbody>
                                                         </table>
                                                     </div>
                                                 </div>';
-                                            
-
                                             }
 
                                             echo '</div>'; ///end outer loop div
+                                         }
 
-                                           }
-                                        ?>    
-                                            <center><a class="btn btn-success  mt-5">Submit</a></center>
+                                      ?>    
+                                            <input type="hidden" name="booking_id" value="<?php echo $booking_id ?? "";?>">
+                                           <center><button type="submit" class="btn btn-success  mt-5">Submit</button></center>
                                          <br/>
+                                        </form>
                                        </div>
                                     </div>
                                 </div><!-- end card-body -->
                             </div><!-- end card -->
                         </div>
                         <!--end col-->
+                    
                     </div>
                    <!--end row-->
                </div>
@@ -727,6 +728,7 @@
         </div>
     </div>
     <!-- JAVASCRIPT -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="<?php echo base_url();?>assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="<?php echo base_url();?>assets/libs/simplebar/simplebar.min.js"></script>
     <script src="<?php echo base_url();?>assets/libs/node-waves/waves.min.js"></script>
@@ -737,11 +739,68 @@
     <!-- prismjs plugin -->
     <script src="<?php echo base_url();?>assets/libs/prismjs/prism.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
     <!-- App js -->
     <script src="<?php echo base_url();?>assets/js/app.js"></script>
 
+<script>    
+$(document).ready(function(){    
+    
+/**---------------------Column Details--------------------------------------- */  
+
+$('#frmColumn').validate({
+    rules: {     
+    },
+    messages: {      
+    },
+    errorElement: 'span',
+    errorPlacement: function (error, element) {
+      error.addClass('invalid-feedback');
+      element.closest('.form-group').append(error);
+    },
+    highlight: function (element, errorClass, validClass) {
+      $(element).addClass('is-invalid');
+    },
+    unhighlight: function (element, errorClass, validClass) {
+      $(element).removeClass('is-invalid');
+    },
+    submitHandler: function(form) {      
+      var url = "<?php echo site_url('anubandh/ajax_make_anubadh')?>";
+      //var frmdata = $("#frmDoc").serialize(); //new FormData($('#costForm')[0]);//$("#followupForm").serialize();  
+      var frmdata = new FormData($('#frmColumn')[0]);
+      console.log(frmdata);
+          $.ajax({            
+              type: "POST",
+              url: url,
+              data: frmdata,
+              processData: false,
+              contentType: false,  
+              success: function(data)
+              { 
+                  console.log(data);                 
+                  var spl_txt = data.split("~~~");
+                  if(spl_txt[1] == 1)
+                  { 
+                    alert("Successfully Saved...");
+                    window.location.href = '<?= base_url("index.php/booking/booking_details/$booking_id")?>';
+                  }
+                 else if(spl_txt[1] == 2)
+                  { 
+                    alert("Successfully updated...");
+                    window.location.href = '<?= base_url("index.php/booking/booking_details/$booking_id")?>';
+                  }
+                  else
+                  { 
+                    alert("Something went wrong...");                   
+                  }   
+              }
+          });
+      }
+  });
+
+});                                    
+</script>
+
 </body>
 
-
-<!-- Mirrored from themesbrand.com/velzon/html/default/ui-accordions.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 25 Jul 2022 12:36:45 GMT -->
 </html>
