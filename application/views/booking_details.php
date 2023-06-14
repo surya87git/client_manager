@@ -108,10 +108,11 @@
         <div class="row">
           <div class="col-xl-9">
           <!--Alert------>
-            
             <?php 
               if($client_info[0]->link_request == 1)
-              {?>
+              {
+                
+              ?>
                 <div id="link_request" class="alert alert-danger" role="alert">
                   New Booking <a href="#div_mail" class="alert-link">Link Request</a> from client...
                 </div>
@@ -126,7 +127,6 @@
              
                 <div class="d-flex align-items-center">
                   <h5 class="card-title flex-grow-1 mb-0">Client Information</h5>
-                
                   <button type="button" class="btn btn-success btn-sm btn-label waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#zoomInModal"><i class=" ri-edit-2-fill label-icon align-middle fs-16 me-2"></i>Edit</button>
                 </div>
               </div>
@@ -582,7 +582,7 @@
 
                     foreach($chk_arr as $key=>$c_id){
                             
-                       $commitment = $CI->Master_model->getNameById("bkf_commitment_list","commitment",$c_id);
+                      $commitment = $CI->Master_model->getNameById("bkf_commitment_list","commitment",$c_id);
                      
                   ?>
                   <div class="col-md-3">
@@ -591,6 +591,7 @@
                         <?php echo $commitment; ?>
                     </div>
                   </div>
+
                 <?php } }?>
                   
                   <div class="col-md-3">
@@ -680,8 +681,7 @@
                     </div>
                     <div id="div_loader" style="display:none;">  
                       <a href="javascript:void(0);" id="a_loader" class="btn btn-danger btn-sm  btn-label waves-effect waves-light"><i class=" ri-mail-fill label-icon align-middle fs-16 me-2"></i>Processing...</a>
-                    </div>
-                    
+                    </div>                    
                   </div>
                   <div class="col-md-3">
                     <span>Booking Confirmation Mail</span><br>
@@ -707,6 +707,35 @@
         </div>
       </div>
     <!-----End of Verify--------->
+
+    <!--------Anubandh Verification---------->
+      <div class="row">
+        <div class="col-xl-12">
+          <div class="card">
+              <div class="card-header">
+                <div class="d-flex align-items-center">
+                  <h5 class="card-title flex-grow-1 mb-0">Anubandh</h5>
+                </div>
+                <div class="row mt-3">
+                  <div class="col-md-3">                    
+                    <div id="" class="mt-2">    
+                      <a href="<?php echo base_url("index.php/anubandh/anubandh_details");?>"  id="" mid="" class="btn btn-success btn-sm  btn-label waves-effect waves-light"><i class=" ri-eye-line label-icon align-middle fs-16 me-2"></i>View Anubandh Details</a>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div id="">
+                        <a href="javascript:void(0);" mid="" style="margin-top: 5px;" class=" btn btn-danger btn-sm  btn-label waves-effect waves-light"><i class=" ri-mail-fill label-icon align-middle fs-16 me-2"></i>Mail Agreement Copy to client</a>
+                      </div>
+                      <div id="div_loader_2" style="display:none;">  
+                        <a href="javascript:void(0);" id="a_loader_2" class="btn btn-danger btn-sm  btn-label waves-effect waves-light"><i class=" ri-mail-fill label-icon align-middle fs-16 me-2"></i>Processing...</a>
+                      </div>
+                  </div>
+                </div>               
+              </div>
+          </div>
+        </div>
+      </div>
+    <!-------Anubadh Verification End--------->
 
   <!--container-fluid-->
   </div>
@@ -1441,20 +1470,17 @@
     <!-------------------End of Attached Document----------------->
 
   <!-- End Page-content -->
-    <footer class="footer">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-sm-6">
-            <script>
-              document.write(new Date().getFullYear())
-            </script> © UKC.
-          </div>
-          <div class="col-sm-6">
-            <div class="text-sm-end d-none d-sm-block"> UKConcept Designer </div>
-          </div>
+  <footer class="footer">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-6"> Design &amp; Develop By <a href="https://ukcdesigner.in/" target="_blank">UKConcept Designer</a>
+        </div>
+        <div class="col-sm-6">
+          <div class="text-sm-end d-none d-sm-block"> Copyright 2023 © All Right Reserved. </div>
         </div>
       </div>
-    </footer>
+    </div>
+  </footer>
   </div>
   <!-- end main content-->
 </div>
@@ -1989,7 +2015,7 @@ $("#adhar_copy").on("click", function(){
                   if(spl_txt[1] == 1)
                   { 
                     alert("Successfully updated...");
-                    //location.reload();
+                    location.reload();
                   }
                   else
                   { 
@@ -2306,7 +2332,6 @@ $('#frmPayee').validate({
       }
 
   });
-
 /**---------------------Transaction Details--------------------------------------- */  
 $('#frmTrans').validate({
     rules: {
@@ -2440,6 +2465,7 @@ $('#frmPlot').validate({
       }
   });  
 
+  
 /**---------------------Attached Details--------------------------------------- */  
 
 $('#frmDoc').validate({

@@ -885,7 +885,7 @@
             <hr />
             <div class="modal-footer">
                 <!--button type="button" class="btn btn-info" id="btn_done" data-bs-dismiss="modal">Done</button-->
-                <button type="submit" class="btn btn-primary" id="" data-bs-dismiss="modal" value="Save">Save</button>
+                <!--button type="submit" class="btn btn-primary" id="" data-bs-dismiss="modal" value="Save">Save</button-->
                 <input type="hidden" id="" name="lst_id" value="">
             </div>
         </div>

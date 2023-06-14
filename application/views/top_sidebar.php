@@ -272,6 +272,25 @@
                         </div>
                     </li-->
                     <li class="nav-item active">
+                        <a class="nav-link menu-link" href="#calculator" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps2">
+                          <i class="ri-calculator-line"></i><span data-key="t-apps">Calculator</span>
+                        </a>
+                        <div class="collapse menu-dropdown" id="calculator">
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                  <a href="<?php echo site_url('Calculator/new_calculation')?>" class="nav-link" data-key="t-calendar">Add Calculation</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="collapse menu-dropdown" id="calculator">
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                  <a href="<?php echo site_url('Calculator/calculation_list')?>" class="nav-link" data-key="t-calendar">Calculator List</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item active">
                         <a class="nav-link menu-link" href="#anubadh" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps2">
                           <i class="ri-calculator-line"></i><span data-key="t-apps">Anubandh</span>
                         </a>
@@ -284,7 +303,7 @@
                                   <a href="<?php echo site_url('anubandh/anubandh_column_list')?>" class="nav-link" data-key="t-chat">Column List</a>
                                 </li>
                                 <li class="nav-item">
-                                  <a href="<?php echo site_url('anubandh/add_anubandh')?>" class="nav-link" data-key="t-calendar">Add Anubandh</a>
+                                  <a href="<?php echo site_url('anubandh/')?>" class="nav-link" data-key="t-calendar">Add Anubandh</a>
                                 </li>
                                 <li class="nav-item">
                                   <a href="<?php echo site_url('anubandh/anubadh_agreement_list')?>" class="nav-link" data-key="t-chat">Agreement List</a>

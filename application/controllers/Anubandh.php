@@ -33,7 +33,7 @@ class Anubandh extends CI_Controller {
 			$data['row_data'] = $this->Master_model->getCustom($qry);
 		}
 		
-		$qry = "SELECT * FROM anul_anubandh_col_head where id <> 0 and status = 1";
+		$qry = "SELECT * FROM anul_aggrement_col_head where id <> 0 and status = 1";
 		$data['col_head'] = $this->Master_model->getCustom($qry);
 
 		$this->load->view('new_header/header');
@@ -97,18 +97,64 @@ class Anubandh extends CI_Controller {
 		$this->load->view('booking');
 	}
 
-	/*public function add_anubandh()
+	public function ajax_make_anubandh(){
+		
+		$booking_id = $this->input->post('booking_id');
+		$column = $this->input->post('column');		
+		$column_encode = json_encode($column);
+		$column_id = $this->input->post("column_id") ?? "";
+					
+		$frm_data = array(			
+			"booking_id" => $this->input->post("booking_id") ?? "",
+			"column_data" => $column_encode,			
+			"create_date" => date("Y-m-d H:i:s"),
+			"ip"=> $this->input->ip_address(),	
+		  );
+
+		  $qry = "SELECT count(id) as cnt FROM bkf_client_aggrement_column where booking_id = $booking_id";
+		  $res = $this->Master_model->getCustom($qry);
+		  $r_count = $res[0]->cnt;
+
+		  if($r_count > 0){
+
+			$where_arr = array("booking_id" => $booking_id);
+			$res = $this->Master_model->updateArr("bkf_client_aggrement_column", $frm_data, $where_arr);
+
+			if($res){
+				echo "~~~2~~~";
+			}
+			else{
+				echo "~~~0~~~";
+			}  
+			  
+		  }
+		  else{
+  
+			$res = $this->Master_model->saveData("bkf_client_aggrement_column", $frm_data);
+
+			if($res){
+				echo "~~~1~~~";
+			}
+			else{
+				echo "~~~0~~~";
+			}
+		}
+	}
+	public function make_anubandh()
 	{
+		$data['booking_id'] = $this->uri->segment(3);
+		$data['client_name'] = "Make Anubandh Column";
+
+		$qry = "SELECT column_name FROM anu_aggrement_column where id <> 0 and status = 1 group by column_name order by column_name asc ";
+		$data['column_name'] = $this->Master_model->getCustom($qry);
+
+		$qry = 'SELECT count(id) as cnt FROM bkf_client_aggrement_column where booking_id = 4';
+		$res = $this->Master_model->getCustom($qry);
+		$data['r_count'] = $res[0]->cnt;
+		
 		$this->load->view('new_header/header');
 		$this->load->view('top_sidebar');
-		$this->load->view('add_anubandh');
-	}*/
-	
-	public function makeanubadh()
-	{
-		$this->load->view('new_header/header');
-		$this->load->view('top_sidebar');
-		$this->load->view('makeanubadh');
+		$this->load->view('make_anubandh', $data);
 	}	
 	public function anubadh_agreement_list()
 	{
