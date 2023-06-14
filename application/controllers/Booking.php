@@ -142,6 +142,41 @@ class Booking extends CI_Controller {
 
 		//echo $this->db->last_query();
 	}
+	public function ajax_quick_booking()
+	{
+		$booking_id = $this->input->post("bid"); 
+		
+		$frm_data = array(
+			"calc_id"=>$this->input->post("calc_id") ?? "",
+			"booking_amt"=>$this->input->post("booking_amt") ?? "",
+			"client_name"=>$this->input->post("client_name") ?? "",
+			"mobile_no"=>$this->input->post("mobile_no") ?? "",
+			"email_id"=>$this->input->post("email_id") ?? "",
+			"pan_no"=>$this->input->post("pan_no") ?? "",
+			"aadhar_no"=>$this->input->post("aadhar_no") ?? "",
+			"booking_link"=> $booking_link
+		);
+
+		if($booking_id == "")
+		{			
+			$frm_data["create_by"] = $_COOKIE['employee_name'] ?? "";
+			$frm_data["create_date"] = date("Y-m-d H:i:s");
+			$frm_data["ip"] = $this->input->ip_address();
+			$res = $this->Master_model->saveData("bkf_booking_form", $frm_data);
+			$last_id = $this->db->insert_id();
+			echo "~~~1~~~".$last_id."~~~";
+		}
+		else
+		{
+			$frm_data["id"] = $this->input->post("bid");
+			$frm_data["update_date"] = date("Y-m-d H:i:s");
+			$res = $this->Master_model->updateData("bkf_booking_form", $frm_data);
+			echo "~~~2~~~0~~~";
+		}
+
+
+
+	}
 	public function ajax_client_info()
 	{			
 		$p_hno = $this->input->post("p_hno");
@@ -386,23 +421,23 @@ class Booking extends CI_Controller {
 		
 		$frm_data = array(
 
-			"booking_id"=>$this->input->post("booking_id") ?? "",
-			"offer_amt"=>$this->input->post("offer_amt") ?? "",			
-			"quotation_type"=>$this->input->post("quotation_type") ?? "",
-			"final_rate"=>$this->input->post("final_rate") ?? "",
-			"final_amt"=>$this->input->post("final_amt") ?? "",
-			"final_amt_in_word"=>$this->input->post("final_amt_in_word") ?? "",
-			"paid_booking_amt"=>$this->input->post("paid_booking_amt") ?? "",
-			"payment_mode"=>$this->input->post("payment_mode") ?? "",
-			"upi_id"=>$this->input->post("upi_id") ?? "",
+			"booking_id" => $this->input->post("booking_id") ?? "",
+			"offer_amt" => $this->input->post("offer_amt") ?? "",			
+			"quotation_type" => $this->input->post("quotation_type") ?? "",
+			"final_rate" => $this->input->post("final_rate") ?? "",
+			"final_amt" => $this->input->post("final_amt") ?? "",
+			"final_amt_in_word" => $this->input->post("final_amt_in_word") ?? "",
+			"paid_booking_amt" => $this->input->post("paid_booking_amt") ?? "",
+			"payment_mode" => $this->input->post("payment_mode") ?? "",
+			"upi_id" => $this->input->post("upi_id") ?? "",
 			"cheque_no"=> $this->input->post("cheque_no") ?? "",
-			"cheque_data"=> $cheque_data,
-			"trans_id"=>$this->input->post("trans_id") ?? "",
-			"funding_mode"=>$this->input->post("funding_mode") ?? "",			
-			"self_amt"=>$this->input->post("self_amt") ?? "",
-			"bank_name"=>$this->input->post("bank_name") ?? "",
-			"loan_amt"=>$this->input->post("loan_amt") ?? "",
-			"loan_acc_no"=>$this->input->post("loan_acc_no") ?? ""
+			"cheque_data" => $cheque_data,
+			"trans_id" => $this->input->post("trans_id") ?? "",
+			"funding_mode" => $this->input->post("funding_mode") ?? "",			
+			"self_amt" => $this->input->post("self_amt") ?? "",
+			"bank_name" => $this->input->post("bank_name") ?? "",
+			"loan_amt" => $this->input->post("loan_amt") ?? "",
+			"loan_acc_no" => $this->input->post("loan_acc_no") ?? ""
 		);
 
 	if($trans_id != "" && $booking_id != "")
@@ -1180,10 +1215,7 @@ class Booking extends CI_Controller {
 		$frm_data["id"] = $id;
 		$frm_data["status"] = 0;
 
-		echo $res = $this->Master_model->updateData("bkf_commitment_list", $frm_data);
-
-		//echo $data = $this->Master_model->delData($source, $id);
-
+		echo $res = $this->Master_model->updateData($source, $frm_data);		
 	}
 
 

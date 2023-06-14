@@ -29,19 +29,18 @@
               <!-- end card header -->
               <div class="card-body">
                 <div class="live-preview">
-
                   <!-----Indexes-------->
                     <div class="row">
-                          <!--div class="col-sm-12 col-md-4"></!--div-->
-                          <div class="col-md-12" style="text-align: right;">
-                            <small style="margin-left:10px;"> <i class="ri-check-line" style="color: #027148; font-size: 20px;"></i> : Verified</small>
-                            <small style="margin-left:10px;"> <i class="ri-close-line" style="color: red;font-size: 20px;"></i> : Not Verified</small>
-                            <small><img src="<?php echo base_url();?>assets/images/icons/comit.png" alt="" width="20px" height="20px"> : Commitment</small>
-                            <small><img src="<?php echo base_url();?>assets/images/icons/review.png" alt="" width="20px" height="20px"> : View Review</small>
-                            <small style="margin-left:10px;"><img src="<?php echo base_url();?>assets/images/icons/file.png" alt="" width="15px" height="15px"> : Booking Details</small>
-                            <small style="margin-left:10px;"><img src="<?php echo base_url();?>assets/images/icons/download.png" alt="" width="15px" height="15px"> : Download </small>
-                            <small style="margin-left:10px;"><img src="<?php echo base_url();?>assets/images/icons/delete.png" alt="" width="15px" height="15px"> : Delete </small>  
-                          </div>
+                      <!--div class="col-sm-12 col-md-4"></!--div-->
+                      <div class="col-md-12" style="text-align: right;">
+                        <small style="margin-left:10px;"> <i class="ri-check-line" style="color: #027148; font-size: 20px;"></i> : Verified</small>
+                        <small style="margin-left:10px;"> <i class="ri-close-line" style="color: red;font-size: 20px;"></i> : Not Verified</small>
+                        <small><img src="<?php echo base_url();?>assets/images/icons/comit.png" alt="" width="20px" height="20px"> : Commitment</small>
+                        <small><img src="<?php echo base_url();?>assets/images/icons/review.png" alt="" width="20px" height="20px"> : View Review</small>
+                        <small style="margin-left:10px;"><img src="<?php echo base_url();?>assets/images/icons/file.png" alt="" width="15px" height="15px"> : Booking Details</small>
+                        <small style="margin-left:10px;"><img src="<?php echo base_url();?>assets/images/icons/download.png" alt="" width="15px" height="15px"> : Download </small>
+                        <small style="margin-left:10px;"><img src="<?php echo base_url();?>assets/images/icons/delete.png" alt="" width="15px" height="15px"> : Delete </small>  
+                      </div>
                     </div>
                   <!-----End of Indexes-------->
                   <br>
@@ -291,8 +290,7 @@ if(confirm('Are you sure you want to delete from the list...?')) {
           success: function(data){
           
               if(data == parseInt(1))
-              {        
-                 
+              {                         
                   alert("Successfully deleted from the list..");
                   $('#tr_'+id).remove();
                   // var cnt = 0;

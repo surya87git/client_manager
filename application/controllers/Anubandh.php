@@ -97,7 +97,7 @@ class Anubandh extends CI_Controller {
 		$this->load->view('booking');
 	}
 
-	public function ajax_make_anubadh(){
+	public function ajax_make_anubandh(){
 		
 		$booking_id = $this->input->post('booking_id');
 		$column = $this->input->post('column');		
@@ -116,44 +116,45 @@ class Anubandh extends CI_Controller {
 		  $r_count = $res[0]->cnt;
 
 		  if($r_count > 0){
-			  $where_arr = array("booking_id" => $booking_id);
-			  $res = $this->Master_model->updateArr("bkf_client_aggrement_column", $frm_data, $where_arr);
 
-			  if($res){
+			$where_arr = array("booking_id" => $booking_id);
+			$res = $this->Master_model->updateArr("bkf_client_aggrement_column", $frm_data, $where_arr);
+
+			if($res){
 				echo "~~~2~~~";
-			  }
-			  else{
+			}
+			else{
 				echo "~~~0~~~";
-			  }  
+			}  
 			  
 		  }
 		  else{
   
-			  $res = $this->Master_model->saveData("bkf_client_aggrement_column", $frm_data);
-  
-			  if($res){
-				  echo "~~~1~~~";
-			  }
-			  else{
-				  echo "~~~0~~~";
-			  }
-  
-		  }
+			$res = $this->Master_model->saveData("bkf_client_aggrement_column", $frm_data);
 
+			if($res){
+				echo "~~~1~~~";
+			}
+			else{
+				echo "~~~0~~~";
+			}
+		}
 	}
-	public function make_anubadh()
+	public function make_anubandh()
 	{
 		$data['booking_id'] = $this->uri->segment(3);
-		$data['client_name'] = "Surya Chandra";
+		$data['client_name'] = "Make Anubandh Column";
 
 		$qry = "SELECT column_name FROM anu_aggrement_column where id <> 0 and status = 1 group by column_name order by column_name asc ";
 		$data['column_name'] = $this->Master_model->getCustom($qry);
-		
-		
 
+		$qry = 'SELECT count(id) as cnt FROM bkf_client_aggrement_column where booking_id = 4';
+		$res = $this->Master_model->getCustom($qry);
+		$data['r_count'] = $res[0]->cnt;
+		
 		$this->load->view('new_header/header');
 		$this->load->view('top_sidebar');
-		$this->load->view('make_anubadh', $data);
+		$this->load->view('make_anubandh', $data);
 	}	
 	public function anubadh_agreement_list()
 	{

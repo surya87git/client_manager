@@ -25,6 +25,7 @@
               <div class="card-header">
                 <div class="d-flex align-items-center">
                   <h5 class="card-title flex-grow-1 mb-0">Client Information</h5>
+                  <button type="button" class="btn btn-success btn-sm btn-label waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#zoomInModal"><i class=" ri-edit-2-fill label-icon align-middle fs-16 me-2"></i>Edit</button>
                 </div>
               </div>
               <div class="card-body">
@@ -32,7 +33,7 @@
                   <div class="col-md-6">
                     <span>
                       <img src="<?php echo base_url();?>assets/images/icons/user_icon.png" alt="User_Icon">
-                      <span>Srinivas Kusre</span>
+                      <span><?php echo $client_info[0]->client_name ?? ""; ?></span>
                     </span>
                   </div>
                   <div class="col-md-6">
@@ -73,7 +74,7 @@
                   <br>
                   <br>
                   <div class="col-md-12">
-                    <span class="text-primary" style="text-decoration:underline; font-weight: 500;">Present Address</span>
+                    <span class="text-primary" style="text-decoration:underline; font-weight: 500;">Present Address</span>&nbsp;&nbsp;<a href="" data-bs-toggle="modal" data-bs-target="#zoomInModal1"><i class="ri-edit-2-fill"></i></a>
                   </div>
                   <div class="col-md-12">
                     <img src="<?php echo base_url();?>assets/images/icons/location.png" alt="Location">
@@ -82,7 +83,7 @@
                   <br>
                   <br>
                   <div class="col-md-12">
-                    <span class="text-primary" style="text-decoration:underline; font-weight: 500;">Permanent Address</span>
+                    <span class="text-primary" style="text-decoration:underline; font-weight: 500;">Permanent Address</span>&nbsp;&nbsp;<a href="" data-bs-toggle="modal" data-bs-target="#zoomInModal3"><i class="ri-edit-2-fill"></i></a>
                   </div>
                   <div class="col-md-12">
                     <img src="<?php echo base_url();?>assets/images/icons/location.png" alt="Location">
@@ -92,12 +93,15 @@
               </div>
             </div> 
             <!-----End of Client Info Details-------->
+            <!--end card-->
+
 
             <!------Payment Details--------->
             <div class="card">
               <div class="card-header">
                 <div class="d-sm-flex align-items-center">
                   <h5 class="card-title flex-grow-1 mb-0">Payment Details</h5>
+                  <button type="button" class="btn btn-success btn-sm btn-label waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#zoomInModalpayee"><i class=" ri-edit-2-fill label-icon align-middle fs-16 me-2"></i>Edit</button>
                 </div>
               </div>
               <div class="card-body">
@@ -125,12 +129,13 @@
               </div>
             </div>
             <!------End of Payment Details--------->
+            <!--end card-->
 
             <!-------Site Details--------->
             <div class="card">
               <div class="card-header">
                 <div class="d-sm-flex align-items-center">
-                  <h5 class="card-title flex-grow-1 mb-0">Site Details</h5>
+                  <h5 class="card-title flex-grow-1 mb-0">Site Details</h5><button type="button" class="btn btn-success btn-sm btn-label waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#zoomInModalplotdetails"><i class=" ri-edit-2-fill label-icon align-middle fs-16 me-2"></i>Edit</button>
                 </div>
               </div>
               <div class="card-body">
@@ -262,7 +267,7 @@
             <div class="card">
               <div class="card-header">
                 <div class="d-sm-flex align-items-center">
-                  <h5 class="card-title flex-grow-1 mb-0">Site Details</h5>
+                  <h5 class="card-title flex-grow-1 mb-0">Site Details</h5><button type="button" class="btn btn-success btn-sm btn-label waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#nooffloor"><i class=" ri-edit-2-fill label-icon align-middle fs-16 me-2"></i>Edit</button>
                 </div>
               </div>
               <div class="card-body">
@@ -310,6 +315,7 @@
                       <div class="d-flex align-items-center">
                         <span>To see the coloumn we are giving to clients :</span>&nbsp;&nbsp;&nbsp;&nbsp;
                         <a href="" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg"><i class="ri-eye-fill"></i> View</a> 
+                        &nbsp; <a href="<?php echo base_url("index.php/anubandh/makeanubadh");?>" class="btn btn-primary btn-sm"><i class="ri-edit-2-fill"></i> Edit</a>
                       </div>
                                 
                     </div>
@@ -321,6 +327,280 @@
           <!--end col-->
           <!--container-fluid-->
         </div>
+        <!----------------------Client Information Modal-----------------------> 
+        <div id="zoomInModal" class="modal fade zoomIn" tabindex="-1" aria-labelledby="zoomInModalLabel" aria-hidden="true" style="display: none;">
+              <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title" id="zoomInModalLabel">Client Information <small class="text-success" style="font-weight: lighter;">Edit Here</small></h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                    <form id="frmClientInfo">
+                        <div class="row">
+                          <div class="col-xl-6 mt-2">  
+                            <label for="">Client Name</label>                       
+                            <input type="text" id="client_name" name="client_name" value="" class="form-control" placeholder="Enter Client Name" required>
+                          </div>
+                          <div class="col-xl-6 mt-2">
+                            <label for="">Mobile Number</label>                         
+                            <input type="text" id="mobile_no" name="mobile_no" value="" class="form-control" placeholder="Enter Mobile Number">
+                          </div>
+                          <div class="col-xl-6 mt-2"> 
+                            <label for="">Relation Name</label>                        
+                            <input type="text" id="" name="" value="" class="form-control" placeholder="Enter Relative Name" required>
+                          </div>
+                          <div class="col-xl-6 mt-2">  
+                          <label for="">Email</label>                       
+                            <input type="email" id="email_id" name="email_id" value="" class="form-control" placeholder="Enter Email">
+                          </div>
+                          <div class="col-xl-6 mt-2">
+                          <label for="">Age</label>                         
+                            <input type="number" id="age" name="age" value="" class="form-control" placeholder="Enter Age">
+                          </div>
+                          <div class="col-xl-6 mt-2">   
+                          <label for="">Occupation</label>                      
+                            <input type="text" id="" name="" value="" class="form-control" placeholder="Enter Occupation" required>
+                          </div>    
+                          <div class="col-xl-6 mt-2">  
+                          <label for="">Adhaar Card</label>                       
+                            <input type="text" id="aadhar_no" name="aadhar_no" value=""  class="form-control" placeholder="Enter Adhaar Card">
+                          </div>
+                          <div class="col-xl-6 mt-2"> 
+                          <label for="">Pan Card</label>                        
+                            <input type="text" id="pan_no" name="pan_no" value="" class="form-control" placeholder="Enter Pan Number">
+                          </div>
+                        </div>                         
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary" id="btn_client" value="Calculate">Update Now</button>
+                    </div>
+                </form>
+             </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->                                     
+        <!-------------------End of Clinet Information Modal----------------->
+
+
+            <!----------------------Payee Modal-----------------------> 
+          <div id="zoomInModalpayee" class="modal fade zoomIn" tabindex="-1" aria-labelledby="zoomInModalLabel" aria-hidden="true" style="display: none;">
+              <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title" id="zoomInModalLabel">Payment Details <small class="text-success" style="font-weight: lighter;">Edit Here</small></h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                      <form id="frmPayee">
+                        <div class="row">
+                          <div class="col-xl-6 mt-2">   
+                            <label for="">Select Payment Mode</label>                      
+                          <select class="form-control" name="" id="">
+                            <option value="Select_mode">Select Payment Mode</option>
+                            <option value="Card">Card</option>
+                            <option value="UPI/QR">UPI/QR</option>
+                            <option value="Cheque">Cheque</option>
+                          </select>
+                          </div>
+                          <div class="col-xl-6 mt-2">   
+                            <label for="">Transaction ID</label>                      
+                            <input type="text" id="" name="" value="" class="form-control" placeholder="Enter Transaction Id">
+                          </div>               
+                          <div class="col-xl-12 mt-2">
+                            <label for="">Total Amount</label>                         
+                            <input type="number" id="" name="" value="" class="form-control" placeholder="Total Amount">
+                          </div>
+                          <div class="col-xl-12 mt-2">                         
+                            <input type="text" id="" name="" value="" class="form-control" placeholder="Enter Amount in Words">
+                          </div>                       
+                            
+                        </div>
+                        <div class="modal-footer">                      
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" id="btn_payee">Save Now</button>
+                      </div>
+                      </form>
+                    </div>
+                  </div><!-- /.modal-content -->
+              </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->                                     
+          <!-------------------End of Payee Modal----------------->
+      
+    
+          <!----------------------Site Details Modal-----------------------> 
+          <div id="zoomInModalplotdetails" class="modal fade zoomIn" tabindex="-1" aria-labelledby="zoomInModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="zoomInModalLabel">Site Details <small class="text-success" style="font-weight: lighter;">Edit Here</small>
+                  </h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form id="frmPlot">
+                    <div class="row">
+                      <div class="col-xl-12 mt-2">
+                        <label for="">Enter Plot Location</label>
+                        <input type="text" id="plot_location" name="plot_location" value="" class="form-control" placeholder="Plot Location">
+                      </div>
+                      <div class="col-xl-6 mt-2">
+                        <label for="">Enter City</label>
+                        <input type="text" id="" name="" value="" class="form-control" placeholder="Enter City">
+                      </div>
+                      <div class="col-xl-6 mt-2">
+                        <label for="">Enter District</label>
+                        <input type="text" id="" name="" value="" class="form-control" placeholder="Enter District">
+                      </div>
+                      <div class="col-xl-6 mt-2">
+                        <label for="">Enter Khasra No.</label>
+                        <input type="text" id="" name="" value="" class="form-control" placeholder="Enter Khasra No">
+                      </div>
+                      <div class="col-xl-6 mt-2">
+                        <label for="">Enter P.H.N No.</label>
+                        <input type="text" id="" name="" value="" class="form-control" placeholder="Enter P.H.N. No.">
+                      </div>
+                      <div class="col-xl-6 mt-2">
+                        <label for=""><label for="">Enter Plot Area:</label></label>
+                        <input type="text" id="" name="" value="" class="form-control" placeholder="Enter Plot area:">
+                      </div>
+                      <div class="col-xl-6 mt-2">
+                        <label for="">Enter Rate sqft:</label>
+                        <input type="text" id="" name="" value="" class="form-control" placeholder="Enter Rate sqft:">
+                      </div>
+                      <div class="col-xl-6 mt-2">
+
+                        <label for="">Enter Floor:</label>
+                        <input type="text" id="" name="" value="" class="form-control" placeholder="Enter Floor:">
+                      </div>
+                      <div class="col-xl-6 mt-2">
+                        <label for="">Enter Boundary wall Area:</label>
+                        <input type="text" id="" name="" value="" class="form-control" placeholder="Boundary wall Area:">
+                      </div>
+                      <div class="col-xl-6 mt-2">
+                        <label for="">Enter Boundary wall Cost:</label>
+                        <input type="text" id="" name="" value="" class="form-control" placeholder="Boundary wall Cost:">
+                      </div>
+                      <div class="col-xl-6 mt-2">
+                        <label for="">Enter Running Feet Cost:</label>
+                        <input type="text" id="" name="" value="" class="form-control" placeholder=" Running Feet Cost:">
+                      </div>
+                      <div class="col-xl-6 mt-2">
+                        <label for="">Enter Elevation Cost:</label>
+                        <input type="text" id="" name="" value="" class="form-control" placeholder="Elevation Cost:">
+                      </div>
+                      <div class="col-xl-6 mt-2">
+                        <label for="">Enter Drawing+VR Cost:</label>
+                        <input type="text" id="" name="" value="" class="form-control" placeholder="Drawing+VR Cost:">
+                      </div>
+                      <div class="col-xl-6 mt-2">
+                        <label for="">Enter Discount Price:</label>
+                        <input type="text" id="" name="" value="" class="form-control" placeholder="Discount Price:">
+                      </div>
+                      <div class="col-xl-6 mt-2">
+                        <label for="">Enter Modular kitchen Price:</label>
+                        <input type="text" id="" name="" value="" class="form-control" placeholder="Modular kitchen Price:">
+                      </div>
+                      <div class="col-xl-6 mt-2">
+                        <label for="">Enter False Ceiling Price:</label>
+                        <input type="text" id="" name="" value="" class="form-control" placeholder="False Ceiling Price:">
+                      </div>
+                      <div class="col-xl-6 mt-2">
+                        <label for="">Enter Total Working Area:</label>
+                        <input type="text" id="" name="" value="" class="form-control" placeholder="Total Working Area: ">
+                      </div>
+                      <div class="col-xl-12 mt-2">
+                        <label for="">Enter Other Price:</label>
+                        <input type="text" id="" name="" value="" class="form-control" placeholder="Other Price:">
+                      </div>
+                      <div class="col-xl-12 mt-2">
+                        <label for="">Enter Advance agreement:</label>
+                        <input type="text" id="" name="" value="" class="form-control" placeholder="Advance agreement:">
+                      </div>
+                      <div class="col-xl-12 mt-2">
+                        <label for="">Enter Total Price:</label>
+                        <input type="text" id="" name="" value="" class="form-control" placeholder="Total Price:">
+                      </div>
+                      <div class="col-xl-12 mt-2">
+                        <input type="text" id="" name="" value="" class="form-control" placeholder="In Words:">
+                      </div>
+                      
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary" id="btn_plot">Update Now</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog --> 
+          </div>
+        <!-- /.modal -->                                   
+        <!-------------------End of Site Details Modal----------------->
+
+          <!----------------------No. of Floor  Modal-----------------------> 
+            <div id="nooffloor" class="modal fade zoomIn" tabindex="-1" aria-labelledby="zoomInModalLabel" aria-hidden="true" style="display: none;">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="zoomInModalLabel">No. of floor<small class="text-success" style="font-weight: lighter;">Edit Here</small>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <form id="frmPlot">
+                      <div class="row">
+                        <div class="col-xl-12 mt-2">
+                          <label for="">Enter Number of Floor:</label>
+                          <select id="" name="nooffloor" class="form-select mb-3" aria-label="Default Select example" aria-invalid="false">
+                            <option value="" selected>Select Number of Floor</option>
+                            <option value="1">1st floor</option>
+                            <option value="2">2nd floor</option>
+                            <option value="3">3rd floor</option>
+                          </select>
+                        </div>
+                        <div class="col-12">
+                          <table class="table table-striped">
+                            <tbody>
+                              <tr>
+                                <th>Floor</th>
+                                <th>Area</th>
+                                <th>Rate</th>
+                                <th>According Maps</th>
+                              </tr>
+                              <tr>
+                                <td>Groud Floor</td>
+                                <td>1250 Sqft.</td>
+                                <td>Rs. 780</td>
+                                <td>Civil Only</td>
+                              </tr>
+                              <tr>
+                                <td>First Floor</td>
+                                <td>1100 Sqft.</td>
+                                <td>Rs. 880</td>
+                                <td>Finishing</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" id="btn_plot">Update Now</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <!-- /.modal-content -->
+              </div>
+              <!-- /.modal-dialog --> 
+            </div>
+          <!-- /.modal -->                                   
+          <!-------------------End of no of floor----------------->
+
           <!--------View Column---------->
               <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
@@ -413,8 +693,10 @@
                         </div>
                       </div>
                     </div>
-                    <div class="modal-footer">  
-                      <a href="<?php echo base_url("index.php/anubandh/make_anubandh/4");?>" class="btn btn-primary btn-sm">Edit Column</a>
+                    <div class="modal-footer">
+                      <a href="javascript:void(0);" class="btn btn-link link-success fw-medium" data-bs-dismiss="modal">
+                        <i class="ri-close-line me-1 align-middle"></i> Close </a>
+                      <button type="button" class="btn btn-primary ">Save changes</button>
                     </div>
                   </div>
                   <!-- /.modal-content -->
@@ -422,18 +704,121 @@
                 <!-- /.modal-dialog -->
               </div>
           <!-------End of View Column----------->
+          <!-------------------Present Address --------------------------------> 
+              <div id="zoomInModal1" class="modal fade zoomIn" tabindex="-1" aria-labelledby="zoomInModalLabel" aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="zoomInModalLabel">Present Address <small class="text-success" style="font-weight: lighter;">Edit Here</small></h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <form id="frmPermanentAddr">                      
+                                  <div class="row">
+                                    <div class="col-xl-12">     
+                                    <label for="">Enter House Number</label>                      
+                                      <input type="text" id="p_hno" name="p_hno" value="<?php echo $permanent_addr_arr['p_hno']; ?>" class="form-control" placeholder="House Number">
+                                    </div>
+                                    <div class="col-xl-12 mt-2">
+                                    <label for="">Enter Street Number</label>                           
+                                      <input type="text" id="p_street" name="p_street" value="<?php echo $permanent_addr_arr['p_street']; ?>" class="form-control" placeholder="Street Number">
+                                    </div>
+                                    <div class="col-xl-6 mt-2">  
+                                    <label for="">Enter Landmark</label>                         
+                                      <input type="text" id="p_landmark" name="p_landmark" value="<?php echo $permanent_addr_arr['p_landmark']; ?>" class="form-control" placeholder="Enter Landmark">
+                                    </div>
+                                    <div class="col-xl-6 mt-2">       
+                                    <label for="">Enter City</label>                    
+                                      <input type="text" id="p_city" name="p_city" value="<?php echo $permanent_addr_arr['p_city']; ?>" class="form-control" placeholder="Enter City">
+                                    </div>
+                                    <div class="col-xl-6 mt-2">   
+                                    <label for="">Enter State</label>                        
+                                      <input type="text" id="p_state" name="p_state" value="<?php echo $permanent_addr_arr['p_state']; ?>" class="form-control" placeholder="Enter State">
+                                    </div>
+                                    <div class="col-xl-6 mt-2">
+                                    <label for="">Enter Pincode</label>                           
+                                      <input type="number" id="p_pincode" name="p_pincode" value="<?php echo $permanent_addr_arr['p_pincode']; ?>" class="form-control" placeholder="Enter Pin Code">
+                                    </div>                                                  
+                                  </div>  
+                                  <div class="modal-footer mt-2">
+                                    <input type="hidden" name="booking_id" value="<?php echo $client_info[0]->id ?? ""; ?>">
+                                    <input type="hidden" name="type" value="permanent_addr">
+                                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary" id="btn_p_addr">Update Now</button>
+                                  </div>                                             
+                              </form>
+                          </div>                
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+              </div><!-- /.modal -->                                     
+          <!-------------------Present Address ----------------->
+
+    
+          <!-------------------Permanent Address ----------------------------> 
+              <div id="zoomInModal3" class="modal fade zoomIn" tabindex="-1" aria-labelledby="zoomInModalLabel" aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="zoomInModalLabel">Permanent Address <small class="text-success" style="font-weight: lighter;">Edit Here</small></h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                            <form id="frmPresentAddr">                       
+                              <div class="row">
+                                <div class="col-xl-12"> 
+                                <label for="">Enter House Number</label>                          
+                                  <input type="text" id="r_hno" name="r_hno" value="<?php echo $present_addr_arr['r_hno']?>" class="form-control" placeholder="House Number">
+                                </div>
+                                <div class="col-xl-12 mt-2">     
+                                <label for="">Enter Street Number</label>                      
+                                  <input type="text" id="r_street" name="r_street" value="<?php echo $present_addr_arr['r_street']?>" class="form-control" placeholder="Street Number">
+                                </div>
+                                <div class="col-xl-6 mt-2">  
+                                <label for="">Enter Landmark</label>                         
+                                  <input type="text" id="r_landmark" name="r_landmark" value="<?php echo $present_addr_arr['r_landmark']?>" class="form-control" placeholder="Enter Landmark">
+                                </div>
+                                <div class="col-xl-6 mt-2">   
+                                <label for="">Enter City</label>                        
+                                  <input type="text" id="r_city" name="r_city" value="<?php echo $present_addr_arr['r_city']?>" class="form-control" placeholder="Enter City">
+                                </div>
+                                <div class="col-xl-6 mt-2">
+                                <label for="">Enter State</label>                           
+                                  <input type="text" id="r_state" name="r_state" value="<?php echo $present_addr_arr['r_state']?>" class="form-control" placeholder="Enter State">
+                                </div>
+                                <div class="col-xl-6 mt-2">
+                                <label for="">Enter Pincode</label>                           
+                                  <input type="number" id="r_pincode" name="r_pincode" value="<?php echo $present_addr_arr['r_pincode']?>" class="form-control" placeholder="Enter Pin Code">
+                                </div>                        
+                              </div>    
+                              <div class="modal-footer mt-2">
+                                <input type="hidden" name="booking_id" value="<?php echo $client_info[0]->id ?? ""; ?>">
+                                <input type="hidden" name="type" value="present_addr">
+                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary" id="btn_r_addr">Update Now</button>
+                              </div>                                           
+                            </form>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+              </div><!-- /.modal -->                                     
+          <!-------------------Permanent Address ----------------->
+
+
           <!-- End Page-content -->
-          <footer class="footer">
-            <div class="container-fluid">
-              <div class="row">
-                <div class="col-sm-6"> Design &amp; Develop By <a href="https://ukcdesigner.in/" target="_blank">UKConcept Designer</a>
-                </div>
-                <div class="col-sm-6">
-                  <div class="text-sm-end d-none d-sm-block"> Copyright 2023 © All Right Reserved. </div>
+            <footer class="footer">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <script>
+                      document.write(new Date().getFullYear())
+                    </script> © UKC.
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="text-sm-end d-none d-sm-block"> UKConcept Designer </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </footer>
+            </footer>
         </div>
   <!-- end main content-->
     </div>

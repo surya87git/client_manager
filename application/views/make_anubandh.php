@@ -21,6 +21,9 @@
                             <div class="card">
                                 <div class="card-header align-items-center d-flex">
                                     <h4 class="card-title mb-0 flex-grow-1"><?php echo $client_name;?></h4>
+                                  
+                                    <a href="<?php echo base_url("index.php/anubandh/anubandh_details")?>" class="btn btn-primary btn-sm">Anubandh Details</a>
+
                                 </div><!-- end card header -->
                                 <div class="card-body">                                  
                                     <div class="live-preview">
@@ -35,7 +38,13 @@
                                                 $rcont = 0;
                                                 $tmp="";
                                                 $CI = & get_instance();
+
+                                                $qry = "SELECT * FROM bkf_client_aggrement_column where id <> 0 and status = 1 and booking_id = $booking_id";
+                                                $res = $CI->Master_model->getCustom($qry);
+                                                $cdata = json_decode($res[0]->column_data, true);
+                                               
                                                 foreach($column_name as $row){
+
                                                     $cnt++;
                                                     $create_date = date("d-m-Y", strtotime($row->create_date));
                                                     $cname = $row->column_name ?? "";
@@ -54,26 +63,40 @@
                                                        
                                                     $qry = "SELECT * FROM anu_aggrement_column where id <> 0 and status = 1 and column_name = '$cname' order by column_name";
                                                     $column_list = $CI->Master_model->getCustom($qry);
-                                                    
+                                      
                                                     foreach($column_list as $res){
-                                                        $rcont++;                   
-                                                        $c_id = $res->id;
+                                                            $rcnt++;                   
+                                                            $c_id = $res->id;
+                                                        
+                                                            if($cdata[$c_id])
+                                                            {
+                                                                if($cdata[$c_id] == "YES"){
+                                                                    $r_yes = 'checked="checked"';
+                                                                    $r_no = '';
+                                                                }
+                                                                elseif($cdata[$c_id] == "NO"){
+                                                                    $r_no = 'checked="checked"';
+                                                                    $r_yes = '';
+                                                                }
+                                                            }
+                                                           
                                                         echo '<tr>
                                                                 <td>'.$res->column_desc.'</td>
                                                                     <td width="15%">
                                                                         <div class="icheck-success d-inline">
-                                                                            <input type="radio" class="switcher" id="yes_'.$rcont.'" name="column'.'['.$c_id.']'.'" value="YES">
-                                                                            <label title="Checked" for="yes_'.$rcont.'">Yes</label>
+                                                                            <input type="radio" '.$r_yes.' class="switcher" id="yes_'.$rcnt.'" name="column'.'['.$c_id.']'.'" value="YES">
+                                                                            <label title="Checked" for="yes_'.$rcnt.'">Yes</label>
                                                                         </div>&nbsp;
                                                                         <div class="icheck-success d-inline">
-                                                                            <input type="radio" class="switcher" id="no_'.$rcont.'" name="column'.'['.$c_id.']'.'" value="NO">
-                                                                            <label title="Checked" for="no_'.$rcont.'">No</label>
+                                                                            <input type="radio" '.$r_no.' class="switcher" id="no_'.$rcnt.'" name="column'.'['.$c_id.']'.'" value="NO">
+                                                                            <label title="Checked" for="no_'.$rcnt.'">No</label>
                                                                         </div>                             
                                                                     </td>
                                                                 </tr>';
                                                             }               
                                                         echo '</tbody>
                                                         </table>
+                                                        
                                                     </div>
                                                 </div>';
                                             }
@@ -83,7 +106,7 @@
 
                                       ?>    
                                             <input type="hidden" name="booking_id" value="<?php echo $booking_id ?? "";?>">
-                                           <center><button type="submit" class="btn btn-success  mt-5">Submit</button></center>
+                                           <center><button type="submit" class="btn btn-success  mt-5">Save Column</button></center>
                                          <br/>
                                         </form>
                                        </div>
@@ -746,10 +769,10 @@
 <script>    
 $(document).ready(function(){    
     
-/**---------------------Column Details--------------------------------------- */  
-
-$('#frmColumn').validate({
-    rules: {     
+/**---------------------Column Details---------------------------------------*/  
+$('#frmColumn').validate({    
+    rules: {
+             
     },
     messages: {      
     },
@@ -765,7 +788,7 @@ $('#frmColumn').validate({
       $(element).removeClass('is-invalid');
     },
     submitHandler: function(form) {      
-      var url = "<?php echo site_url('anubandh/ajax_make_anubadh')?>";
+      var url = "<?php echo site_url('anubandh/ajax_make_anubandh')?>";
       //var frmdata = $("#frmDoc").serialize(); //new FormData($('#costForm')[0]);//$("#followupForm").serialize();  
       var frmdata = new FormData($('#frmColumn')[0]);
       console.log(frmdata);
@@ -779,6 +802,7 @@ $('#frmColumn').validate({
               { 
                   console.log(data);                 
                   var spl_txt = data.split("~~~");
+                  
                   if(spl_txt[1] == 1)
                   { 
                     alert("Successfully Saved...");
