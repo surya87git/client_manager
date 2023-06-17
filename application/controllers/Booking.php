@@ -145,9 +145,9 @@ class Booking extends CI_Controller {
 	public function ajax_quick_booking()
 	{
 		$booking_id = $this->input->post("bid"); 
-		
+		$calc_id = $this->input->post("calc_id") ?? "";
 		$frm_data = array(
-			"calc_id"=>$this->input->post("calc_id") ?? "",
+			"calc_id"=>$calc_id,
 			"booking_amt"=>$this->input->post("booking_amt") ?? "",
 			"client_name"=>$this->input->post("client_name") ?? "",
 			"mobile_no"=>$this->input->post("mobile_no") ?? "",
@@ -158,12 +158,18 @@ class Booking extends CI_Controller {
 		);
 
 		if($booking_id == "")
-		{			
+		{		
+
 			$frm_data["create_by"] = $_COOKIE['employee_name'] ?? "";
 			$frm_data["create_date"] = date("Y-m-d H:i:s");
 			$frm_data["ip"] = $this->input->ip_address();
 			$res = $this->Master_model->saveData("bkf_booking_form", $frm_data);
 			$last_id = $this->db->insert_id();
+
+			$f_data = array("booking_id"=>$last_id);
+			$where_arr = array("id"=>$calc_id);
+			$res = $this->Master_model->updateArr("tbl_cost_calculator_new", $f_data, $where_arr);		
+
 			echo "~~~1~~~".$last_id."~~~";
 		}
 		else
@@ -573,7 +579,6 @@ class Booking extends CI_Controller {
 				$frm_arr['chk_pancard_copy'] = $this->input->post('chk_pancard_copy');					
 			}
 		}
-
 		if($this->input->post('chk_electric_bill') == "yes")
 		{
 			$electric_bill = $_FILES['electric_bill']['name'];

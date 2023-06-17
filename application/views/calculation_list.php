@@ -63,16 +63,22 @@
                                   </div>
                                 </div>
                               </td>
-                              <td><?php echo $row->client_name;?></td>
                               <td><?php echo $row->client_mob;?></td>
-                              <td><?php echo $row->floor_num;?><br><small><?php echo $row->client_addr;?>&nbsp;sqft</small></td>
+                              <td><?php echo $row->client_addr;?></td>
+                              <td><?php echo $row->floor_num;?> <small>/<?php echo $row->total_area;?> sqft.</small></td>
                               <td>Rs.&nbsp;<?php echo number_format(round($row->total_cost));?></td>
                               <td><?php echo $row->create_by;?></td>
-                              <td><a href="javascript:void(0);" tc="<?php echo $row->total_cost;?>" id="<?php echo $row->id;?>" class="badge rounded-pill badge-soft-success" data-bs-toggle="modal" data-bs-target="#myModal" >Book Now</a></td>
+                              <td>
+                                <?php if($row->booking_id != ""){?>
+                                  <a href="<?php echo base_url("index.php/booking/booking_details/$row->booking_id");?>" class="badge rounded-pill badge-soft-danger">Booked</a>
+                                <?php }else{?>
+                                <a href="javascript:void(0);" tc="<?php echo $row->total_cost;?>" id="<?php echo $row->id;?>" class="badge rounded-pill badge-soft-success" data-bs-toggle="modal" data-bs-target="#myModal" >Book Now</a>
+                                <?php }?>0
+                              </td>
                               <td nowrap>
-                                  <a href="viewplan.php?cmob=54765765" style="font-weight:bold;"><img src="<?php echo base_url();?>assets/images/icons/compare.png" height="20px;" width="20px;" alt="Compare" title="Compare Plan"  srcset=""></a> |
-                                  <a href="pdf2/anubandh_2.php?cid=978" style="font-weight:bold; color:green;"><img src="<?php echo base_url();?>assets/images/icons/download.png" height="20px;" width="20px;" alt="Download" title="Download" srcset=""></a> |  
-                                <a href="javascript:void(0);" id="978" class="trash" style="font-weight:bold; color:red;"><img src="<?php echo base_url();?>assets/images/icons/delete.png" height="20px;" width="20px;" alt="Delete" title="Delete" srcset=""></a>
+                                <a href="viewplan.php?cmob=<?php echo $row->client_mob;?>" style="font-weight:bold;"><img src="<?php echo base_url();?>assets/images/icons/compare.png" height="20px;" width="20px;" alt="Compare" title="Compare Plan"  srcset=""></a> |
+                                <a href="pdf2/anubandh_2.php?cid=<?php echo $row->id;?>" style="font-weight:bold; color:green;"><img src="<?php echo base_url();?>assets/images/icons/download.png" height="20px;" width="20px;" alt="Download" title="Download" srcset=""></a> |  
+                                <a href="javascript:void(0);" id="<?php echo $row->id;?>" class="trash" style="font-weight:bold; color:red;"><img src="<?php echo base_url();?>assets/images/icons/delete.png" height="20px;" width="20px;" alt="Delete" title="Delete" srcset=""></a>
                               </td>
                           </tr>
                         <?php }
@@ -181,9 +187,10 @@
                                 <label for="">Enter Payment Link</label>
                                 <input type="text"  id="booking_link" name="booking_link" class="form-control" placeholder="Enter Payment Link" required>
                               </div>
-                            </div>
+                          </div>
                       </div>
                       <div class="modal-footer">
+                        <input type="hidden" name="booking_id" id="booking_id">
                         <input type="hidden" name="total_cost" id="total_cost">
                         <input type="hidden" name="calc_id" id="calc_id">
                         <input type="hidden" name="booking_amt" id="booking_amt" value="300000">
@@ -217,7 +224,6 @@
 </div>
 <!-- END layout-wrapper -->
 <!-- JAVASCRIPT -->
-
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script src="<?php echo base_url();?>assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -269,10 +275,21 @@ $(document).ready(function(){
 
 
   $(document).on("click", ".badge", function(){
+
     var id = $(this).attr("id");
     var tc = $(this).attr("tc");
     $("#total_cost").val(tc);
     $("#calc_id").val(id);
+
+    /**----Reset Modal---------- */
+      $("#plan1").prop('checked', true);
+      var amt = 300000;
+      var booking_amt = amt.toLocaleString('hi-IN');
+      console.log(booking_amt);
+      $("#html_booking_amt").html(booking_amt);
+      $("#booking_amt").val(amt);
+  /**----End Reset Modal---------- */
+
   });
 
 $('#frmBooking').validate({
@@ -292,6 +309,7 @@ $('#frmBooking').validate({
       $(element).removeClass('is-invalid');
     },
     submitHandler: function(form) {      
+      
       var url = "<?php echo site_url('booking/ajax_quick_booking')?>";
       //var frmdata = $("#frmDoc").serialize(); //new FormData($('#costForm')[0]);//$("#followupForm").serialize();  
       var frmdata = new FormData($('#frmBooking')[0]);

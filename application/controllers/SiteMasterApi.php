@@ -22,8 +22,8 @@ class SiteMasterApi extends CI_Controller {
 		$data['code'] = 300;
 		$data['message'] = "";
 
-		$mobile 		= $this->input->post("mobile");
-		$password 	= $this->input->post("password");
+		$mobile = $this->input->post("mobile");
+		$password = $this->input->post("password");
 
 		$qry = "SELECT * FROM tbl_site_master WHERE mobile = '".$mobile."' AND password  = '".$password."'";
 
@@ -39,6 +39,8 @@ class SiteMasterApi extends CI_Controller {
 		{
 			$data['message'] = "Please check Email or Password";
 		}
+
 		echo json_encode($data);
+		
 	} 
 }

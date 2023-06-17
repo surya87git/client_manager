@@ -891,6 +891,7 @@ class BookingApi extends CI_Controller {
 		
 
 	}
+/***--------Start ajax_client_data--------------------------------------*/
 	public function ajax_client_data()
 	{	
 		$data['status'] = 'Error';
@@ -914,6 +915,33 @@ class BookingApi extends CI_Controller {
 				$data['status'] = 'error';
 				$data['code'] = 202;
 				$data['message'] = "no data  found";	
+			}
+		echo json_encode($data);
+	}
+/***--------End ajax_client_data--------------------------------------*/
+/***--------Start Calculation List------------------------------------*/
+	public function calculation_list()
+	{		
+		$data['status'] = 'Error';
+		$data['code'] = 300;
+		$data['message'] = "";			
+
+		$client_mob = $this->input->post("client_mob") ?? "";		
+
+		 $qry = "SELECT * FROM tbl_cost_calculator_new where client_mob = $client_mob and status = 1 order by id desc ";
+		$calc_list = $this->Master_model->getCustom($qry);
+		if($calc_list)
+			{
+				// echo json_encode($calc_list, true);
+				$data['status'] = 'Successfully';
+				$data['code'] = 200;
+				$data['result'] = $calc_list;
+			}
+			else
+			{
+				$data['status'] = 'error';
+				$data['code'] = 202;
+				$data['message'] = "no data found";	
 			}
 		echo json_encode($data);
 	}
