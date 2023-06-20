@@ -24,9 +24,6 @@
             <div class="card">
               <div class="card-header align-items-center d-flex">
                 <h4 class="card-title mb-0 flex-grow-1">Calculation List</h4>
-                <button type="button" class="btn btn-success btn-sm btn-label waves-effect waves-light"  data-bs-toggle="modal" data-bs-target="#paynow"><i class="ri-secure-payment-fill label-icon align-middle fs-16 me-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i>
-                    Pay Now
-                </button>
               </div>
               <!-- end card header -->
               <div class="card-body">
@@ -130,7 +127,7 @@
       </div>
       
       <!------Book Now Modal----------->
-        <div id="myModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"  style="display: none;" data-bs-backdrop="static" 
+        <div id="myModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;" data-bs-backdrop="static" 
             data-bs-keyboard="false" >
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -197,199 +194,16 @@
                         <input type="hidden" name="total_cost" id="total_cost">
                         <input type="hidden" name="calc_id" id="calc_id">
                         <input type="hidden" name="booking_amt" id="booking_amt" value="300000">
-                        <!-- Buttons with Label -->
-                        <button type="button" class="btn btn-success btn-label waves-effect waves-light"><i class="ri-secure-payment-fill label-icon align-middle fs-16 me-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i> Pay Now</button>
-                        <button type="button" class="btn btn-danger btn-label waves-effect waves-light"><i class=" ri-links-line label-icon align-middle fs-16 me-2"></i> Send link to Client</button>
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
                         <button type="submit" id="btn_submit" class="btn btn-primary ">Submit</button>
                       </div>
                   </form>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
-            
         </div><!-- /.modal -->
         <!------End of Book Now Modal----------->
-        
-        <!------Book Now Modal----------->
-        <div id="myModal2" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"  style="display: none;" data-bs-backdrop="static" 
-            data-bs-keyboard="false" >
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="myModalLabel">Quick Booking</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
-                    </div>
-                    <hr>
-                    <form id="frmBooking">
-                      <div class="modal-body">
-                          <h6 class="text-primary" style="margin-top:-18px">Here is the Booking Plan</h6>
-                            <div class="row">
-                                <div class="col-md-6">
-                                  <div>
-                                      <div class="icheck-success d-inline">
-                                        <input type="radio" checked class="switcher" name="plan" value="fixed" id="plan1">
-                                        <label title="Checked" for="plan1">Plan 1 <br>
-                                          <span>Rs. 3,00,000</span></label><br>
-                                      </div>
-                                  </div>
-                                </div>
-                                <div class="col-md-6">
-                                  <div>
-                                      <div class="icheck-success d-inline">
-                                        <input type="radio"  class="switcher" name="plan" value="percent" id="plan2">
-                                        <label title="Checked" for="plan2">Plan 2<br>
-                                          <span>35 %  of Estimate Cost</span></label><br>
-                                      </div>
-                                  </div>
-                                </div>
-                            </div>
-                            <br>
-                            <p class="text-danger mt-2" style="text-align: center;"><b> Total Booking Amount: Rs. <span id="html_booking_amt">3,00,000</span>/-</b></p>
-                            <hr style="border-top: 1px solid red;">
-                            <div class="row mt-2">
-                              <div class="col-md-12 mt-2">
-                                <label for="">Enter Name</label>
-                                <input type="text" id="client_name" name="client_name" class="form-control" placeholder="Enter Name" required>
-                              </div>
-                              <div class="col-md-6 mt-2">
-                                <label for="">Enter Mobile No.</label>
-                                <input type="number"  id="mobile_no" name="mobile_no" class="form-control" placeholder="Enter Mobile number" required>
-                              </div>
-                              <div class="col-md-6 mt-2">
-                                <label for="">Enter Email Address</label>
-                                <input type="email"  id="email_id" name="email_id" class="form-control" placeholder="Enter Email Address" required>
-                              </div>
-                              <div class="col-md-6 mt-2">
-                                <label for="">Enter Adhaar Card No.</label>
-                                <input type="text"  id="aadhar_no" name="aadhar_no" class="form-control" placeholder="Enter Adhaar Card No." required>
-                              </div>
-                              <div class="col-md-6 mt-2">
-                                <label for="">Enter Pan No.</label>
-                                <input type="text"  id="pan_no" name="pan_no" class="form-control" placeholder="Enter Pancard No." required>
-                              </div>
-                              <div class="col-md-12 mt-2">
-                                <label for="">Enter Payment Link</label>
-                                <input type="text"  id="booking_link" name="booking_link" class="form-control" placeholder="Enter Payment Link" required>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="modal-footer">
-                        <input type="hidden" name="booking_id" id="booking_id">
-                        <input type="hidden" name="total_cost" id="total_cost">
-                        <input type="hidden" name="calc_id" id="calc_id">
-                        <input type="hidden" name="booking_amt" id="booking_amt" value="300000">
-                        <!-- Buttons with Label -->
-                        <button type="button" class="btn btn-success btn-label waves-effect waves-light"><i class="ri-secure-payment-fill label-icon align-middle fs-16 me-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i> Pay Now</button>
-                        <button type="button" class="btn btn-danger btn-label waves-effect waves-light"><i class=" ri-links-line label-icon align-middle fs-16 me-2"></i> Send link to Client</button>
-                        <button type="submit" id="btn_submit" class="btn btn-primary ">Submit</button>
-                      </div>
-                  </form>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-            
-        </div><!-- /.modal -->
-        <!------End of Book Now Modal----------->
-        <!-- Pay Now-->
-          <div class="modal fade" id="paynow" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered" role="document">
-                  <div class="modal-content">
-                      <div class="modal-body">
-                          <div class="mt-2">
-                            <h4 class="text-danger" style="text-align:center;">Pay Now</h4>
-                              <h6 class="mb-3">Payment Mode</h6>
-                              <div class="my-2">
-                              <div class="form-check form-check-inline">
-                                <input type="radio" id="chk_upi" name="payment_mode" value="UPI/QR" class="form-check-input">
-                                <label for="chk_upi" class="form-check-label">UPI/QR Code</label>
-                              </div>
-                              <div class="form-check form-check-inline">
-                                <input type="radio" id="chk_card" name="payment_mode" value="Card/Link" class="form-check-input">
-                                <label for="chk_card" class="form-check-label">Link/Card</label>
-                              </div>
-                              <div class="form-check form-check-inline">
-                                <input type="radio" id="chk_neft" name="payment_mode" value="NEFT/RTGS/IMPS" class="form-check-input">
-                                <label for="chk_neft" class="form-check-label">NEFT/RTGS/IMPS</label>
-                              </div>
-                              <!-------Qr Code----------->
-                              <center><div class="col-12 mt-3" id="" style="">
-                                <span class="form-label text-primary">QR Code</span>
-                                <div class="col-12 mt-1">
-                                  <img src="http://localhost/cost_calc/assets/images/qr-3,00,000.jpeg" alt="" width="200px">
-                                </div>
-                              </div></center>
-                              <!-------End of Qr Code----------->
-                              <!----------Link Section----------->
-                              <center>
-                              <div class="col-12 mt-3" id="" style="">
-                                <span class="text-primary">Click the below button to make a payment</span>
-                                <div class="col-12 mt-2">
-                                  <a href="https://tinyurl.com/2olo7rbw" target="_blank" class="btn btn-sm  btn-primary"> <i class=" ri-bank-card-fill" aria-hidden="true"></i>&nbsp;&nbsp;Rs. 3,00,000/- Pay Now</a>
-                                </div>
-                              </div>
-                              </center>
-                              <!----------End of Link Section------------------->
-                              <!--------Netbanking Section------->
-                              <center>
-                              <div class="row gy-3 mt-2" id="" style="">
-                                <span class="text-primary">Netbanking</span><br>
-                                <div class="col-lg-12">
-                                  <div class="fill-form">
-                                    <div class="row">
-                                      <div class="col-lg-6 ">
-                                        <div class="info-post">
-                                          <div class="icon">
-                                            <span>Account Holder Name: <span class="text-primary"><br> UK Concept Designer</span> </span>        
-                                          </div>
-                                        </div>
-                                      </div>
-                                      <div class="col-lg-6 ">
-                                        <div class="info-post">
-                                          <div class="icon">
-                                          <span>Bank Name: <span class="text-primary"><br> HDFC Bank</span></span>       
-                                          </div>
-                                        </div>
-                                      </div>
-                                      <div class="col-lg-6 ">
-                                        <div class="info-post">
-                                          <div class="icon">
-                                          <span>Account Number: <span class="text-primary"><br> 50200011762575</span></span>       
-                                          </div>
-                                        </div>
-                                      </div>
-                                      <div class="col-lg-6 ">
-                                        <div class="info-post">
-                                          <div class="icon">
-                                          <span>IFSC Code: <span class="text-primary"><br> HDFC0003687</span></span>       
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>   
-                              </center>             
-                              <!-----End of Netbanking Section-------->
-                              <!-------Enter Transaction Details------->
-                              <center>
-                              <div class="col-md-6 mt-3" id="trans_field" style="">
-                                  <span class="text-primary">Transection ID</span>
-                                  <input type="text" id="trans_id" name="trans_id" value="" class="form-control" placeholder="Enter Transaction Id" required="">
-                                </div>
-                                </center>
-                              <!------End of Transaction Details-------->
-                              </div>
-                              <div class="hstack gap-2 justify-content-center mt-4">
-                                  <a href="javascript:void(0);" class="btn btn-link link-success fw-medium" data-bs-dismiss="modal"><i class="ri-close-line me-1 align-middle"></i> Close</a>
-                                  <a href="javascript:void(0);" class="btn btn-success">Completed</a>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-        
         <!-- container-fluid -->
     </div>
-    
     <!-- End Page-content -->
     <footer class="footer">
       <div class="container-fluid">

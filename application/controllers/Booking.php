@@ -146,6 +146,8 @@ class Booking extends CI_Controller {
 	{
 		$booking_id = $this->input->post("bid"); 
 		$calc_id = $this->input->post("calc_id") ?? "";
+		$booking_link = $this->input->post("booking_link") ?? "";
+		
 		$frm_data = array(
 			"calc_id"=>$calc_id,
 			"booking_amt"=>$this->input->post("booking_amt") ?? "",
@@ -159,14 +161,14 @@ class Booking extends CI_Controller {
 
 		if($booking_id == "")
 		{		
-
+			$current_date = date("Y-m-d H:i:s");
 			$frm_data["create_by"] = $_COOKIE['employee_name'] ?? "";
-			$frm_data["create_date"] = date("Y-m-d H:i:s");
+			$frm_data["create_date"] = $current_date;
 			$frm_data["ip"] = $this->input->ip_address();
 			$res = $this->Master_model->saveData("bkf_booking_form", $frm_data);
 			$last_id = $this->db->insert_id();
 
-			$f_data = array("booking_id"=>$last_id);
+			$f_data = array("booking_id"=>$last_id, "booking_date"=>$current_date);
 			$where_arr = array("id"=>$calc_id);
 			$res = $this->Master_model->updateArr("tbl_cost_calculator_new", $f_data, $where_arr);		
 
@@ -179,9 +181,6 @@ class Booking extends CI_Controller {
 			$res = $this->Master_model->updateData("bkf_booking_form", $frm_data);
 			echo "~~~2~~~0~~~";
 		}
-
-
-
 	}
 	public function ajax_client_info()
 	{			
@@ -239,9 +238,9 @@ class Booking extends CI_Controller {
         $permanent_addr = json_encode($p_addr_arr);
 		$present_addr = json_encode($r_addr_arr);
 		$office_addr = json_encode($o_addr_arr);
-
+		$calc_id = $this->input->post("calc_id") ?? "";
 		$frm_data = array(
-			"calc_id"=>$this->input->post("calc_id") ?? "",
+			"calc_id"=> $calc_id,
 			"booking_amt"=>$this->input->post("booking_amt") ?? "",
 			"client_name"=>$this->input->post("client_name") ?? "",
 			"spouse_name"=>$this->input->post("spouse_name") ?? "",
@@ -267,6 +266,11 @@ class Booking extends CI_Controller {
 			$frm_data["ip"] = $this->input->ip_address();
 			$res = $this->Master_model->saveData("bkf_booking_form", $frm_data);
 			$last_id = $this->db->insert_id();
+			
+			$f_data = array("booking_id"=>$last_id, "booking_date"=>$current_date);
+			$where_arr = array("id"=>$calc_id);
+			$res = $this->Master_model->updateArr("tbl_cost_calculator_new", $f_data, $where_arr);
+
 			echo "~~~1~~~".$last_id."~~~";
 		}
 		else
@@ -284,7 +288,7 @@ class Booking extends CI_Controller {
 	public function ajax_decision_maker()
 	{
 
-		echo "-->".$dec_id = $this->input->post("dec_id") ?? "";
+		$dec_id = $this->input->post("dec_id") ?? "";
 		$booking_id = $this->input->post("booking_id") ?? "";
 
 		$d_hno = $this->input->post("d_hno");

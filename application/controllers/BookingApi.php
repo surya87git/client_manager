@@ -946,4 +946,47 @@ class BookingApi extends CI_Controller {
 		echo json_encode($data);
 	}
 
+	public function ajax_quick_booking()
+	{	
+		$data['status'] = 'Error';
+		$data['code'] = 300;
+		$data['message'] = "";			
+
+		$booking_id = $this->input->post("bid"); 
+		$calc_id 	= $this->input->post("calc_id") ?? "";
+		$frm_data = array(
+			"calc_id"=>$calc_id,
+			"booking_amt"=>$this->input->post("booking_amt") ?? "",
+			"client_name"=>$this->input->post("client_name") ?? "",
+			"mobile_no"=>$this->input->post("mobile_no") ?? "",
+			"email_id"=>$this->input->post("email_id") ?? "",
+			"pan_no"=>$this->input->post("pan_no") ?? "",
+			"aadhar_no"=>$this->input->post("aadhar_no") ?? "",
+			"booking_link"=> $booking_link
+		);
+
+		if($booking_id == "")
+		{		
+			$current_date = date("Y-m-d H:i:s");
+			$frm_data["create_by"] = $_COOKIE['employee_name'] ?? "";
+			$frm_data["create_date"] = $current_date;
+			$frm_data["ip"] = $this->input->ip_address();
+			$res = $this->Master_model->saveData("bkf_booking_form", $frm_data);
+			$last_id = $this->db->insert_id();
+
+			$f_data = array("booking_id"=>$last_id, "booking_date"=>$current_date);
+			$where_arr = array("id"=>$calc_id);
+			$res = $this->Master_model->updateArr("tbl_cost_calculator_new", $f_data, $where_arr);		
+
+			echo "~~~1~~~".$last_id."~~~";
+		}
+		else
+		{
+			$frm_data["id"] = $this->input->post("bid");
+			$frm_data["update_date"] = date("Y-m-d H:i:s");
+			$res = $this->Master_model->updateData("bkf_booking_form", $frm_data);
+			echo "~~~2~~~0~~~";
+		}
+	}
+
 }
