@@ -19,8 +19,7 @@
                 </tr>
               </table>
               <div class="spacer" style="">&nbsp;</div>
-              <div class="two-col" style="text-align:center;font-size:0;direction:rtl;">
-                
+              <div class="two-col" style="text-align:center;font-size:0;direction:rtl;">               
                 <div class="column" style="width:100%;max-width:330px;display:inline-block;vertical-align:top;direction:ltr;">
                   <div style="padding:10px;font-size:14px;line-height:18px;text-align:center;">
                     <span style="margin:0;font-family:Arial,sans-serif; font-size: medium; color: #ac9c72;">

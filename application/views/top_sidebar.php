@@ -290,6 +290,25 @@
                             </ul>
                         </div>
                     </li>
+                    
+                    <li class="nav-item active">
+                        <a class="nav-link menu-link" href="#booking" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps2">
+                          <i class="ri-calculator-line"></i><span data-key="t-apps">Booking</span>
+                        </a>
+                        <div class="collapse menu-dropdown" id="booking">
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                  <a href="<?php echo base_url('index.php/booking/')?>" class="nav-link" data-key="t-calendar">Add Booking Form</a>
+                                </li>
+                                <li class="nav-item">
+                                  <a href="<?php echo base_url('index.php/booking/booking_list')?>" class="nav-link" data-key="t-calendar">Booking List</a>
+                                </li>
+                                <li class="nav-item">
+                                  <a href="<?php echo base_url('index.php/booking/manage_commitment/')?>" class="nav-link" data-key="t-calendar">Manage Commitment</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
                     <li class="nav-item active">
                         <a class="nav-link menu-link" href="#anubadh" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps2">
                           <i class="ri-calculator-line"></i><span data-key="t-apps">Anubandh</span>
@@ -307,27 +326,9 @@
                                 </li>
                                 <li class="nav-item">
                                   <a href="<?php echo site_url('anubandh/anubadh_agreement_list')?>" class="nav-link" data-key="t-chat">Agreement List</a>
-                                </li>
+                                </li> 
                                 <li class="nav-item">
                                   <a href="<?php echo site_url('anubandh/anubandh_details')?>" class="nav-link" data-key="t-calendar">Anubandh Details</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link menu-link" href="#booking" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps2">
-                          <i class="ri-calculator-line"></i><span data-key="t-apps">Booking</span>
-                        </a>
-                        <div class="collapse menu-dropdown" id="booking">
-                            <ul class="nav nav-sm flex-column">
-                                <li class="nav-item">
-                                  <a href="<?php echo base_url('index.php/booking/')?>" class="nav-link" data-key="t-calendar">Add Booking Form</a>
-                                </li>
-                                <li class="nav-item">
-                                  <a href="<?php echo base_url('index.php/booking/booking_list')?>" class="nav-link" data-key="t-calendar">Booking List</a>
-                                </li>
-                                <li class="nav-item">
-                                  <a href="<?php echo base_url('index.php/booking/manage_commitment/')?>" class="nav-link" data-key="t-calendar">Manage Commitment</a>
                                 </li>
                             </ul>
                         </div>
