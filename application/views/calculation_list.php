@@ -205,11 +205,8 @@
                         </div>
                         <div id="div_loader" style="display:none;">
                           <a href="javascript:void(0);" class="btn btn-success btn-label waves-effect waves-light"><i class="ri-secure-payment-fill label-icon align-middle fs-16 me-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i>Processing...</a>
-                        </div>
-                        
-                          <button type="submit" id="btn_pay" class="btn btn-success btn-label waves-effect waves-light"><i class="ri-secure-payment-fill label-icon align-middle fs-16 me-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i> Pay Now</button>
-                        
-
+                        </div>                        
+                          <a href="javascript:void(0);" id="btn_pay" class="btn btn-success btn-label waves-effect waves-light"><i class="ri-secure-payment-fill label-icon align-middle fs-16 me-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i> Pay Now</a>
                       </div>
                   </form>
                 </div><!-- /.modal-content -->
