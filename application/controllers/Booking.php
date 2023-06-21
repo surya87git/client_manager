@@ -158,7 +158,6 @@ class Booking extends CI_Controller {
 			"aadhar_no"=>$this->input->post("aadhar_no") ?? "",
 			"booking_link"=> $booking_link
 		);
-
 		if($booking_id == "")
 		{		
 			$current_date = date("Y-m-d H:i:s");
@@ -171,7 +170,11 @@ class Booking extends CI_Controller {
 			$f_data = array("booking_id"=>$last_id, "booking_date"=>$current_date);
 			$where_arr = array("id"=>$calc_id);
 			$res = $this->Master_model->updateArr("tbl_cost_calculator_new", $f_data, $where_arr);		
+			if($res){
 
+
+
+			}
 			echo "~~~1~~~".$last_id."~~~";
 		}
 		else

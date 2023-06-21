@@ -1523,6 +1523,7 @@ $(document).on("click", "#btnMail", function(){
       url: "<?php echo site_url('mail/send_booking_mail')?>", 
       type: "POST",
       data: ({booking_id: booking_id}),
+
       beforeSend: function(){
         $("#div_mail").hide();
         $("#div_loader").show(); 
@@ -1544,6 +1545,7 @@ $(document).on("click", "#btnMail", function(){
         }, 5000);
       },
       complete: function() { 
+
         $("#a_loader").html("Successfully Sent...");
         $("#link_request").fadeOut();
 
@@ -1551,6 +1553,7 @@ $(document).on("click", "#btnMail", function(){
           $("#div_mail").show();
           $("#div_loader").hide();        
         }, 5000);  
+
       }
 
   });
