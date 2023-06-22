@@ -76,10 +76,14 @@ class Mail extends CI_Controller {
 		
 	}
 
+	public function send_booking_link()
+	{
+
+
+	}
 
 	public function send_booking_mail() {
 		
-		$this->load->library('email');
 
 		$config = array(
 		    'protocol'  => 'smtp',
@@ -91,7 +95,8 @@ class Mail extends CI_Controller {
 		    'charset'   => 'utf-8'
 		);		
 		
-		$booking_id = $this->input->post('booking_id');//$this->uri->segment(3);
+		$mail_type = $this->input->post('mail_type');
+		$booking_id = $this->input->post('booking_id');
 
 		$qry = "SELECT * FROM bkf_booking_form where id = $booking_id";
         $client_info = $this->Master_model->getCustom($qry);
@@ -105,16 +110,6 @@ class Mail extends CI_Controller {
 		$data['link'] 	= urlencode($i);
 		$data['name']	=  $client_info[0]->client_name ?? "";
 
-		//$gender	=  $client_info[0]->gender ?? "";
-		// if(strtolower($gender) == "female")
-		// {
-		// 	$data['gen'] = "Ma'am";
-		// }
-		// else
-		// {
-		// 	$data['gen'] = "Sir";
-		// }
-
 		$frm_data = array("link_request" => 0);
 		$where_arr = array("id" => $booking_id);
 		$res = $this->Master_model->updateArr("bkf_booking_form", $frm_data, $where_arr);
@@ -124,24 +119,38 @@ class Mail extends CI_Controller {
 
 		$data['amount'] =  $trans_detail[0]->paid_booking_amt ?? "";
 
-		$message = $this->load->view('booking_mail_template.php', $data, true);
+		if($mail_type == "link"){
+			$this->email->subject('Booking Amount Payment Link');
+			$message = $this->load->view('booking_link_mail.php', $data, true);
+		}
+		elseif($mail_type == "verification"){
+			$this->email->subject('Booking Verification Mail');
+			$message = $this->load->view('booking_verify_mail.php', $data, true);
+		}
+		elseif($mail_type == "confirmation"){
+			$this->email->subject('Booking Verification Mail');
+			$message = $this->load->view('booking_confirmation_mail.php', $data, true);
+		}
 
 		$this->email->from('info@ukcdesigner.in', "UK Concept Designer");
 		$this->email->to($email);
-		$this->email->cc('suryaachandra8@gmail.com');
-		$this->email->subject('Booking Verification Mail');
+		$this->email->cc('suryaachandra8@gmail.com');		
 		$this->email->message($message);
-
-		if($this->email->send()){
+		
+		$data['status'] = 'Successfully';
+		$data['code'] = 200;
+		$data['message'] ="";
+		
+		echo json_encode($data);
+		
+		/*if($this->email->send()){
 			echo "~~~0~~~";
 		}
-		else{
+		else{	
 			echo "~~~1~~~";			
-		}
+		}*/
 		
 	}
-
-
 
 
 	public function send_confirmation_mail()
@@ -150,8 +159,6 @@ class Mail extends CI_Controller {
 		$booking_id = $this->input->post('booking_id');
 		$is_attachment = $this->input->post('is_attachment');
 		
-		//exit;
-
 		$config = array(
 		    'protocol'  => 'smtp',
 		    'smtp_host' => 'ukcdesigner.in',

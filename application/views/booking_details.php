@@ -1522,7 +1522,7 @@ $(document).on("click", "#btnMail", function(){
   $.ajax({ 
       url: "<?php echo site_url('mail/send_booking_mail')?>", 
       type: "POST",
-      data: ({booking_id: booking_id}),
+      data: ({booking_id: booking_id, mail_type: "verification"}),
       beforeSend: function(){
         $("#div_mail").hide();
         $("#div_loader").show(); 
@@ -2329,6 +2329,7 @@ $('#frmPayee').validate({
       }
 
   });
+  
 /**---------------------Transaction Details--------------------------------------- */  
 $('#frmTrans').validate({
     rules: {

@@ -142,6 +142,7 @@ class Booking extends CI_Controller {
 
 		//echo $this->db->last_query();
 	}
+
 	public function ajax_quick_booking()
 	{
 		$booking_id = $this->input->post("bid"); 
@@ -184,6 +185,38 @@ class Booking extends CI_Controller {
 			$res = $this->Master_model->updateData("bkf_booking_form", $frm_data);
 			echo "~~~2~~~0~~~";
 		}
+	}
+	public function ajax_quick_transaction()
+	{
+
+		$booking_id = $this->input->post("booking_id") ?? "";
+		$trans_id = $this->input->post("trans_id") ?? "";
+		$frm_data = array(
+			"booking_id" => $this->input->post("booking_id") ?? "",
+			"paid_booking_amt" => $this->input->post("paid_booking_amt") ?? "",
+			"payment_mode" => $this->input->post("payment_mode") ?? "",		
+			"trans_id" => $trans_id,
+			"create_date" => date("Y-m-d H:i:s"),
+			"ip" => $this->input->ip_address(),								
+		);
+		if($trans_id != "" && $booking_id != "")
+		{
+			$res = $this->Master_model->saveData("bkf_booking_transaction", $frm_data);
+			$last_id = $this->db->insert_id();
+			if($res)
+			{
+				echo "~~~1~~~".$last_id."~~~";
+			}
+			else
+			{
+				echo "~~~0~~~";
+			}
+		}
+		else
+		{
+			echo "~~~0~~~";
+		}
+
 	}
 	public function ajax_client_info()
 	{			

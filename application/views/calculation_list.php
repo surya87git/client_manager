@@ -130,7 +130,7 @@
       </div>
       
       <!------Book Now Modal----------->
-        <div id="myModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"  style="display: none;" data-bs-backdrop="static" 
+        <div id="myModal" class="modal flip" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"  style="display: none;" data-bs-backdrop="static" 
             data-bs-keyboard="false" >
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -197,16 +197,16 @@
                         <input type="hidden" name="total_cost" id="total_cost">
                         <input type="hidden" name="calc_id" id="calc_id">
                         <input type="hidden" name="booking_amt" id="booking_amt" value="300000">
+                        <input type="hidden" name="booking_type" id="booking_type">
                         <!-- Buttons with Label -->
-                        <!--button type="submit" id="btn_submit" class="btn btn-primary ">Submit</button-->
-                        
+                        <!--button type="submit" id="btn_submit" class="btn btn-primary ">Submit</button-->                        
                         <div id="div_mail">
-                          <button type="submit" id="btn_submit" class="btn btn-danger btn-label waves-effect waves-light"><i class=" ri-links-line label-icon align-middle fs-16 me-2"></i> Send link to Client</button>
+                          <button type="submit" id="btn_submit" value="btn_submit" class="btn_booking btn btn-danger btn-label waves-effect waves-light"><i class=" ri-links-line label-icon align-middle fs-16 me-2"></i> Send link to Client</button>
                         </div>
                         <div id="div_loader" style="display:none;">
                           <a href="javascript:void(0);" class="btn btn-success btn-label waves-effect waves-light"><i class="ri-secure-payment-fill label-icon align-middle fs-16 me-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i>Processing...</a>
-                        </div>                        
-                          <a href="javascript:void(0);" id="btn_pay" class="btn btn-success btn-label waves-effect waves-light"><i class="ri-secure-payment-fill label-icon align-middle fs-16 me-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i> Pay Now</a>
+                        </div>
+                          <button type="submit" id="btn_pay" value="btn_pay" class="btn_booking btn btn-success btn-label waves-effect waves-light"><i class="ri-secure-payment-fill label-icon align-middle fs-16 me-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i> Pay Now</button>
                       </div>
                   </form>
                 </div><!-- /.modal-content -->
@@ -216,93 +216,95 @@
         <!------End of Book Now Modal----------->
                 
       <!-- Pay Now-->
-        <div class="modal fade" id="paynow" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal fadeInUp" id="paynow" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
-                    <div class="modal-body">
-                        <div class="mt-2">
-                          <h4 class="text-danger" style="text-align:center;">Pay Now</h4>
-                            <h6 class="mb-3">Payment Mode</h6>
-                            <div class="my-2">
-                            <div class="form-check form-check-inline">
-                              <input type="radio" id="chk_upi" name="payment_mode" value="UPI/QR" class="form-check-input">
-                              <label for="chk_upi" class="form-check-label">UPI/QR Code</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                              <input type="radio" id="chk_card" name="payment_mode" value="Card/Link" class="form-check-input">
-                              <label for="chk_card" class="form-check-label">Link/Card</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                              <input type="radio" id="chk_neft" name="payment_mode" value="NEFT/RTGS/IMPS" class="form-check-input">
-                              <label for="chk_neft" class="form-check-label">NEFT/RTGS/IMPS</label>
-                            </div>
-                            
-                            <!----------Link Section----------->
-                            <center>
-                            <div class="col-12 mt-3" id="" style="">
-                              <span class="text-primary">Click the below button to make a payment</span>
-                              <div class="col-12 mt-2">
-                                <a href="https://tinyurl.com/2olo7rbw" target="_blank" class="btn btn-sm  btn-primary"> <i class=" ri-bank-card-fill" aria-hidden="true"></i>&nbsp;&nbsp;Rs. 3,00,000/- Pay Now</a>
+                    <form id="frmTrans">
+                      <div class="modal-body">
+                          <div class="mt-2">
+                            <h4 class="text-danger" style="text-align:center;">Pay Now</h4>
+                              <h6 class="mb-3">Payment Mode</h6>
+                              <div class="my-2">
+                              <div class="form-check form-check-inline">
+                                <input type="radio" id="chk_upi" name="payment_mode" value="UPI/QR" class="form-check-input">
+                                <label for="chk_upi" class="form-check-label">UPI/QR Code</label>
                               </div>
-                            </div>
-                            </center>
-                            <!----------End of Link Section------------------->
-                            <!--------Netbanking Section------->
-                            <center>
-                            <div class="row gy-3 mt-2" id="" style="">
-                              <span class="text-primary">Netbanking</span><br>
-                              <div class="col-lg-12">
-                                <div class="fill-form">
-                                  <div class="row">
-                                    <div class="col-lg-6 ">
-                                      <div class="info-post">
-                                        <div class="icon">
-                                          <span>Account Holder Name: <span class="text-primary"><br> UK Concept Designer</span> </span>        
+                              <div class="form-check form-check-inline">
+                                <input type="radio" id="chk_card" name="payment_mode" value="Card/Link" class="form-check-input">
+                                <label for="chk_card" class="form-check-label">Link/Card</label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                <input type="radio" id="chk_neft" name="payment_mode" value="NEFT/RTGS/IMPS" class="form-check-input">
+                                <label for="chk_neft" class="form-check-label">NEFT/RTGS/IMPS</label>
+                              </div>
+                              
+                              <!----------Link Section----------->
+                              <center>
+                              <div class="col-12 mt-3" id="" style="">
+                                <span class="text-primary">Click the below button to make a payment</span>
+                                <div class="col-12 mt-2">
+                                  <a href="https://tinyurl.com/2olo7rbw" target="_blank" class="btn btn-sm  btn-primary"> <i class=" ri-bank-card-fill" aria-hidden="true"></i>&nbsp;&nbsp;Rs. 3,00,000/- Pay Now</a>
+                                </div>
+                              </div>
+                              </center>
+                              <!----------End of Link Section------------------->
+                              <!--------Netbanking Section------->
+                              <center>
+                              <div class="row gy-3 mt-2" id="" style="">
+                                <span class="text-primary">Netbanking</span><br>
+                                <div class="col-lg-12">
+                                  <div class="fill-form">
+                                    <div class="row">
+                                      <div class="col-lg-6 ">
+                                        <div class="info-post">
+                                          <div class="icon">
+                                            <span>Account Holder Name: <span class="text-primary"><br> UK Concept Designer</span> </span>        
+                                          </div>
                                         </div>
                                       </div>
-                                    </div>
-                                    <div class="col-lg-6 ">
-                                      <div class="info-post">
-                                        <div class="icon">
-                                        <span>Bank Name: <span class="text-primary"><br> HDFC Bank</span></span>       
+                                      <div class="col-lg-6 ">
+                                        <div class="info-post">
+                                          <div class="icon">
+                                          <span>Bank Name: <span class="text-primary"><br> HDFC Bank</span></span>       
+                                          </div>
                                         </div>
                                       </div>
-                                    </div>
-                                    <div class="col-lg-6 ">
-                                      <div class="info-post">
-                                        <div class="icon">
-                                        <span>Account Number: <span class="text-primary"><br> 50200011762575</span></span>       
+                                      <div class="col-lg-6 ">
+                                        <div class="info-post">
+                                          <div class="icon">
+                                          <span>Account Number: <span class="text-primary"><br> 50200011762575</span></span>       
+                                          </div>
                                         </div>
                                       </div>
-                                    </div>
-                                    <div class="col-lg-6 ">
-                                      <div class="info-post">
-                                        <div class="icon">
-                                        <span>IFSC Code: <span class="text-primary"><br> HDFC0003687</span></span>       
+                                      <div class="col-lg-6 ">
+                                        <div class="info-post">
+                                          <div class="icon">
+                                          <span>IFSC Code: <span class="text-primary"><br> HDFC0003687</span></span>       
+                                          </div>
                                         </div>
                                       </div>
                                     </div>
                                   </div>
                                 </div>
-                              </div>
-                            </div>   
-                            </center>             
-                            <!-----End of Netbanking Section-------->
-                            <!-------Enter Transaction Details------->
-                            <center>
-                            <div class="col-md-6 mt-3" id="trans_field" style="">
-                                <span class="text-primary">Transection ID</span>
-                                <input type="text" id="trans_id" name="trans_id" value="" class="form-control" placeholder="Enter Transaction Id" required="">
-                              </div>
+                              </div>   
+                              </center>             
+                              <!-----End of Netbanking Section-------->
+                              <!-------Enter Transaction Details------->
+                              <center>
+                                <div class="col-md-6 mt-3" id="trans_field" style="">
+                                  <span class="text-primary">Transection ID</span>
+                                  <input type="text" id="trans_id" name="trans_id" value="" class="form-control" placeholder="Enter Transaction Id" required="">
+                                </div>
                               </center>
-                            <!------End of Transaction Details-------->
-                            </div>
-                            <div class="hstack gap-2 justify-content-center mt-4">
-                                <a href="javascript:void(0);" class="btn btn-link link-success fw-medium" data-bs-dismiss="modal"><i class="ri-close-line me-1 align-middle"></i> Close</a>
-                                <a href="javascript:void(0);" class="btn btn-success">Completed</a>
-                            </div>
-                        </div>
-                    </div>
+                                <!------End of Transaction Details-------->
+                              </div>
+                              <div class="hstack gap-2 justify-content-center mt-4">
+                                  <a href="javascript:void(0);" class="btn btn-link link-success fw-medium" data-bs-dismiss="modal"><i class="ri-close-line me-1 align-middle"></i> Close</a>
+                                  <button type="submit" class="btn btn-success">Completed</button>
+                              </div>
+                          </div>
+                      </div>
+                    </form>
                 </div>
             </div>
         </div>        
@@ -395,6 +397,11 @@ $(document).ready(function(){
   /**----End Reset Modal---------- */
   });
 
+
+$(document).on("click", ".btn_booking", function(){
+  $("#booking_type").val($(this).val());
+});
+
 $('#frmBooking').validate({
     rules: {     
     },
@@ -413,6 +420,9 @@ $('#frmBooking').validate({
     },
     submitHandler: function(form) {      
       
+      var booking_type = $("#booking_type").val(); 
+      //alert(booking_type);
+      //return false;
       var url = "<?php echo site_url('booking/ajax_quick_booking')?>";
       //var frmdata = $("#frmDoc").serialize(); //new FormData($('#costForm')[0]);//$("#followupForm").serialize();  
       var frmdata = new FormData($('#frmBooking')[0]);
@@ -430,42 +440,49 @@ $('#frmBooking').validate({
                   var spl_txt = data.split("~~~");
                   if(spl_txt[1] == 1)
                   { 
-                    //alert("Successfully Saved...");
-                    ///**------Send Mail--------------------- */
-
+                    //alert("Successfully Saved...");                    
                     var booking_id = spl_txt[2];
+                    if(booking_type == "btn_submit"){
+                    ///**------Send Mail--------------------- */
                       $.ajax({ 
-                          url: "<?php echo site_url('mail/send_booking_mail')?>", 
-                          type: "POST",
-                          data: ({booking_id: booking_id}),
-                          beforeSend: function(){
-                            $("#div_mail").hide();
-                            $("#div_loader").show();
-                            console.log("before send..............");
-                          },
-                          success: function(data)
-                          {
-                            $("#div_loader").html("Successfully Sent...");;
-                            setTimeout(() => {
-                              $("#div_mail").show();
-                              $("#div_loader").hide();        
-                            }, 5000);  
-                          },
-                          error: function() {                       
-                          setTimeout(() => {
-                            $("#div_mail").show();
-                            $("#div_loader").hide();        
-                          }, 5000);
-                        },
-                          complete: function() {               
-                            setTimeout(() => {
-                              $("#div_mail").show();
-                              $("#div_loader").hide();        
-                            }, 5000);  
-                          }
-                      });
+                            url: "<?php echo site_url('mail/send_booking_mail')?>", 
+                            type: "POST",
+                            data: ({booking_id: booking_id, mail_type: "link"}),
+                            beforeSend: function(){
+                              $("#div_mail").hide();
+                              $("#div_loader").show();
+                              //console.log("before send..............");
+                            },
+                            success: function(data)
+                            {
+                              console.log("~~~~!"+data);
 
-                    /**------------------------------------ */  
+                              $("#div_loader").html("Successfully Sent...");;
+                              setTimeout(() => {
+                                $("#div_mail").show();
+                                $("#div_loader").hide();        
+                              }, 5000);  
+                            },
+                            error: function() {                       
+                            setTimeout(() => {
+                              $("#div_mail").show();
+                              $("#div_loader").hide();        
+                            }, 5000);
+                          },
+                            complete: function() {               
+                              setTimeout(() => {
+                                $("#div_mail").show();
+                                $("#div_loader").hide();        
+                              }, 5000);  
+                            }
+                        });
+                    /**-----------End Mail script------------------------- */  
+                    }
+                    else{
+                      alert("Successfully Saved...");
+                       $('#myModal').modal('hide');                      
+                       $('#paynow').modal('show');                    
+                    }
                     //location.reload();
                   }
                  else if(spl_txt[1] == 2)
@@ -479,17 +496,81 @@ $('#frmBooking').validate({
                   }   
               },
             
-
           });
       }
   });
+/***-------------------------------------------------------------------------------- */
 
 
+/**---------------------Transaction Details--------------------------------------- */  
+$('#frmTrans').validate({
+    rules: {
+      offer_amt:{
+        required: true
+      },
+      final_rate: {
+        required: true
+      },
+      final_amt: {
+        required: true
+      }
+    },
+    messages: {
+      offer_amt:{
+        required: 'Enter client Name'
+      },
+      final_rate: {
+        required: 'Enter Email Id'
+      },
+      final_amt: {
+        required: 'Enter Email Id'
+      }   
+    },
+    errorElement: 'span',
+    errorPlacement: function (error, element) {
+      error.addClass('invalid-feedback');
+      element.closest('.form-group').append(error);
+    },
+    highlight: function (element, errorClass, validClass) {
+      $(element).addClass('is-invalid');
+    },
+    unhighlight: function (element, errorClass, validClass) {
+      $(element).removeClass('is-invalid');
+    },
+    submitHandler: function(form) {      
+      var url = "<?php echo site_url('booking/ajax_booking_transaction')?>";
+      var frmdata = $("#frmTrans").serialize(); //new FormData($('#costForm')[0]);//$("#followupForm").serialize();  
+          $.ajax({
+              type: "POST",
+              url: url,
+              data: frmdata, 
+              success: function(data)
+              { 
+                //console.log(data);                 
+                var spl_txt = data.split("~~~");
+                if(spl_txt[1] == 1)
+                { 
+                  alert("Successfully updated...");
+                  location.reload();
+                }
+                else if(spl_txt[1] == 2)
+                { 
+                  alert("Successfully updated...");
+                  location.reload();
+                }
+                else
+                { 
+                  alert("Something went wrong...");
+                  //$("#btn_topup").show();  
+                }   
+              }
+          });
+      }
+
+  });
 
 
-  
-
-
+/**----------------------------------------------------------------------------------- */
   $('#example').DataTable({
       "paging": true,
       "lengthChange": false,
@@ -541,8 +622,4 @@ $('#frmBooking').validate({
 
 });
 
-</script>
-
-<?php
-  include("footer.php");
-?>
+</script> 
