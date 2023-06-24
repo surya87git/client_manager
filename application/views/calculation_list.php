@@ -193,7 +193,6 @@
                           </div>
                       </div>
                       <div class="modal-footer">
-                        <input type="hidden" name="booking_id" id="booking_id">
                         <input type="hidden" name="total_cost" id="total_cost">
                         <input type="hidden" name="calc_id" id="calc_id">
                         <input type="hidden" name="booking_amt" id="booking_amt" value="300000">
@@ -288,8 +287,8 @@
                                 </div>
                               </div>   
                               </center>             
-                              <!-----End of Netbanking Section-------->
-                              <!-------Enter Transaction Details------->
+                                <!-----End of Netbanking Section-------->
+                                <!-------Enter Transaction Details------->
                               <center>
                                 <div class="col-md-6 mt-3" id="trans_field" style="">
                                   <span class="text-primary">Transection ID</span>
@@ -299,8 +298,14 @@
                                 <!------End of Transaction Details-------->
                               </div>
                               <div class="hstack gap-2 justify-content-center mt-4">
-                                  <a href="javascript:void(0);" class="btn btn-link link-success fw-medium" data-bs-dismiss="modal"><i class="ri-close-line me-1 align-middle"></i> Close</a>
-                                  <button type="submit" class="btn btn-success">Completed</button>
+                                <input type="hidden" name="paid_booking_amt" id="paid_booking_amt" value="300000">
+                                <input type="hidden" name="booking_id" id="booking_id">
+                                <input type="hidden" name="total_cost" id="total_cost">
+                                
+                                <input type="hidden" name="booking_amt" id="booking_amt" value="300000">
+                                <input type="hidden" name="booking_type" id="booking_type">
+                                <a href="javascript:void(0);" class="btn btn-link link-success fw-medium" data-bs-dismiss="modal"><i class="ri-close-line me-1 align-middle"></i> Close</a>
+                                <button type="submit" class="btn btn-success">Completed</button>
                               </div>
                           </div>
                       </div>
@@ -365,15 +370,15 @@ $(document).ready(function(){
               console.log(booking_amt);
               $("#html_booking_amt").html(booking_amt);
               $("#booking_amt").val(amt);
+              $("#paid_booking_amt").val(amt);
           }
-          else if(amt_type == "percent"){
-
+          else if(amt_type == "percent"){            
               var tc = $("#total_cost").val();  
               var amt = Math.round(tc/100*35);
               var booking_amt = amt.toLocaleString('hi-IN');
               $("#html_booking_amt").html(booking_amt);
               $("#booking_amt").val(amt);
-
+              $("#paid_booking_amt").val(amt);
           }
 
         }           
@@ -387,15 +392,19 @@ $(document).ready(function(){
     $("#total_cost").val(tc);
     $("#calc_id").val(id);
 
-    /**----Reset Modal---------- */
-      $("#plan1").prop('checked', true);
-      var amt = 300000;
-      var booking_amt = amt.toLocaleString('hi-IN');
-      console.log(booking_amt);
-      $("#html_booking_amt").html(booking_amt);
-      $("#booking_amt").val(amt);
-  /**----End Reset Modal---------- */
-  });
+/**----Reset Modal---------- */
+
+    $("#plan1").prop('checked', true);
+    var amt = 300000;
+    var booking_amt = amt.toLocaleString('hi-IN');
+    console.log(booking_amt);
+    $("#html_booking_amt").html(booking_amt);
+    $("#booking_amt").val(amt);
+    $("#paid_booking_amt").val(amt);
+
+/**----End Reset Modal---------- */
+
+});
 
 
 $(document).on("click", ".btn_booking", function(){
@@ -442,6 +451,8 @@ $('#frmBooking').validate({
                   { 
                     //alert("Successfully Saved...");                    
                     var booking_id = spl_txt[2];
+                    $("#booking_id").val(booking_id);
+
                     if(booking_type == "btn_submit"){
                     ///**------Send Mail--------------------- */
                       $.ajax({ 
@@ -538,7 +549,7 @@ $('#frmTrans').validate({
       $(element).removeClass('is-invalid');
     },
     submitHandler: function(form) {      
-      var url = "<?php echo site_url('booking/ajax_booking_transaction')?>";
+      var url = "<?php echo site_url('booking/ajax_quick_transaction')?>";
       var frmdata = $("#frmTrans").serialize(); //new FormData($('#costForm')[0]);//$("#followupForm").serialize();  
           $.ajax({
               type: "POST",
@@ -546,17 +557,18 @@ $('#frmTrans').validate({
               data: frmdata, 
               success: function(data)
               { 
-                //console.log(data);                 
+                //console.log(data);
+                var booking_id = $("#booking_id").val();                 
                 var spl_txt = data.split("~~~");
                 if(spl_txt[1] == 1)
                 { 
-                  alert("Successfully updated...");
-                  location.reload();
+                  alert("Successfully Saved...");
+                  window.location.href = "<?php echo base_url();?>index.php/booking/booking_details/"+booking_id;
                 }
                 else if(spl_txt[1] == 2)
                 { 
                   alert("Successfully updated...");
-                  location.reload();
+                  //location.reload();
                 }
                 else
                 { 

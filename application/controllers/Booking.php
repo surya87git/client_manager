@@ -159,6 +159,7 @@ class Booking extends CI_Controller {
 			"aadhar_no"=>$this->input->post("aadhar_no") ?? "",
 			"booking_link"=> $booking_link
 		);
+		
 		if($booking_id == "")
 		{		
 			$current_date = date("Y-m-d H:i:s");
@@ -188,14 +189,14 @@ class Booking extends CI_Controller {
 	}
 	public function ajax_quick_transaction()
 	{
-
 		$booking_id = $this->input->post("booking_id") ?? "";
 		$trans_id = $this->input->post("trans_id") ?? "";
 		$frm_data = array(
-			"booking_id" => $this->input->post("booking_id") ?? "",
+			"booking_id" => $booking_id,
 			"paid_booking_amt" => $this->input->post("paid_booking_amt") ?? "",
 			"payment_mode" => $this->input->post("payment_mode") ?? "",		
 			"trans_id" => $trans_id,
+			"payment_date" => date("Y-m-d H:i:s"),
 			"create_date" => date("Y-m-d H:i:s"),
 			"ip" => $this->input->ip_address(),								
 		);

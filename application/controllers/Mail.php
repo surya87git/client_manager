@@ -168,8 +168,6 @@ class Mail extends CI_Controller {
 		    'mailtype'  => 'html',
 		    'charset'   => 'utf-8'
 		);		
-		
-		//$this->uri->segment(3);
 
 		$qry = "SELECT * FROM bkf_booking_form where id = $booking_id";
         $client_info = $this->Master_model->getCustom($qry);
@@ -197,7 +195,6 @@ class Mail extends CI_Controller {
 			$data['gen'] = "Sir";
 		}
 		
-
 		$qry = "SELECT * FROM bkf_booking_transaction where booking_id = $booking_id";
         $trans_detail = $this->Master_model->getCustom($qry);
 
@@ -211,6 +208,7 @@ class Mail extends CI_Controller {
 		
 		if($is_attachment == "yes")
 		{
+			//$this->email->attach('https://www.ukcdesigner.in/client_manager/assets/booking_file/'.$booking_file);
 			$this->email->attach('http://192.168.1.4/cost_calc/assets/booking_file/'.$booking_file);
 		}
 		if($this->email->send()){
