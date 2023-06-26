@@ -21,8 +21,6 @@
                     </span>
                 </a>
             </div>
-
-
         <button type="button" class="btn btn-sm px-3 fs-16 header-item vertical-menu-btn topnav-hamburger" id="topnav-hamburger-icon">
                 <span class="hamburger-icon">
                     <span></span>
@@ -338,11 +336,92 @@
                            <i class="ri-profile-line"></i> <span>User Logs</span>
                         </a>        
                     </li-->
-                    <li class="nav-item">
-                        <a href="<?php echo base_url('index.php/booking/logout/')?>" class="nav-link" href="logout.php">
-                           <i class="ri-logout-box-line"></i> <span>Sign Out</span>
-                        </a>        
-                    </li>
+                    
+                    <hr style="color: white;">
+                    <li class="menu-title"><span data-key="t-menu">Client Portal</span></li>
+                        <li class="nav-item">
+                            <a class="nav-link menu-link collapsed" href="#sidebarPages" data-bs-toggle="collapse" role="button" aria-expanded="true" aria-controls="sidebarPages">
+                                <i class="ri-pages-line"></i> <span data-key="t-pages">Master</span>
+                            </a>
+                            <div class="collapse menu-dropdown" id="sidebarPages">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="<?php echo site_url('/clientmanager/add_usertype')?>" class="nav-link" data-key="t-starter">Add User Type</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="<?php echo site_url('/clientmanager/addfacilitiesworktag')?>" class="nav-link" data-key="t-team">Add Facilities / Work Tag</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link menu-link collapsed" href="#ProjectDetails" data-bs-toggle="collapse" role="button" aria-expanded="true" aria-controls="sidebarPages">
+                                <i class="ri-pages-line"></i> <span data-key="t-pages">Project Details</span>
+                            </a>
+                            <div class="collapse menu-dropdown" id="ProjectDetails">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="#StageDetails" class="nav-link collapsed" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarProfile" data-key="t-profile">Stage Details
+                                        </a>
+                                        <div class="collapse menu-dropdown" id="StageDetails">
+                                            <ul class="nav nav-sm flex-column">
+                                                <li class="nav-item">
+                                                    <a href="<?php echo site_url('/clientmanager/addstages')?>" class="nav-link" data-key="t-simple-page">
+                                                        Add Stages</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="<?php echo site_url('/clientmanager/addstagedetails')?>" class="nav-link" data-key="t-simple-page">
+                                                        Stage Details</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="<?php echo site_url('/clientmanager/stagedetaillist')?>" class="nav-link" data-key="t-simple-page">
+                                                        Stage Details List</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="<?php echo site_url('/clientmanager/stagepayment')?>" class="nav-link" data-key="t-simple-page">
+                                                        Stage Payment List</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="#Gallery" class="nav-link collapsed" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarProfile" data-key="t-profile">Gallery
+                                        </a>
+                                        <div class="collapse menu-dropdown" id="Gallery">
+                                            <ul class="nav nav-sm flex-column">
+                                                <li class="nav-item">
+                                                    <a href="<?php echo site_url('/clientmanager/viewgallery')?>" class="nav-link" data-key="t-simple-page">
+                                                        View Gallery</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link menu-link collapsed " href="#sidebarPages" data-bs-toggle="collapse" role="button" aria-expanded="true" aria-controls="sidebarPages">
+                                <i class="ri-pages-line"></i> <span data-key="t-pages">Manage User</span>
+                            </a>
+                            <div class="collapse menu-dropdown" id="sidebarPages">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="<?php echo site_url('/clientmanager/adduser')?>" class="nav-link" data-key="t-starter">Add User</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="<?php echo site_url('/clientmanager/userlist')?>" class="nav-link" data-key="t-team">User List</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a href="<?php echo site_url('booking/logout/')?>" class="nav-link" href="logout.php">
+                            <i class="ri-logout-box-line"></i> <span>Sign Out</span>
+                            </a>        
+                        </li>
                     
                 </ul>
             </div>

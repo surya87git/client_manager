@@ -29,7 +29,6 @@
             <span style="color: red;"><b>two days.</b> </span>  
             This will allow us to proceed with your booking promptly and provide you with the best possible service.
           </p>          
-          <p style="margin-top: 20px;font-family:Arial,sans-serif;"><a href="<?php echo base_url('index.php/welcome/client_review/'.$link); ?>" target="_blank" style="background: #ffffff; border: 2px solid #a6976e; text-decoration: none; padding: 10px 25px; color: #ab8238; border-radius: 4px; display:inline-block; mso-padding-alt:0;text-underline-color:#ffffff"><span style="mso-text-raise:10pt;font-weight:bold;">Verify and Pay</span></a></p>
           <p style="margin-top: 20px; color: black; text-align: left; margin-left: 20px;margin-right: 20px;">
             If you have any questions or require any assistance while filling out the form, please do not hesitate to contact us.
             Our team is here to support you throughout the process and ensure your experience with us is exceptional.

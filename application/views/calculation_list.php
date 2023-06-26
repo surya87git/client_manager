@@ -72,7 +72,7 @@
                               <td>Rs.&nbsp;<?php echo number_format(round($row->total_cost));?></td>
                               <td><?php echo $row->create_by;?></td>
                               <td>
-                              <?php if($row->booking_id != ""){?>
+                              <?php if($row->booking_id > 0 ){?>
                                 <a href="<?php echo base_url("index.php/booking/booking_details/$row->booking_id");?>" class="badge rounded-pill badge-soft-danger">Booked</a>
                               <?php }else{?>
                                 <a href="javascript:void(0);" tc="<?php echo $row->total_cost;?>" id="<?php echo $row->id;?>" class="badge rounded-pill badge-soft-success" data-bs-toggle="modal" data-bs-target="#myModal" >Book Now</a>
@@ -130,7 +130,7 @@
       </div>
       
       <!------Book Now Modal----------->
-        <div id="myModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"  style="display: none;" data-bs-backdrop="static" 
+        <div id="myModal" class="modal flip" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"  style="display: none;" data-bs-backdrop="static" 
             data-bs-keyboard="false" >
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -193,14 +193,19 @@
                           </div>
                       </div>
                       <div class="modal-footer">
-                        <input type="hidden" name="booking_id" id="booking_id">
                         <input type="hidden" name="total_cost" id="total_cost">
                         <input type="hidden" name="calc_id" id="calc_id">
                         <input type="hidden" name="booking_amt" id="booking_amt" value="300000">
+                        <input type="hidden" name="booking_type" id="booking_type">
                         <!-- Buttons with Label -->
-                        <button type="button" class="btn btn-success btn-label waves-effect waves-light"><i class="ri-secure-payment-fill label-icon align-middle fs-16 me-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i> Pay Now</button>
-                        <button type="button" class="btn btn-danger btn-label waves-effect waves-light"><i class=" ri-links-line label-icon align-middle fs-16 me-2"></i> Send link to Client</button>
-                        <button type="submit" id="btn_submit" class="btn btn-primary ">Submit</button>
+                        <!--button type="submit" id="btn_submit" class="btn btn-primary ">Submit</button-->                        
+                        <div id="div_mail">
+                          <button type="submit" id="btn_submit" value="btn_submit" class="btn_booking btn btn-danger btn-label waves-effect waves-light"><i class=" ri-links-line label-icon align-middle fs-16 me-2"></i> Send link to Client</button>
+                        </div>
+                        <div id="div_loader" style="display:none;">
+                          <a href="javascript:void(0);" class="btn btn-success btn-label waves-effect waves-light"><i class="ri-secure-payment-fill label-icon align-middle fs-16 me-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i>Processing...</a>
+                        </div>
+                          <button type="submit" id="btn_pay" value="btn_pay" class="btn_booking btn btn-success btn-label waves-effect waves-light"><i class="ri-secure-payment-fill label-icon align-middle fs-16 me-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i> Pay Now</button>
                       </div>
                   </form>
                 </div><!-- /.modal-content -->
@@ -208,90 +213,12 @@
             
         </div><!-- /.modal -->
         <!------End of Book Now Modal----------->
-        
-        <!------Book Now Modal----------->
-        <div id="myModal2" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"  style="display: none;" data-bs-backdrop="static" 
-            data-bs-keyboard="false" >
-            <div class="modal-dialog">
+                
+      <!-- Pay Now-->
+        <div class="modal fadeInUp" id="paynow" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="myModalLabel">Quick Booking</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
-                    </div>
-                    <hr>
-                    <form id="frmBooking">
-                      <div class="modal-body">
-                          <h6 class="text-primary" style="margin-top:-18px">Here is the Booking Plan</h6>
-                            <div class="row">
-                                <div class="col-md-6">
-                                  <div>
-                                      <div class="icheck-success d-inline">
-                                        <input type="radio" checked class="switcher" name="plan" value="fixed" id="plan1">
-                                        <label title="Checked" for="plan1">Plan 1 <br>
-                                          <span>Rs. 3,00,000</span></label><br>
-                                      </div>
-                                  </div>
-                                </div>
-                                <div class="col-md-6">
-                                  <div>
-                                      <div class="icheck-success d-inline">
-                                        <input type="radio"  class="switcher" name="plan" value="percent" id="plan2">
-                                        <label title="Checked" for="plan2">Plan 2<br>
-                                          <span>35 %  of Estimate Cost</span></label><br>
-                                      </div>
-                                  </div>
-                                </div>
-                            </div>
-                            <br>
-                            <p class="text-danger mt-2" style="text-align: center;"><b> Total Booking Amount: Rs. <span id="html_booking_amt">3,00,000</span>/-</b></p>
-                            <hr style="border-top: 1px solid red;">
-                            <div class="row mt-2">
-                              <div class="col-md-12 mt-2">
-                                <label for="">Enter Name</label>
-                                <input type="text" id="client_name" name="client_name" class="form-control" placeholder="Enter Name" required>
-                              </div>
-                              <div class="col-md-6 mt-2">
-                                <label for="">Enter Mobile No.</label>
-                                <input type="number"  id="mobile_no" name="mobile_no" class="form-control" placeholder="Enter Mobile number" required>
-                              </div>
-                              <div class="col-md-6 mt-2">
-                                <label for="">Enter Email Address</label>
-                                <input type="email"  id="email_id" name="email_id" class="form-control" placeholder="Enter Email Address" required>
-                              </div>
-                              <div class="col-md-6 mt-2">
-                                <label for="">Enter Adhaar Card No.</label>
-                                <input type="text"  id="aadhar_no" name="aadhar_no" class="form-control" placeholder="Enter Adhaar Card No." required>
-                              </div>
-                              <div class="col-md-6 mt-2">
-                                <label for="">Enter Pan No.</label>
-                                <input type="text"  id="pan_no" name="pan_no" class="form-control" placeholder="Enter Pancard No." required>
-                              </div>
-                              <div class="col-md-12 mt-2">
-                                <label for="">Enter Payment Link</label>
-                                <input type="text"  id="booking_link" name="booking_link" class="form-control" placeholder="Enter Payment Link" required>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="modal-footer">
-                        <input type="hidden" name="booking_id" id="booking_id">
-                        <input type="hidden" name="total_cost" id="total_cost">
-                        <input type="hidden" name="calc_id" id="calc_id">
-                        <input type="hidden" name="booking_amt" id="booking_amt" value="300000">
-                        <!-- Buttons with Label -->
-                        <button type="button" class="btn btn-success btn-label waves-effect waves-light"><i class="ri-secure-payment-fill label-icon align-middle fs-16 me-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i> Pay Now</button>
-                        <button type="button" class="btn btn-danger btn-label waves-effect waves-light"><i class=" ri-links-line label-icon align-middle fs-16 me-2"></i> Send link to Client</button>
-                        <button type="submit" id="btn_submit" class="btn btn-primary ">Submit</button>
-                      </div>
-                  </form>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-            
-        </div><!-- /.modal -->
-        <!------End of Book Now Modal----------->
-        <!-- Pay Now-->
-          <div class="modal fade" id="paynow" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered" role="document">
-                  <div class="modal-content">
+                    <form id="frmTrans">
                       <div class="modal-body">
                           <div class="mt-2">
                             <h4 class="text-danger" style="text-align:center;">Pay Now</h4>
@@ -309,14 +236,7 @@
                                 <input type="radio" id="chk_neft" name="payment_mode" value="NEFT/RTGS/IMPS" class="form-check-input">
                                 <label for="chk_neft" class="form-check-label">NEFT/RTGS/IMPS</label>
                               </div>
-                              <!-------Qr Code----------->
-                              <center><div class="col-12 mt-3" id="" style="">
-                                <span class="form-label text-primary">QR Code</span>
-                                <div class="col-12 mt-1">
-                                  <img src="http://localhost/cost_calc/assets/images/qr-3,00,000.jpeg" alt="" width="200px">
-                                </div>
-                              </div></center>
-                              <!-------End of Qr Code----------->
+                              
                               <!----------Link Section----------->
                               <center>
                               <div class="col-12 mt-3" id="" style="">
@@ -367,27 +287,34 @@
                                 </div>
                               </div>   
                               </center>             
-                              <!-----End of Netbanking Section-------->
-                              <!-------Enter Transaction Details------->
+                                <!-----End of Netbanking Section-------->
+                                <!-------Enter Transaction Details------->
                               <center>
-                              <div class="col-md-6 mt-3" id="trans_field" style="">
+                                <div class="col-md-6 mt-3" id="trans_field" style="">
                                   <span class="text-primary">Transection ID</span>
                                   <input type="text" id="trans_id" name="trans_id" value="" class="form-control" placeholder="Enter Transaction Id" required="">
                                 </div>
-                                </center>
-                              <!------End of Transaction Details-------->
+                              </center>
+                                <!------End of Transaction Details-------->
                               </div>
                               <div class="hstack gap-2 justify-content-center mt-4">
-                                  <a href="javascript:void(0);" class="btn btn-link link-success fw-medium" data-bs-dismiss="modal"><i class="ri-close-line me-1 align-middle"></i> Close</a>
-                                  <a href="javascript:void(0);" class="btn btn-success">Completed</a>
+                                <input type="hidden" name="paid_booking_amt" id="paid_booking_amt" value="300000">
+                                <input type="hidden" name="booking_id" id="booking_id">
+                                <input type="hidden" name="total_cost" id="total_cost">
+                                
+                                <input type="hidden" name="booking_amt" id="booking_amt" value="300000">
+                                <input type="hidden" name="booking_type" id="booking_type">
+                                <a href="javascript:void(0);" class="btn btn-link link-success fw-medium" data-bs-dismiss="modal"><i class="ri-close-line me-1 align-middle"></i> Close</a>
+                                <button type="submit" class="btn btn-success">Completed</button>
                               </div>
                           </div>
                       </div>
-                  </div>
-              </div>
-          </div>
-        
-        <!-- container-fluid -->
+                    </form>
+                </div>
+            </div>
+        </div>        
+      <!-- container-fluid -->
+
     </div>
     
     <!-- End Page-content -->
@@ -429,10 +356,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 <script src="<?php echo base_url();?>assets/js/app.js"></script>
 
-<script type="text/javascript"> 
-$(document).ready(function(){
-  
+<script type="text/javascript">
 
+$(document).ready(function(){
   $(".switcher").on("click", function(){
     var amt_type = $(this).val();
     
@@ -444,16 +370,15 @@ $(document).ready(function(){
               console.log(booking_amt);
               $("#html_booking_amt").html(booking_amt);
               $("#booking_amt").val(amt);
+              $("#paid_booking_amt").val(amt);
           }
-          else if(amt_type == "percent"){
-              var tc = $("#total_cost").val();
-              
+          else if(amt_type == "percent"){            
+              var tc = $("#total_cost").val();  
               var amt = Math.round(tc/100*35);
-              
               var booking_amt = amt.toLocaleString('hi-IN');
               $("#html_booking_amt").html(booking_amt);
               $("#booking_amt").val(amt);
-
+              $("#paid_booking_amt").val(amt);
           }
 
         }           
@@ -467,16 +392,24 @@ $(document).ready(function(){
     $("#total_cost").val(tc);
     $("#calc_id").val(id);
 
-    /**----Reset Modal---------- */
-      $("#plan1").prop('checked', true);
-      var amt = 300000;
-      var booking_amt = amt.toLocaleString('hi-IN');
-      console.log(booking_amt);
-      $("#html_booking_amt").html(booking_amt);
-      $("#booking_amt").val(amt);
-  /**----End Reset Modal---------- */
+/**----Reset Modal---------- */
 
-  });
+    $("#plan1").prop('checked', true);
+    var amt = 300000;
+    var booking_amt = amt.toLocaleString('hi-IN');
+    console.log(booking_amt);
+    $("#html_booking_amt").html(booking_amt);
+    $("#booking_amt").val(amt);
+    $("#paid_booking_amt").val(amt);
+
+/**----End Reset Modal---------- */
+
+});
+
+
+$(document).on("click", ".btn_booking", function(){
+  $("#booking_type").val($(this).val());
+});
 
 $('#frmBooking').validate({
     rules: {     
@@ -496,6 +429,9 @@ $('#frmBooking').validate({
     },
     submitHandler: function(form) {      
       
+      var booking_type = $("#booking_type").val(); 
+      //alert(booking_type);
+      //return false;
       var url = "<?php echo site_url('booking/ajax_quick_booking')?>";
       //var frmdata = $("#frmDoc").serialize(); //new FormData($('#costForm')[0]);//$("#followupForm").serialize();  
       var frmdata = new FormData($('#frmBooking')[0]);
@@ -505,32 +441,148 @@ $('#frmBooking').validate({
               url: url,
               data: frmdata,
               processData: false,
-              contentType: false,  
+              contentType: false,
+                
               success: function(data)
               { 
                   console.log(data);                 
                   var spl_txt = data.split("~~~");
                   if(spl_txt[1] == 1)
                   { 
-                    alert("Successfully Saved...");
-                    location.reload();
+                    //alert("Successfully Saved...");                    
+                    var booking_id = spl_txt[2];
+                    $("#booking_id").val(booking_id);
+
+                    if(booking_type == "btn_submit"){
+                    ///**------Send Mail--------------------- */
+                      $.ajax({ 
+                            url: "<?php echo site_url('mail/send_booking_mail')?>", 
+                            type: "POST",
+                            data: ({booking_id: booking_id, mail_type: "link"}),
+                            beforeSend: function(){
+                              $("#div_mail").hide();
+                              $("#div_loader").show();
+                              //console.log("before send..............");
+                            },
+                            success: function(data)
+                            {
+                              console.log("~~~~!"+data);
+
+                              $("#div_loader").html("Successfully Sent...");;
+                              setTimeout(() => {
+                                $("#div_mail").show();
+                                $("#div_loader").hide();        
+                              }, 5000);  
+                            },
+                            error: function() {                       
+                            setTimeout(() => {
+                              $("#div_mail").show();
+                              $("#div_loader").hide();        
+                            }, 5000);
+                          },
+                            complete: function() {               
+                              setTimeout(() => {
+                                $("#div_mail").show();
+                                $("#div_loader").hide();        
+                              }, 5000);  
+                            }
+                        });
+                    /**-----------End Mail script------------------------- */  
+                    }
+                    else{
+                      alert("Successfully Saved...");
+                       $('#myModal').modal('hide');                      
+                       $('#paynow').modal('show');                    
+                    }
+                    //location.reload();
                   }
                  else if(spl_txt[1] == 2)
                   { 
                     alert("Successfully updated...");
-                    location.reload();
+                    //location.reload();
                   }
                   else
                   { 
                     alert("Something went wrong...");                   
                   }   
-              }
+              },
+            
           });
       }
   });
+/***-------------------------------------------------------------------------------- */
 
 
+/**---------------------Transaction Details--------------------------------------- */  
+$('#frmTrans').validate({
+    rules: {
+      offer_amt:{
+        required: true
+      },
+      final_rate: {
+        required: true
+      },
+      final_amt: {
+        required: true
+      }
+    },
+    messages: {
+      offer_amt:{
+        required: 'Enter client Name'
+      },
+      final_rate: {
+        required: 'Enter Email Id'
+      },
+      final_amt: {
+        required: 'Enter Email Id'
+      }   
+    },
+    errorElement: 'span',
+    errorPlacement: function (error, element) {
+      error.addClass('invalid-feedback');
+      element.closest('.form-group').append(error);
+    },
+    highlight: function (element, errorClass, validClass) {
+      $(element).addClass('is-invalid');
+    },
+    unhighlight: function (element, errorClass, validClass) {
+      $(element).removeClass('is-invalid');
+    },
+    submitHandler: function(form) {      
+      var url = "<?php echo site_url('booking/ajax_quick_transaction')?>";
+      var frmdata = $("#frmTrans").serialize(); //new FormData($('#costForm')[0]);//$("#followupForm").serialize();  
+          $.ajax({
+              type: "POST",
+              url: url,
+              data: frmdata, 
+              success: function(data)
+              { 
+                //console.log(data);
+                var booking_id = $("#booking_id").val();                 
+                var spl_txt = data.split("~~~");
+                if(spl_txt[1] == 1)
+                { 
+                  alert("Successfully Saved...");
+                  window.location.href = "<?php echo base_url();?>index.php/booking/booking_details/"+booking_id;
+                }
+                else if(spl_txt[1] == 2)
+                { 
+                  alert("Successfully updated...");
+                  //location.reload();
+                }
+                else
+                { 
+                  alert("Something went wrong...");
+                  //$("#btn_topup").show();  
+                }   
+              }
+          });
+      }
 
+  });
+
+
+/**----------------------------------------------------------------------------------- */
   $('#example').DataTable({
       "paging": true,
       "lengthChange": false,
@@ -582,8 +634,4 @@ $('#frmBooking').validate({
 
 });
 
-</script>
-
-<?php
-  include("footer.php");
-?>
+</script> 

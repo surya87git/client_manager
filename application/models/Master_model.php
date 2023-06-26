@@ -124,6 +124,32 @@ class Master_model extends CI_Model {
                 return $res[0]->cnt;
                 // return $res;
         }
+
+
+        public function headerAuth(){
+
+           $authHeader = $this->input->get_request_header('Authorization', TRUE);;
+           
+           $token = str_replace('Bearer ', '', $authHeader);
+
+           $query = $this->db->query("select count(id) as cnt from tbl_access_token where access_token = '$token' and status = 1");
+           $res = $query->result();
+           
+           $query = $this->db->query("select count(id) as cnt from tbl_access_token where access_token = '$token' and status = 1"); 
+           $res = $query->result();                    
+           return $res[0]->cnt;
+
+          //return $query->num_rows();
+           
+        }
+
+        public function jsonData()
+        {
+            $input_content = file_get_contents('php://input');
+            $response_data = json_decode($input_content, true);
+            $response_data = array_map('xss_clean', $response_data);
+            return $response_data;
+        }
         
 }
 

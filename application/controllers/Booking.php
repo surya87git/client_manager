@@ -15,7 +15,6 @@ class Booking extends CI_Controller {
 		//$this->load->library('upload');
 		$this->load->database();
 	    $this->load->model("Master_model"); 
-		
 		//$this->check_login();
 	}	 
 
@@ -142,6 +141,7 @@ class Booking extends CI_Controller {
 
 		//echo $this->db->last_query();
 	}
+
 	public function ajax_quick_booking()
 	{
 		$booking_id = $this->input->post("bid"); 
@@ -158,7 +158,7 @@ class Booking extends CI_Controller {
 			"aadhar_no"=>$this->input->post("aadhar_no") ?? "",
 			"booking_link"=> $booking_link
 		);
-
+		
 		if($booking_id == "")
 		{		
 			$current_date = date("Y-m-d H:i:s");
@@ -171,7 +171,11 @@ class Booking extends CI_Controller {
 			$f_data = array("booking_id"=>$last_id, "booking_date"=>$current_date);
 			$where_arr = array("id"=>$calc_id);
 			$res = $this->Master_model->updateArr("tbl_cost_calculator_new", $f_data, $where_arr);		
+			if($res){
 
+
+
+			}
 			echo "~~~1~~~".$last_id."~~~";
 		}
 		else
@@ -181,6 +185,38 @@ class Booking extends CI_Controller {
 			$res = $this->Master_model->updateData("bkf_booking_form", $frm_data);
 			echo "~~~2~~~0~~~";
 		}
+	}
+	public function ajax_quick_transaction()
+	{
+		$booking_id = $this->input->post("booking_id") ?? "";
+		$trans_id = $this->input->post("trans_id") ?? "";
+		$frm_data = array(
+			"booking_id" => $booking_id,
+			"paid_booking_amt" => $this->input->post("paid_booking_amt") ?? "",
+			"payment_mode" => $this->input->post("payment_mode") ?? "",		
+			"trans_id" => $trans_id,
+			"payment_date" => date("Y-m-d H:i:s"),
+			"create_date" => date("Y-m-d H:i:s"),
+			"ip" => $this->input->ip_address(),								
+		);
+		if($trans_id != "" && $booking_id != "")
+		{
+			$res = $this->Master_model->saveData("bkf_booking_transaction", $frm_data);
+			$last_id = $this->db->insert_id();
+			if($res)
+			{
+				echo "~~~1~~~".$last_id."~~~";
+			}
+			else
+			{
+				echo "~~~0~~~";
+			}
+		}
+		else
+		{
+			echo "~~~0~~~";
+		}
+
 	}
 	public function ajax_client_info()
 	{			

@@ -18,6 +18,8 @@
     <script src="<?php echo base_url();?>assets/js/layout.js"></script>
     <!-- Bootstrap Css -->
     <link href="<?php echo base_url();?>assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- glightbox css -->
+    <link rel="stylesheet" href="<?php echo base_url();?>assets/libs/glightbox/css/glightbox.min.css">
     <!--font awesome cdn---->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/fontawesome.min.css" integrity="sha512-RvQxwf+3zJuNwl4e0sZjQeX7kUa3o82bDETpgVCH2RiwYSZVDdFJ7N/woNigN/ldyOOoKw8584jM4plQdt8bhA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Icons Css --> 
