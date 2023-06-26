@@ -962,8 +962,8 @@
 
     $("#myModal").modal('show');///open cost calculator modal
 
-    $('#cheque_data').datepicker({
-      format: 'dd-mm-yyyy'});
+    $('#cheque_data').datepicker({ format: 'dd-mm-yyyy'});
+      
     $('#cheque_data').datepicker({ dateFormat: 'dd-mm-yy' }).val();
 
     $("#v-pills-bill-address-tab").prop("disabled", true);

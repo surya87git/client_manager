@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class ClientApi extends CI_Controller {
 
+    public $permission;
     public function __construct() {
         
         parent::__construct(); 
@@ -17,19 +18,23 @@ class ClientApi extends CI_Controller {
 		$this->load->database();
 	    $this->load->model("Master_model"); 
 
-    }
-    public function index(){
-      //echo "Client dashboard";
+        $this->$permission = $this->Master_model->headerAuth();
+
+        //if($permission == 0){
+            //$response = array('code'=>401, 'status' => 'error', 'message' => 'Unauthorised Access');
+            //return $this->output->set_status_header(401)->set_content_type('application/json')->set_output(json_encode($response));
+            //return $this->output->set_status_header(401);
+            //exit;
+        //}
+
     }
     
-
     public function login(){
         
         $data = array();
         $login_content = file_get_contents('php://input');
         $json_data = json_decode($login_content, true);
         $json_data = array_map('xss_clean', $json_data);
-
 
         $login_id = $json_data['login_id'];
         $login_password = $json_data['login_password'];
@@ -71,15 +76,6 @@ class ClientApi extends CI_Controller {
       
     }
 
-    public function generat_token(){
-        
-        $token = $this->master->genToken(100, "client");
-        
-    }
-
-    
-
-
     public function get_user_data()
     {
        
@@ -109,26 +105,21 @@ class ClientApi extends CI_Controller {
         $this->output->set_content_type('application/json')->set_output(json_encode($response));
     }
 
-
-
-
-
     public function dashboard(){
+              
+        if($this->$permission == 0){       
+            return $this->output->set_status_header(401);
+            exit;
+        }   
 
-        $data['status'] = 'Error';
-        $data['code'] = 300;
-        $data['message'] ="" ;
-
-        echo $res = $this->Master_model->headerAuth();
-
-        print_r($res);
-
-        exit;
+        $data = array();
         
-		$qry = "SELECT a.* FROM bkf_booking_form a where booking_id = ";
-
-		$data['result'] = $this->Master_model->getCustom($qry);
-
+        $input_res = $this->Master_model->jsonData();
+        $booking_id = $input_res['booking_id'];
+        
+		$qry = "SELECT a.* FROM bkf_booking_form a where booking_id = $booking_id";       
+        $client_info = $this->Master_model->getCustom($qry);
+        
 
     }
 

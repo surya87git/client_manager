@@ -15,7 +15,6 @@ class Booking extends CI_Controller {
 		//$this->load->library('upload');
 		$this->load->database();
 	    $this->load->model("Master_model"); 
-		
 		//$this->check_login();
 	}	 
 
