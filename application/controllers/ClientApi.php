@@ -118,8 +118,7 @@ class ClientApi extends CI_Controller {
         $booking_id = $input_res['booking_id'];
         
 		$qry = "SELECT a.* FROM bkf_booking_form a where booking_id = $booking_id";       
-        $client_info = $this->Master_model->getCustom($qry);
-        
+        $data['client_info'] = $this->Master_model->getCustom($qry);
 
     }
 
