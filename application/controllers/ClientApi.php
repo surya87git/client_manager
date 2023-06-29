@@ -66,43 +66,13 @@ class ClientApi extends CI_Controller {
         }
         else{
 
-            $response = array('code' => 300, 'status' => 'success', 'message' => 'Invalid User Id OR Password');
+            $response = array('code' => 300, 'status' => 'error', 'message' => 'Invalid User Id OR Password');
 
         }
 
         $merg_res = array_merge($data, $response);
         $this->output->set_content_type('application/json')->set_output(json_encode($merg_res));
-
       
-    }
-
-    public function get_user_data()
-    {
-       
-
-        $jsonPayload = file_get_contents('php://input');
-        $data = json_decode($jsonPayload, true);
-
-        $res = $this->headerAuth();
-
-        print_r($res);
-
-        if (!$validToken) {
-            $response = array('status' => 'error', 'message' => 'Invalid token');
-            $this->output->set_content_type('application/json')->set_output(json_encode($response));
-            return;
-        }
-
-        // Fetch user data from the database
-        $userData = $this->Master->getUserData();
-
-        if ($userData) {
-            $response = array('status' => 'success', 'data' => $userData);
-        } else {
-            $response = array('status' => 'error', 'message' => 'Failed to fetch user data');
-        }
-
-        $this->output->set_content_type('application/json')->set_output(json_encode($response));
     }
 
     public function dashboard(){
@@ -111,15 +81,29 @@ class ClientApi extends CI_Controller {
             return $this->output->set_status_header(401);
             exit;
         }   
-
         $data = array();
         
         $input_res = $this->Master_model->jsonData();
         $booking_id = $input_res['booking_id'];
         
-		$qry = "SELECT a.* FROM bkf_booking_form a where booking_id = $booking_id";       
-        $data['client_info'] = $this->Master_model->getCustom($qry);
+        $qry = "";
+        $qry .= "SELECT a.id AS booking_id, DATE_FORMAT(a.create_date, '%d, %M %Y') AS booking_date, b.final_amt AS project_cost, DATE_FORMAT(c.aggr_period, '%d, %M %Y') AS aggrement_date, DATE_FORMAT(c.work_start_on, '%d, %M %Y') AS start_date, c.comp_period AS end_date ";
+        $qry .= "FROM bkf_booking_form a LEFT JOIN bkf_booking_transaction b ON a.id = b.booking_id ";
+        $qry .= "LEFT JOIN bkf_commitment c ON a.id = c.booking_id ";
+		$qry .= "where a.id = $booking_id";  
 
+        $data['client_info'] = $this->Master_model->getCustom($qry)[0];
+
+        if($data['client_info']){
+          $response = array('code' => 200, 'status' => 'success', 'message' => 'Success');
+        }
+        else{
+          $response = array('code' => 300, 'status' => 'error', 'message' => 'Invalid User Id OR Password');
+        }
+
+        $merg_res = array_merge($data, $response);
+        $this->output->set_content_type('application/json')->set_output(json_encode($merg_res));
+        
     }
 
 }
