@@ -23,18 +23,55 @@ class Clientmanager extends CI_Controller {
 		$this->load->view('addusertype');
     }
 
+
     public function addfacilitiesworktag(){
          
 		$this->load->view('header');
 		$this->load->view('top_sidebar');
 		$this->load->view('addfacilitiesworktag');
     }
+	public function ajax_work_stages()
+	{		
+		$frm_data = array(			
+			"stage_name" => $this->input->post("stage_name"),			
+			"ip"=> $this->input->ip_address(),	
+		);
+		$stage_id = $this->input->post("stage_id");
+		if($stage_id != ""){
 
-	public function addstages(){
-         
+			$frm_data['id'] = $stage_id;
+			$frm_data['update_date'] = date("Y-m-d H:i:s");
+			$res = $this->Master_model->updateData("tbl_work_stages", $frm_data);
+			if($res){
+				echo "~~~2~~~$stage_id~~~";
+			}
+			else{
+				echo "~~~0~~~";
+			}  			
+		}
+		else{
+
+			$frm_data['create_date'] = date("Y-m-d H:i:s");
+			$res = $this->Master_model->saveData("tbl_work_stages", $frm_data);
+			$id = $this->db->insert_id();
+
+			if($res){
+				echo "~~~1~~~$id~~~";
+			}
+			else{
+				echo "~~~0~~~";
+			}
+			
+		}
+			
+	}
+	public function manage_stages(){    
+		$qry = "SELECT * FROM tbl_work_stages where status = 1";
+		$data['stage_list'] = $this->Master_model->getCustom($qry);
+
 		$this->load->view('header');
 		$this->load->view('top_sidebar');
-		$this->load->view('addstages');
+		$this->load->view('manage_stages', $data);
     }
 	public function addstagedetails(){
          
@@ -42,13 +79,13 @@ class Clientmanager extends CI_Controller {
 		$this->load->view('top_sidebar');
 		$this->load->view('addstagedetails');
     }
-
 	public function stagedetaillist(){
          
 		$this->load->view('header');
 		$this->load->view('top_sidebar');
 		$this->load->view('stagedetaillist');
     }
+
 
 	public function stagepayment(){
          
@@ -78,6 +115,18 @@ class Clientmanager extends CI_Controller {
 		$this->load->view('top_sidebar');
 		$this->load->view('userlist');
     }
+
+	public function ajax_trash()
+	{					
+		$id = $this->input->post('id');
+		$source = $this->input->post('source');
+
+		$frm_data = array();
+		$frm_data["id"] = $id;
+		$frm_data["status"] = 0;
+
+		echo $res = $this->Master_model->updateData($source, $frm_data);		
+	}
 
 }
 ?>

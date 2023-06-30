@@ -366,8 +366,8 @@
                                         <div class="collapse menu-dropdown" id="StageDetails">
                                             <ul class="nav nav-sm flex-column">
                                                 <li class="nav-item">
-                                                    <a href="<?php echo site_url('/clientmanager/addstages')?>" class="nav-link" data-key="t-simple-page">
-                                                        Add Stages</a>
+                                                    <a href="<?php echo site_url('/clientmanager/manage_stages')?>" class="nav-link" data-key="t-simple-page">
+                                                        Manage Stages</a>
                                                 </li>
                                                 <li class="nav-item">
                                                     <a href="<?php echo site_url('/clientmanager/addstagedetails')?>" class="nav-link" data-key="t-simple-page">
