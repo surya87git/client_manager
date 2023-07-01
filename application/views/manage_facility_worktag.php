@@ -32,23 +32,24 @@
                         <div class="form-group">
                           <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Category</label>
                           <div class="col-md-12 col-sm-12 col-xs-12">
-                            <select class=" js-example-basic-multiple select2_single form-control" name="facility" tabindex="-1">
-                              <option value="">Select Category</option>
-                              <option value="1">Facility</option>
-                              <option value="2">Work Tag</option>
+                            <select class=" js-example-basic-multiple select2_single form-control" name="cat_id" tabindex="-1">
+                              <option>Select Category</option>
+                              <option <?php if($cat_id == 1){ echo 'selected="selected"';}?> value="1">Facility</option>
+                              <option <?php if($cat_id == 2){ echo 'selected="selected"';}?> value="2">Work Tag</option>
                             </select>
                           </div>
                         </div>
                         <div class="form-group mt-3">
                           <label class="control-label col-md-3 col-sm-3 col-xs-12">Enter Name</label>
                           <div class="col-md-12 col-sm-12 col-xs-12">
-                            <input type="text" class="form-control col-md-7 col-xs-12" name="fac_name" placeholder="Enter Name" required>
+                            <input type="text" class="form-control col-md-7 col-xs-12" id="facility" name="facility" value="<?php echo $name;?>" placeholder="Enter Name" required>
                           </div>
                         </div>
                         <div class="ln_solid"></div>
                         <div class="form-group mt-3">
                           <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                            <button class="btn btn-primary" type="button">Cancel</button>
+                            <input type="hidden" name="f_id" value="<?php echo $id; ?>">
+                            <a href="<?php echo base_url("index.php/clientmanager/manage_facility_worktag");?>" class="btn btn-warning">Reset</a>
                             <button type="submit" class="btn btn-success">Submit</button>
                           </div>
                         </div>
@@ -74,64 +75,33 @@
                     <table class="table align-middle table-nowrap mb-0">
                       <thead>
                         <tr>
-                          <th scope="col">ID</th>
-                          <th scope="col">Category</th>
+                          <th scope="col">#</th>                         
                           <th scope="col">Facility Name</th>
                           <th scope="col">Action</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <th scope="row">
-                            <a href="#" class="fw-medium">1</a>
-                          </th>
-                          <td>Role</td>
-                          <td>Admin</td>
+                      <?php if($facility_list){
+                          $cnt=0;
+                          foreach($facility_list as $res){
+                            $cnt++;
+                        ?>
+                        <tr id="tr_<?php echo $res->id;?>">
+                          <td class="td_list"><?php echo $cnt;?></td>
+                          <td><?php echo $res->name; ?></td>
+                         
                           <td>
                             <div class="hstack gap-3 flex-wrap">
-                              <a href="javascript:void(0);" class="link-success fs-15">
+                              <a href="<?php echo base_url("index.php/clientmanager/manage_facility_worktag/".$res->id);?>" class="link-success fs-15">
                                 <i class="ri-edit-2-line"></i>
                               </a>
-                              <a href="javascript:void(0);" class="link-danger fs-15">
-                                <i class="ri-delete-bin-line"></i>
-                              </a>
+                              <a href="javascript:void(0);" rid="<?php echo $res->id;?>" class="trash link-danger fs-15"><i class="ri-delete-bin-line"></i></a>
                             </div>
                           </td>
                         </tr>
-                        <tr>
-                          <th scope="row">
-                            <a href="#" class="fw-medium">1</a>
-                          </th>
-                          <td>Role</td>
-                          <td>Admin</td>
-                          <td>
-                            <div class="hstack gap-3 flex-wrap">
-                              <a href="javascript:void(0);" class="link-success fs-15">
-                                <i class="ri-edit-2-line"></i>
-                              </a>
-                              <a href="javascript:void(0);" class="link-danger fs-15">
-                                <i class="ri-delete-bin-line"></i>
-                              </a>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <th scope="row">
-                            <a href="#" class="fw-medium">1</a>
-                          </th>
-                          <td>Role</td>
-                          <td>Admin</td>
-                          <td>
-                            <div class="hstack gap-3 flex-wrap">
-                              <a href="javascript:void(0);" class="link-success fs-15">
-                                <i class="ri-edit-2-line"></i>
-                              </a>
-                              <a href="javascript:void(0);" class="link-danger fs-15">
-                                <i class="ri-delete-bin-line"></i>
-                              </a>
-                            </div>
-                          </td>
-                        </tr>
+                      <?php }
+                       }
+                      ?>
                       </tbody>
                     </table>
                   </div>
@@ -156,63 +126,33 @@
                       <thead>
                         <tr>
                           <th scope="col">ID</th>
-                          <th scope="col">Category</th>
                           <th scope="col">Work Tag Name</th>
                           <th scope="col">Action</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <th scope="row">
-                            <a href="#" class="fw-medium">1</a>
-                          </th>
-                          <td>Designation </td>
-                          <td>Admin</td>
+                        
+                      <?php if($worktag_list){
+                          $cnt=0;
+                          foreach($worktag_list as $res){
+                          $cnt++;
+                        ?>
+                        <tr id="tr_<?php echo $res->id;?>">
+                          <td class="td_list_2"><?php echo $cnt;?></td>
+                          <td><?php echo $res->name; ?></td>
                           <td>
                             <div class="hstack gap-3 flex-wrap">
-                              <a href="javascript:void(0);" class="link-success fs-15">
+                              <a href="<?php echo base_url("index.php/clientmanager/manage_facility_worktag/".$res->id);?>" class="link-success fs-15">
                                 <i class="ri-edit-2-line"></i>
                               </a>
-                              <a href="javascript:void(0);" class="link-danger fs-15">
-                                <i class="ri-delete-bin-line"></i>
-                              </a>
+                              <a href="javascript:void(0);" rid="<?php echo $res->id;?>" class="trash_2 link-danger fs-15"><i class="ri-delete-bin-line"></i></a>
                             </div>
                           </td>
                         </tr>
-                        <tr>
-                          <th scope="row">
-                            <a href="#" class="fw-medium">1</a>
-                          </th>
-                          <td>Designation </td>
-                          <td>Admin</td>
-                          <td>
-                            <div class="hstack gap-3 flex-wrap">
-                              <a href="javascript:void(0);" class="link-success fs-15">
-                                <i class="ri-edit-2-line"></i>
-                              </a>
-                              <a href="javascript:void(0);" class="link-danger fs-15">
-                                <i class="ri-delete-bin-line"></i>
-                              </a>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <th scope="row">
-                            <a href="#" class="fw-medium">1</a>
-                          </th>
-                          <td>Designation </td>
-                          <td>Admin</td>
-                          <td>
-                            <div class="hstack gap-3 flex-wrap">
-                              <a href="javascript:void(0);" class="link-success fs-15">
-                                <i class="ri-edit-2-line"></i>
-                              </a>
-                              <a href="javascript:void(0);" class="link-danger fs-15">
-                                <i class="ri-delete-bin-line"></i>
-                              </a>
-                            </div>
-                          </td>
-                        </tr>
+                      <?php }
+                       }
+                      ?>
+                        
                       </tbody>
                     </table>
                   </div>
@@ -265,7 +205,111 @@
 <script src="<?php echo base_url();?>assets/js/app.js"></script>
 
 <script>
-  
+
+$(document).ready(function(){
+
+  $('#frmFacility').validate({
+          rules: {                  
+            facility:{
+              required: true
+            }  
+          },
+          messages: {                
+            facility:{
+              required: ''
+            }
+          },
+          errorElement: 'span',
+              errorPlacement: function (error, element) {
+              error.addClass('invalid-feedback');
+              element.closest('.form-group').append(error);
+          },
+          highlight: function (element, errorClass, validClass) {
+              $(element).addClass('is-invalid');
+          },
+          unhighlight: function (element, errorClass, validClass) {
+              $(element).removeClass('is-invalid');
+          },
+          submitHandler: function(form) {      
+              var url = "<?php echo site_url('clientmanager/ajax_facility_worktag')?>";
+              var frmdata = new FormData($('#frmFacility')[0]);
+              //console.log(frmdata);
+              $.ajax({            
+                  type: "POST",
+                  url: url,
+                  data: frmdata,
+                  processData: false,
+                  contentType: false,  
+                  success: function(data)
+                  {                 
+                      //console.log(data);
+                      var spl_txt = data.split("~~~");
+                      if(spl_txt[1] == 1)
+                      { 
+                        alert("Successfully Saved...");                        
+                        location.reload();                    
+                      }
+                      else if(spl_txt[1] == 2)
+                      { 
+                        alert("Successfully Updated...");
+                        location.reload();                       
+                      }
+                      else
+                      { 
+                        alert("Something went wrong...");                   
+                      }   
+                  }
+              });
+      }
+ });
+
+$(document).on("click", ".trash", function(e){  
+    var id = $(this).attr("rid");    
+    $.ajax({
+    url:'<?php echo site_url('booking/ajax_trash')?>',
+      type: "POST",
+      data: ({id: id, source: " tbl_facility_worktag"}),
+      dataType: 'json',
+      success: function(data){
+        if(data == parseInt(1))
+        {
+          $("#tr_"+id).remove();
+          alert("Successfully deleted...");
+          var cnt = 0;
+          $(".td_list").each(function(){
+            cnt++;
+            $(this).html(cnt);
+          });
+        } 
+      }
+    }); 
+});
+
+$(document).on("click", ".trash_2", function(e){  
+    var id = $(this).attr("rid");
+    $.ajax({
+    url:'<?php echo site_url('booking/ajax_trash')?>',
+      type: "POST",
+      data: ({id: id, source: "tbl_facility_worktag"}),
+      dataType: 'json',
+      success: function(data){
+        if(data == parseInt(1))
+        {
+          $("#tr_"+id).remove();
+          alert("Successfully deleted...");
+          var cnt = 0;
+          $(".td_list_2").each(function(){
+            cnt++;
+            $(this).html(cnt);
+          });
+        } 
+      }
+    }); 
+});
+
+
+
+});
 </script>
 </body>
 </html>
