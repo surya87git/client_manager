@@ -23,13 +23,6 @@ class Clientmanager extends CI_Controller {
 		$this->load->view('addusertype');
     }
 
-
-    public function addfacilitiesworktag(){
-         
-		$this->load->view('header');
-		$this->load->view('top_sidebar');
-		$this->load->view('addfacilitiesworktag');
-    }
 	public function ajax_work_stages()
 	{		
 		$frm_data = array(			
@@ -65,6 +58,7 @@ class Clientmanager extends CI_Controller {
 		}
 			
 	}
+
 	public function manage_stages(){    
 		$qry = "SELECT * FROM tbl_work_stages where status = 1";
 		$data['stage_list'] = $this->Master_model->getCustom($qry);
@@ -73,6 +67,14 @@ class Clientmanager extends CI_Controller {
 		$this->load->view('top_sidebar');
 		$this->load->view('manage_stages', $data);
     }
+
+	public function manage_facility_worktag(){
+         
+		$this->load->view('header');
+		$this->load->view('top_sidebar');
+		$this->load->view('manage_facility_worktag');
+    }
+
 	public function addstagedetails(){
          
 		$this->load->view('header');

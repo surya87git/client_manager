@@ -349,7 +349,7 @@
                                         <a href="<?php echo site_url('/clientmanager/add_usertype')?>" class="nav-link" data-key="t-starter">Add User Type</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="<?php echo site_url('/clientmanager/addfacilitiesworktag')?>" class="nav-link" data-key="t-team">Add Facilities / Work Tag</a>
+                                        <a href="<?php echo site_url('/clientmanager/manage_facility_worktag')?>" class="nav-link" data-key="t-team">Add Facilities / Work Tag</a>
                                     </li>
                                 </ul>
                             </div>

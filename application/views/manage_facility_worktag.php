@@ -28,30 +28,30 @@
               <!-- end card header -->
               <div class="card-body">
                 <div class="live-preview">
-                  <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
-                    <div class="form-group">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Category</label>
-                      <div class="col-md-12 col-sm-12 col-xs-12">
-                        <select class=" js-example-basic-multiple select2_single form-control" name="states[]" tabindex="-1">
-                          <option value="">Select Category</option>
-                          <option value="Facility">Facility</option>
-                          <option value="Work Tag">Work Tag</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="form-group mt-3">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12">Enter Name</label>
-                      <div class="col-md-12 col-sm-12 col-xs-12">
-                        <input type="text" class="form-control col-md-7 col-xs-12" name="" placeholder="Enter User Name" required="">
-                      </div>
-                    </div>
-                    <div class="ln_solid"></div>
-                    <div class="form-group mt-3">
-                      <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                        <button class="btn btn-primary" type="button">Cancel</button>
-                        <button type="submit" class="btn btn-success">Submit</button>
-                      </div>
-                    </div>
+                  <form id="frmFacility" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
+                        <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Category</label>
+                          <div class="col-md-12 col-sm-12 col-xs-12">
+                            <select class=" js-example-basic-multiple select2_single form-control" name="facility" tabindex="-1">
+                              <option value="">Select Category</option>
+                              <option value="1">Facility</option>
+                              <option value="2">Work Tag</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-group mt-3">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Enter Name</label>
+                          <div class="col-md-12 col-sm-12 col-xs-12">
+                            <input type="text" class="form-control col-md-7 col-xs-12" name="fac_name" placeholder="Enter Name" required>
+                          </div>
+                        </div>
+                        <div class="ln_solid"></div>
+                        <div class="form-group mt-3">
+                          <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                            <button class="btn btn-primary" type="button">Cancel</button>
+                            <button type="submit" class="btn btn-success">Submit</button>
+                          </div>
+                        </div>
                   </form>
                   <!--end row-->
                 </div>
@@ -252,14 +252,20 @@
 </button>
 <!--end back-to-top-->
 <!-- JAVASCRIPT -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script src="<?php echo base_url();?>assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="<?php echo base_url();?>assets/libs/simplebar/simplebar.min.js"></script>
 <script src="<?php echo base_url();?>assets/libs/node-waves/waves.min.js"></script>
 <script src="<?php echo base_url();?>assets/libs/feather-icons/feather.min.js"></script>
 <script src="<?php echo base_url();?>assets/js/pages/plugins/lord-icon-2.1.0.js"></script>
-<script src="<?php echo base_url();?>assets/js/plugins.js"></script>
-<!-- prismjs plugin -->
 <script src="<?php echo base_url();?>assets/libs/prismjs/prism.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 <script src="<?php echo base_url();?>assets/js/app.js"></script>
+
+<script>
+  
+</script>
 </body>
-<!-- Mirrored from themesbrand.com/velzon/html/default/forms-elements.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 25 Jul 2022 12:36:59 GMT -->undefined</html>    
+</html>

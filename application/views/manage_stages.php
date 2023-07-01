@@ -137,7 +137,7 @@
 
 <!--script src="assets/js/plugins.js"></script-->
 <!-- prismjs plugin -->
-<script src="assets/libs/prismjs/prism.js"></script>
+<script src="<?php echo base_url();?>assets/libs/prismjs/prism.js"></script>
 
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
@@ -149,7 +149,6 @@
 <script src="<?php echo base_url();?>assets/js/app.js"></script>
 
 <script>
-
 
 function row_template(id, sname)
 {
