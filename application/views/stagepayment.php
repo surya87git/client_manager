@@ -32,6 +32,7 @@ include("../admin_portal/top-sidebar.php")
             <div class="card">
               <div class="card-header align-items-center d-flex">
                 <h4 class="card-title mb-0 flex-grow-1">Stage Payment List</h4>
+                <a href="javascript(void);" class="btn btn-success btn-sm btn-label waves-effect waves-light"><i class="ri-file-list-fill label-icon align-middle fs-16 me-2"></i> Stage Detail List</a>
               </div>
               <!-- end card header -->
               <div class="card-body">
@@ -54,22 +55,31 @@ include("../admin_portal/top-sidebar.php")
                         <tr>
                           <th>Client Name</th>
                           <th>Stages Name</th>
+                          <th>Payment Date and Time</th>
                           <th>Total Payable</th>
+                          <th>Amount Paid</th>
                           <th>Payment Status</th>
+                          <th>Received</th>
                           <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
                             <td>Ajay Jain</td>
-                            <td>Plint</td>
+                            <td class="text-primary"><b>Footing</b><br>
+                            <small class="text-info">Stage Number: 1</small>
+                            </td>
+                            <td>3 April,2023 <br>
+                              <small class="text-info">12:20 pm</small></td>
                             <td>Rs. 20,000 <br>
-                                <small class="text-danger">Due: Rs. 2000  &nbsp;&nbsp;&nbsp; Days: 10 Days Left</small>
                             </td>
-                            <td>Pending
-                            <br>
-                                <small class="text-danger">Payment Date: 10 Day Left</small>
+                            <td>Rs. 20,000 <br>
+                              <small class="text-danger">Due: Rs. 0</small></td>
+                            <td>
+                            <span class="badge badge-soft-success badge-border" style="font-size: 12px;">Paid</span>
                             </td>
+                            <td> Received By: Vishal<br>
+                            <small class="text-info">As Payment</small></td>
                             <td>
                                 <div class="hstack gap-3 flex-wrap">
                                     <a href="javascript:void(0);" class="link-primary fs-15"><i class="ri-edit-2-line"></i></a>
@@ -79,14 +89,19 @@ include("../admin_portal/top-sidebar.php")
                         </tr>
                         <tr>
                             <td>Ajay Jain</td>
-                            <td>Plint</td>
+                            <td class="text-primary" nowrap><b>Plinth</b><br>
+                            <small class="text-info">Stage Number: 2</small>
+                            </td>
+                            <td>3 April,2023 <br>
+                              <small class="text-info">12:20 pm</small></td>
                             <td>Rs. 20,000 <br>
-                                <small class="text-danger">Due: Rs. 2000  &nbsp;&nbsp;&nbsp; Days: 10 Days Left</small>
                             </td>
-                            <td>Pending
-                            <br>
-                                <small class="text-danger">Payment Date: 10 Day Left</small>
+                            <td>Rs. 5,000 <br>
+                              <small class="text-danger">Due: Rs. 5,000</small></td>
+                            <td>
+                            <span class="badge badge-soft-danger badge-border" style="font-size: 12px;">Pending</span>
                             </td>
+                            <td>Not Yet Paid</td>
                             <td>
                                 <div class="hstack gap-3 flex-wrap">
                                     <a href="javascript:void(0);" class="link-primary fs-15"><i class="ri-edit-2-line"></i></a>
@@ -94,24 +109,7 @@ include("../admin_portal/top-sidebar.php")
                                 </div>
                             </td>
                         </tr>
-                        <tr>
-                            <td>Ajay Jain</td>
-                            <td>Plint</td>
-                            <td>Rs. 20,000 <br>
-                                <small class="text-danger">Due: Rs. 2000  &nbsp;&nbsp;&nbsp; Days: 10 Days Left</small>
-                            </td>
-                            <td>Pending
-                            <br>
-                                <small class="text-danger">Payment Date: 10 Day Left</small>
-                            </td>
-                            <td>
-                                <div class="hstack gap-3 flex-wrap">
-                                    <a href="javascript:void(0);" class="link-primary fs-15"><i class="ri-edit-2-line"></i></a>
-                                    <a href="javascript:void(0);" class="link-danger fs-15"><i class="ri-delete-bin-line"></i></a>
-                                </div>
-                            </td>
-                        </tr>
-                        
+                       
                     </tbody>
                       
                     </table>
@@ -119,9 +117,9 @@ include("../admin_portal/top-sidebar.php")
                   </div>
                 </div>
                   </div>
-                  <div class="mt-3" style="float:right;">
+                  <center><div class="mt-3">
                   <button type="button" class="btn btn-success btn-label"><i class="ri-check-double-line label-icon align-middle fs-16 me-2"></i> Submit</button>
-                  </div>
+                  </div></center>
 
                   <!-- end table responsive -->
                 </div>

@@ -370,11 +370,11 @@
                                                         Manage Stages</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="<?php echo site_url('/clientmanager/addstagedetails')?>" class="nav-link" data-key="t-simple-page">
+                                                    <a href="<?php echo site_url('/clientmanager/manage_stage_details')?>" class="nav-link" data-key="t-simple-page">
                                                         Stage Details</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="<?php echo site_url('/clientmanager/stagedetaillist')?>" class="nav-link" data-key="t-simple-page">
+                                                    <a href="<?php echo site_url('/clientmanager/stage_detail_list')?>" class="nav-link" data-key="t-simple-page">
                                                         Stage Details List</a>
                                                 </li>
                                                 <li class="nav-item">
@@ -402,16 +402,16 @@
                             </div>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link menu-link collapsed " href="#sidebarPages" data-bs-toggle="collapse" role="button" aria-expanded="true" aria-controls="sidebarPages">
-                                <i class="ri-pages-line"></i> <span data-key="t-pages">Manage User</span>
+                            <a class="nav-link menu-link collapsed " href="#manageteam" data-bs-toggle="collapse" role="button" aria-expanded="true" aria-controls="sidebarPages">
+                                <i class="ri-pages-line"></i> <span data-key="t-pages">Manage Team</span>
                             </a>
-                            <div class="collapse menu-dropdown" id="sidebarPages">
+                            <div class="collapse menu-dropdown" id="manageteam">
                                 <ul class="nav nav-sm flex-column">
                                     <li class="nav-item">
-                                        <a href="<?php echo site_url('/clientmanager/adduser')?>" class="nav-link" data-key="t-starter">Add User</a>
+                                        <a href="<?php echo site_url('/clientmanager/addteam')?>" class="nav-link" data-key="t-starter">Add Team</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="<?php echo site_url('/clientmanager/userlist')?>" class="nav-link" data-key="t-team">User List</a>
+                                        <a href="<?php echo site_url('/clientmanager/userlist')?>" class="nav-link" data-key="t-team">Team List</a>
                                     </li>
                                 </ul>
                             </div>

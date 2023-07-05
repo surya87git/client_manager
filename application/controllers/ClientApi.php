@@ -87,7 +87,7 @@ class ClientApi extends CI_Controller {
         $booking_id = $input_res['booking_id'];
         
         $qry = "";
-        $qry .= "SELECT a.id AS booking_id, DATE_FORMAT(a.create_date, '%d, %M %Y') AS booking_date, b.final_amt AS project_cost, DATE_FORMAT(c.aggr_period, '%d, %M %Y') AS aggrement_date, DATE_FORMAT(c.work_start_on, '%d, %M %Y') AS start_date, c.comp_period AS end_date ";
+        $qry .= "SELECT a.id AS booking_id,client_name,email_id,mobile_no,permanent_addr, DATE_FORMAT(a.create_date, '%d, %M %Y') AS booking_date, b.final_amt AS project_cost, DATE_FORMAT(c.aggr_period, '%d, %M %Y') AS aggrement_date, DATE_FORMAT(c.work_start_on, '%d, %M %Y') AS start_date, c.comp_period AS end_date ";
         $qry .= "FROM bkf_booking_form a LEFT JOIN bkf_booking_transaction b ON a.id = b.booking_id ";
         $qry .= "LEFT JOIN bkf_commitment c ON a.id = c.booking_id ";
 		$qry .= "where a.id = $booking_id";  
@@ -95,16 +95,84 @@ class ClientApi extends CI_Controller {
         $data['client_info'] = $this->Master_model->getCustom($qry)[0];
 
         if($data['client_info']){
+
           $response = array('code' => 200, 'status' => 'success', 'message' => 'Success');
         }
         else{
-          $response = array('code' => 300, 'status' => 'error', 'message' => 'Invalid User Id OR Password');
+          $response = array('code' => 300, 'status' => 'error', 'message' => 'Data  Not Availble');
         }
 
         $merg_res = array_merge($data, $response);
         $this->output->set_content_type('application/json')->set_output(json_encode($merg_res));
         
     }
+
+public function addonView(){
+
+    if($this->$permission == 0){       
+        return $this->output->set_status_header(401);
+        exit;
+    }   
+    $data = array();
+    
+    $input_res = $this->Master_model->jsonData();
+    $booking_id = $input_res['booking_id'];
+    
+    $qry = "";
+    $qry .= "SELECT * FROM tbl_cost_calculator_new ";
+    
+    $qry .= "where booking_id = $booking_id";  
+
+    $data['result'] = $this->Master_model->getCustom($qry)[0];
+
+    if($data['result']){
+      $response = array('code' => 200, 'status' => 'success', 'message' => 'Success');
+    }
+    else{
+      $response = array('code' => 300, 'status' => 'error', 'message' => 'Data  Not Availble');
+    }
+
+    $merg_res = array_merge($data, $response);
+    $this->output->set_content_type('application/json')->set_output(json_encode($merg_res));
+
+  }
+
+
+
+  public function facilityView(){
+
+    if($this->$permission == 0){       
+        return $this->output->set_status_header(401);
+        exit;
+    }   
+    $data = array();
+    
+    $input_res = $this->Master_model->jsonData();
+    $booking_id = $input_res['booking_id'];
+    
+    $qry = "";
+    $qry .= "SELECT * FROM bkf_facility_worktag ";
+    
+    $qry .= "where cat_id = 1";  
+
+    $data['result'] = $this->Master_model->getCustom($qry);
+
+    if($data['result']){
+      $response = array('code' => 200, 'status' => 'success', 'message' => 'Success');
+    }
+    else{
+      $response = array('code' => 300, 'status' => 'error', 'message' => 'Data  Not Availble');
+    }
+
+    $merg_res = array_merge($data, $response);
+    $this->output->set_content_type('application/json')->set_output(json_encode($merg_res));
+
+  }
+
+
+
+
+
 
 }
 

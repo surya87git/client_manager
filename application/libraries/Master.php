@@ -10,6 +10,13 @@ class Master{
         $token_id= $token_for.$userId.$currenttimeseconds;              
         return sha1($token_id);
     }
+
+    public function getdate($dateStr)
+    {        
+        $date = DateTime::createFromFormat('d/m/Y', $dateStr);
+        $formattedDate = $date->format('Y-m-d');
+        return $formattedDate;
+    }
    
 }
 ?>
