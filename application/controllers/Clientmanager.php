@@ -149,15 +149,16 @@ class Clientmanager extends CI_Controller {
 		$qry = "SELECT * FROM bkf_facility_worktag where cat_id = 2 and status = 1";
 		$data['worktag_list'] = $this->Master_model->getCustom($qry);
 		
-		$booking_id = $this->uri->segment(3) ?? "";
-		$stage_id = $this->uri->segment(4) ?? "";
-		if($booking_id != "" && $stage_id != "")
+		$data['booking_id'] = $this->uri->segment(3) ?? "";
+		$data['sid'] = $this->uri->segment(4) ?? "";
+		
+		if($data['booking_id'] != "" && $data['sid'] != "")
 		{	
-			$qry = "SELECT * FROM bkf_stage_details where stage_id = $stage_id";
+			$qry = "SELECT * FROM bkf_stage_details where id = ".$data['sid']."";
 			$data['sdata'] = $this->Master_model->getCustom($qry)[0];
-			$data['booking_id'] = $booking_id;
-			$data['stage_id'] = $stage_id;			
 		}
+		
+		//echo $this->db->last_query();
 
 		$this->load->view('header');
 		$this->load->view('top_sidebar');
@@ -168,8 +169,10 @@ class Clientmanager extends CI_Controller {
 	public function ajax_stage_details(){
 
 		//print_r($this->input->post());
-		$booking_id = $this->input->post("booking_id");
-		$stage_id = $this->input->post("stage_id");
+		$booking_id = $this->input->post("booking_id") ?? "";
+		$stage_id = $this->input->post("stage_id") ?? "";
+		$sid = $this->input->post("sid") ?? "";
+
 		$daterange = $this->input->post("daterange");
 		$date_arr = explode(" - ", $daterange);
 	
@@ -199,8 +202,7 @@ class Clientmanager extends CI_Controller {
 			"ip"=> $this->input->ip_address()	
 		);
 
-		//$qry = "SELECT * FROM bkf_stage_details where booking_id = $booking_id";
-		$qry = "SELECT * FROM bkf_stage_details where stage_id = $stage_id";
+		$qry = "SELECT * FROM bkf_stage_details where id = $sid";
 		$res = $this->Master_model->getCustom($qry);
 
 		if($res){
@@ -209,7 +211,7 @@ class Clientmanager extends CI_Controller {
 			$frm_data['update_date'] = date("Y-m-d H:i:s");
 			$res = $this->Master_model->updateData("bkf_stage_details", $frm_data);
 			if($res){
-				echo "~~~2~~~$booking_id~~~";
+				echo "~~~2~~~$sid~~~$booking_id~~~";
 			}
 			else{
 				echo "~~~0~~~";
@@ -220,34 +222,71 @@ class Clientmanager extends CI_Controller {
 			$frm_data['create_date'] = date("Y-m-d H:i:s");
 			$res = $this->Master_model->saveData("bkf_stage_details", $frm_data);
 			$id = $this->db->insert_id();
-
 			if($res){
-				echo "~~~1~~~$id~~~";
+				echo "~~~1~~~$id~~~$booking_id~~~";
 			}
 			else{
 				echo "~~~0~~~";
-			}			
+			}	
+
 		}
 
 		echo $this->db->last_query();
-
 	}
 
 	public function stage_detail_list(){
          
-		$qry = "SELECT * FROM bkf_stage_details where booking_id = 4";
-		$data['stage_list'] = $this->Master_model->getCustom($qry);
+		$data['booking_id'] = $this->uri->segment(3);
+		if($data['booking_id'])
+		{
+			$qry = "SELECT * FROM bkf_stage_details where booking_id = ".$data['booking_id']."";
+			$data['stage_list'] = $this->Master_model->getCustom($qry);
+		}
 
 		$this->load->view('header');
 		$this->load->view('top_sidebar');
 		$this->load->view('stage_detail_list', $data);
     }
 
-	public function stagepayment(){
+	public function ajax_stage_payment(){
+		
+		//print_r($this->input->post());
+
+		$sid = $this->input->post("sid");
+		$stage_id = $this->input->post("stage_id");
+		$booking_id = $this->input->post("booking_id");
+
+		$payable_amt = $this->input->post("payable_amt");		
+		$total_paid_amt = $this->input->post("total_paid_amt");
+		$paid_amt = $this->input->post("paid_amt");
+
+
+		$refrence_no = $this->input->post("refrence_no");
+		$received_as = $this->input->post("received_as");
+		$received_by = $this->input->post("received_by");
+		
+		$frm_data = array(		
+			"stage_id" => $stage_id,	
+			"booking_id" => $booking_id,
+			"payable_amt" => $payable_amt,			
+			"paid_amt" => $paid_amt,			
+			"refrence_no" => $refrence_no,
+			"received_as" => $received_as,
+			"refrence_no" =>  $refrence_no,	
+			"create_by" => $_COOKIE['employee_name'] ?? "",		
+			"ip"=> $this->input->ip_address()	
+		);
+
+
+
+	}
+
+
+	public function paymenthistory(){
          
 		$this->load->view('header');
 		$this->load->view('top_sidebar');
-		$this->load->view('stagepayment');
+		$this->load->view('paymenthistory');
     }
 
 	public function viewgallery(){
@@ -257,19 +296,7 @@ class Clientmanager extends CI_Controller {
 		$this->load->view('viewgallery');
     }
 
-	public function addteam(){
-
-		$this->load->view('header');
-		$this->load->view('top_sidebar');
-		$this->load->view('addteam');
-    }
 	
-	public function userlist(){
-         
-		$this->load->view('header');
-		$this->load->view('top_sidebar');
-		$this->load->view('userlist');
-    }
 	public function project_list(){
          
 		$this->load->view('header');

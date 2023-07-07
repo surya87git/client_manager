@@ -170,9 +170,111 @@ public function addonView(){
   }
 
 
+public function addteam(){
+
+     $data['result'] = $this->Master_model->getAll("tbl_employee_type");
+
+     $id = $this->uri->segment(3) ?? "";
+     if($id!="")
+     {
+     $data['editData'] = $this->Master_model->getDataById("tbl_employee", $id)[0];
+     }
+
+    $this->load->view('header');
+    $this->load->view('top_sidebar');
+    $this->load->view('addteam',$data);
+}
+public function ajax_addteam()
+{
+            $id      = $this->input->post("id") ?? "";
+            $emp_name      = $this->input->post("emp_name") ?? "";
+            $emp_mobile   = $this->input->post("emp_mobile") ?? "";
+            $emp_type   = $this->input->post("emp_type") ?? "";
+
+            $frm_data = array(
+                        "id"=>$id,
+                        "emp_name"=> $emp_name,
+                        "emp_mobile"=> $emp_mobile,
+                        "emp_type"=> $emp_type,
+                        "create_date"=> date("Y-m-d H:i:s"),
+                        "ip" => $this->input->ip_address()
+                        );
+
+            if($frm_data["id"] == ""){
+
+                $frm_data['create_date'] = date("Y-m-d H:i:s");
+                $frm_data['ip'] = $this->input->ip_address();               
+                $res = $this->Master_model->saveData("tbl_employee", $frm_data);                       
+                if($res)
+                {
+                   echo "~~~1~~~";
+                }
+                else
+                {
+                    echo "~~~0~~~";
+                }
+
+            } else {
+                
+                $frm_data["update_date"] = date("Y-m-d H:i:s");
+                $res = $this->Master_model->updateData("tbl_employee", $frm_data);
+                if($res)
+                {    
+                    echo "~~~2~~~";
+                }
+                else
+                {
+                    echo "~~~0~~~";
+                }
+                //echo $this->db->last_query(); 
+            }
+               
 
 
+}
 
+public function teamlist(){
+     
+	$qry = "SELECT * FROM tbl_employee where status = 1 ";
+    $data['result'] = $this->Master_model->getCustom($qry);
+
+    $this->load->view('header');
+    $this->load->view('top_sidebar');
+    $this->load->view('teamlist',$data);
+}
+
+public function attach_doc(){
+
+       if($this->$permission == 0){       
+        return $this->output->set_status_header(401);
+        exit;
+    }   
+    $data = array();
+    
+    $input_res = $this->Master_model->jsonData();
+    $booking_id = $input_res['booking_id'];
+    
+    $qry = "SELECT * FROM bkf_atttach_doc where booking_id = $booking_id";
+    $data['result'] = $this->Master_model->getCustom($qry);
+
+    if($data['result']){
+      $response = array('code' => 200, 'status' => 'success', 'message' => 'Success');
+    }
+    else{
+      $response = array('code' => 300, 'status' => 'error', 'message' => 'Data  Not Availble');
+    }
+
+    $merg_res = array_merge($data, $response);
+    $this->output->set_content_type('application/json')->set_output(json_encode($merg_res));
+
+}
+
+
+public function get_name($tbl=NULL,$col=NULL,$id=NULL)
+	{
+		$name = $this->Master_model->getNameById($tbl,$col,$id); 
+		return $name;
+	}
 
 }
 

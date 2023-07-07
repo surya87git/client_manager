@@ -633,81 +633,6 @@
       </div>
       <!--End of commitment Detail Section------>
 
-      <!----Verify ----------->
-      <div class="row">
-        <div class="col-xl-12">
-          <div class="card">
-              <div class="card-header">
-                <div class="d-flex align-items-center">
-                  <h5 class="card-title flex-grow-1 mb-0">Checked and Varified :</h5>
-                </div>
-                
-                <div class="row mt-3">
-                  <div class="col-md-2">
-                    <div>
-                      <div class="icheck-success d-inline">
-                        <input type="checkbox" <?php echo $chk_marketing;?> class="switcher" name="marketing[]" value="Marketing" id="chk_marketing">
-                        <label title="Checked" for="chk_marketing" id="">By Marketing</label>
-                      </div> 
-                      <br> 
-                       <small id="marketing_date">Date: <?php echo $marketing_verify_date; ?></small>
-                    </div>
-                  </div>
-                  <div class="col-md-2">
-                    <div>
-                      <div class="icheck-success d-inline">
-                        <input type="checkbox" <?php echo $chk_client;?> class="switcher" name="client[]" value="Client" id="chk_client">
-                        <label title="Checked" for="chk_client" id="">By Client</label>
-                      </div> 
-                      <br>                   
-                      <small id="client_date">Date: <?php echo $client_verify_date; ?></small>
-                    </div>
-                  </div>
-                  <div class="col-md-2">
-                    <div>
-                      <div class="icheck-success d-inline">
-                        <input type="checkbox" <?php if($emp_type != 1){ echo 'disabled';} ?> <?php echo $chk_admin;?> class="switcher" name="admin[]" value="Admin" id="chk_admin">
-                        <label title="Checked" for="chk_admin" id="">By Admin</label>
-                      </div>
-                      <br> 
-                      <small id="admin_date">Date: <?php echo $admin_verify_date; ?></small>
-                    </div>
-                  </div>
-                  <div class="col-md-3">
-                  
-                    <span>Mail for Booking Amount and Verification</span><br><br>
-                    <div id="div_mail">  
-                      <a href="javascript:void(0);" id="btnMail" mid="<?php echo $client_info[0]->id ?? ""; ?>" class="btn btn-danger btn-sm  btn-label waves-effect waves-light"><i class=" ri-mail-fill label-icon align-middle fs-16 me-2"></i>Send Now</a>
-                    </div>
-                    <div id="div_loader" style="display:none;">  
-                      <a href="javascript:void(0);" id="a_loader" class="btn btn-danger btn-sm  btn-label waves-effect waves-light"><i class=" ri-mail-fill label-icon align-middle fs-16 me-2"></i>Processing...</a>
-                    </div>                    
-                  </div>
-                  <div class="col-md-3">
-                    <span>Booking Confirmation Mail</span><br>
-                      <div class="icheck-success d-inline">
-                        <input type="checkbox" <?php if($chk_trans != "checked"){ echo "disabled";}?> class="switcher"  name="chk_attach" value="yes" id="chk_attach">
-                        <label title="Checked" for="chk_attach">With Attachment</label>
-                      </div><br>
-
-                      <?php if($chk_trans == "checked"){
-                        $bid = 'id="btnMail_2"';
-                        }
-                      ?>
-                      <div id="div_mail_2">
-                        <a href="javascript:void(0);" <?php echo  $bid; ?> mid="<?php echo $client_info[0]->id ?? ""; ?>" style="margin-top: 5px;" class="btnMail_2 btn btn-danger btn-sm  btn-label waves-effect waves-light"><i class=" ri-mail-fill label-icon align-middle fs-16 me-2"></i>Send Now</a>
-                      </div>
-                      <div id="div_loader_2" style="display:none;">  
-                        <a href="javascript:void(0);" id="a_loader_2" class="btn btn-danger btn-sm  btn-label waves-effect waves-light"><i class=" ri-mail-fill label-icon align-middle fs-16 me-2"></i>Processing...</a>
-                      </div>
-                  </div>
-                </div>               
-              </div>
-          </div>
-        </div>
-      </div>
-    <!-----End of Verify--------->
-
     <!--------Anubandh Verification---------->
       <div class="row">
         <div class="col-xl-12">
@@ -719,12 +644,115 @@
                 <div class="row mt-3">
                   <div class="col-md-3">                    
                     <div id="" class="mt-2">    
-                      <a href="<?php echo base_url("index.php/anubandh/anubandh_details");?>"  id="" mid="" class="btn btn-success btn-sm  btn-label waves-effect waves-light"><i class=" ri-eye-line label-icon align-middle fs-16 me-2"></i>View Anubandh Details</a>
+                      <a id="" mid="" class="btn btn-success btn-sm  btn-label waves-effect waves-light" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg"><i class=" ri-eye-line label-icon align-middle fs-16 me-2"></i>View Anubandh Column and Edit</a>
+                    </div>
+                  </div>
+                </div>               
+              </div>
+          </div>
+        </div>
+      </div>
+    <!-------Anubadh Verification End--------->
+
+      <!----Verify ----------->
+      <div class="row">
+        <div class="col-xl-12">
+          <div class="card">
+              <div class="card-header">
+                <div class="d-flex align-items-center">
+                  <h5 class="card-title flex-grow-1 mb-0">Checked and Varified :</h5>
+                </div>
+                
+                <div class="row mt-3">
+                  <div class="col-md-3">
+                    <div>
+                      <div class="icheck-success d-inline">
+                        <input type="checkbox" <?php echo $chk_marketing;?> class="switcher" name="marketing[]" value="Marketing" id="chk_marketing">
+                        <label title="Checked" for="chk_marketing" id="">By Marketing</label>
+                      </div> 
+                      <br> 
+                       <small id="marketing_date">Date: <?php echo $marketing_verify_date; ?></small>
                     </div>
                   </div>
                   <div class="col-md-3">
+                    <div>
+                      <div class="icheck-success d-inline">
+                        <input type="checkbox" <?php echo $chk_client;?> class="switcher" name="client[]" value="Client" id="chk_client">
+                        <label title="Checked" for="chk_client" id="">By Client</label>
+                      </div> 
+                      <br>                   
+                      <small id="client_date">Date: <?php echo $client_verify_date; ?></small>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div>
+                      <div class="icheck-success d-inline">
+                        <input type="checkbox" <?php if($emp_type != 1){ echo 'disabled';} ?> <?php echo $chk_admin;?> class="switcher" name="admin[]" value="Admin" id="chk_admin">
+                        <label title="Checked" for="chk_admin" id="">By Admin</label>
+                      </div>
+                      <br> 
+                      <small id="admin_date">Date: <?php echo $admin_verify_date;?></small>
+                    </div>
+                  </div>  
+                  <div class="col-md-3">
+                    <div>
+                      <div class="icheck-success d-inline">
+                        <input type="checkbox" class="switcher" name="" value="" id="chk_admin">
+                        <label title="Checked" for="chk_admin" id="">For Client App</label>
+                      </div>
+                      <br> 
+                      <small id="">Date: </small>
+                    </div>
+                  </div>
+                </div>               
+              </div>
+          </div>
+        </div>
+      </div>
+    <!-----End of Verify--------->
+      
+    <!--------Email---------->
+      <div class="row">
+        <div class="col-xl-12">
+          <div class="card">
+              <div class="card-header">
+                <div class="d-flex align-items-center">
+                  <h5 class="card-title flex-grow-1 mb-0">Email</h5>
+                </div>
+                <div class="row mt-3">
+                <div class="col-md-4">  
+                  <span>Mail for Booking Amount and Verification</span><br><br>
+                  <div id="div_mail">  
+                    <a href="javascript:void(0);" id="btnMail" mid="<?php echo $client_info[0]->id ?? ""; ?>" class="btn btn-danger btn-sm  btn-label waves-effect waves-light"><i class=" ri-mail-fill label-icon align-middle fs-16 me-2"></i>Send Now</a>
+                  </div>
+                  <div id="div_loader" style="display:none;">  
+                    <a href="javascript:void(0);" id="a_loader" class="btn btn-danger btn-sm  btn-label waves-effect waves-light"><i class=" ri-mail-fill label-icon align-middle fs-16 me-2"></i>Processing...</a>
+                  </div>                    
+                </div>
+                <div class="col-md-4">
+                  <span>Booking Confirmation Mail</span><br>
+                    <div class="icheck-success d-inline">
+                      <input type="checkbox" <?php if($chk_trans != "checked"){ echo "disabled";}?> class="switcher"  name="chk_attach" value="yes" id="chk_attach">
+                      <label title="Checked" for="chk_attach">With Attachment</label>
+                    </div><br>
+
+                    <?php if($chk_trans == "checked"){
+                      $bid = 'id="btnMail_2"';
+                      }
+                    ?>
+                    <div id="div_mail_2">
+                      <a href="javascript:void(0);" <?php echo  $bid; ?> mid="<?php echo $client_info[0]->id ?? ""; ?>" style="margin-top: 5px;" class="btnMail_2 btn btn-danger btn-sm  btn-label waves-effect waves-light"><i class=" ri-mail-fill label-icon align-middle fs-16 me-2"></i>Send Now</a>
+                    </div>
+                    <div id="div_loader_2" style="display:none;">  
+                      <a href="javascript:void(0);" id="a_loader_2" class="btn btn-danger btn-sm  btn-label waves-effect waves-light"><i class=" ri-mail-fill label-icon align-middle fs-16 me-2"></i>Processing...</a>
+                    </div>
+                </div>
+                  <div class="col-md-4">
+                    <span>Agreement Copy to Client</span>
+                    <br>
+                    <br>
                       <div id="">
-                        <a href="javascript:void(0);" mid="" style="margin-top: 5px;" class=" btn btn-danger btn-sm  btn-label waves-effect waves-light"><i class=" ri-mail-fill label-icon align-middle fs-16 me-2"></i>Mail Agreement Copy to client</a>
+                        <a href="javascript:void(0);" mid="" style="margin-top: 5px;" class=" btn btn-danger btn-sm  btn-label waves-effect waves-light"><i class=" ri-mail-fill label-icon align-middle fs-16 me-2"></i>Send Mail</a>
                       </div>
                       <div id="div_loader_2" style="display:none;">  
                         <a href="javascript:void(0);" id="a_loader_2" class="btn btn-danger btn-sm  btn-label waves-effect waves-light"><i class=" ri-mail-fill label-icon align-middle fs-16 me-2"></i>Processing...</a>
@@ -735,10 +763,147 @@
           </div>
         </div>
       </div>
-    <!-------Anubadh Verification End--------->
+    <!-------Email--------->
+    
+
+    <!--------Download and view---------->
+      <div class="row">
+        <div class="col-xl-12">
+          <div class="card">
+              <div class="card-header">
+                <div class="d-flex align-items-center">
+                  <h5 class="card-title flex-grow-1 mb-0">Download and view</h5>
+                </div>
+                <div class="row mt-3">
+                  <div class="col-md-4">
+                    <span>Download Estimate Costing</span><br><br>
+                    <div id="">  
+                      <a href="javascript:void(0);" id="" mid="" class="btn btn-success btn-sm  btn-label waves-effect waves-light"><i class=" ri-download-2-fill label-icon align-middle fs-16 me-2"></i>Download and View</a>
+                    </div>                 
+                  </div>
+                  <div class="col-md-4">
+                    <span >Booking Form</span><br><br>
+                    <div id="">  
+                      <a href="javascript:void(0);" id="" mid="" class="btn btn-success btn-sm  btn-label waves-effect waves-light"><i class=" ri-download-2-fill label-icon align-middle fs-16 me-2"></i>Download and View</a>
+                    </div>                 
+                  </div> 
+                  <div class="col-md-4">
+                    <span>Anubandh Details</span><br><br>
+                    <div id="">  
+                      <a href="javascript:void(0);" id="" mid="" class="btn btn-success btn-sm  btn-label waves-effect waves-light"><i class=" ri-download-2-fill label-icon align-middle fs-16 me-2"></i>Download and View</a>
+                    </div>                 
+                  </div>  
+                  
+                </div>               
+              </div>
+          </div>
+        </div>
+      </div>
+    <!-------Download and view--------->
 
   <!--container-fluid-->
   </div>
+  <!--------View Column---------->
+  <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="myLargeModalLabel">Selected Column</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <h6 class="fs-15">Column C</h6>
+                      <div class="d-flex">
+                        <div class="flex-shrink-0">
+                          <i class="ri-checkbox-circle-fill text-success"></i>
+                        </div>
+                        <div class="flex-grow-1 ms-2">
+                          <p class="text-muted mb-0">भूमि की रजिस्ट्री कापी प्रदान करेंगे</p>
+                        </div>
+                      </div>
+                      <div class="d-flex mt-2">
+                        <div class="flex-shrink-0">
+                          <i class="ri-checkbox-circle-fill text-success"></i>
+                        </div>
+                        <div class="flex-grow-1 ms-2 ">
+                          <p class="text-muted mb-0">निर्माण नक्शा अनुज्ञा है ? (यदि अनुज्ञा कराना हो तो सम्पूर्ण खर्चा पार्टी न. 2 द्वारा किया जाना है)</p>
+                        </div>
+                      </div>
+                      <div class="d-flex mt-2">
+                        <div class="flex-shrink-0">
+                          <i class="ri-checkbox-circle-fill text-success"></i>
+                        </div>
+                        <div class="flex-grow-1 ms-2 ">
+                          <p class="text-muted mb-0">निर्माण नक्शा स्वयं के निर्देष पर बनवा कर हस्ताक्षर करके निर्माण कार्य हेतु दिये</p>
+                        </div>
+                      </div>
+                      <div class="d-flex mt-2">
+                        <div class="flex-shrink-0">
+                          <i class="ri-checkbox-circle-fill text-success"></i>
+                        </div>
+                        <div class="flex-grow-1 ms-2 ">
+                          <p class="text-muted mb-0">अनुबंधानुसार पानी के लिए पानी की व्यवस्था पार्टी न. 2 प्रदान करेंगे </p>
+                        </div>
+                      </div>
+                      <div class="d-flex mt-2">
+                        <div class="flex-shrink-0">
+                          <i class="ri-checkbox-circle-fill text-success"></i>
+                        </div>
+                        <div class="flex-grow-1 ms-2 ">
+                          <p class="text-muted mb-0">पानी सप्लाई की मोटर लगा कर देंगे</p>
+                        </div>
+                      </div>
+                      <div class="d-flex mt-2">
+                        <div class="flex-shrink-0">
+                          <i class="ri-checkbox-circle-fill text-success"></i>
+                        </div>
+                        <div class="flex-grow-1 ms-2 ">
+                          <p class="text-muted mb-0">बिजली लगवाकर देंगे व बिल स्वयं भरेंगे (बिजली की सुविधा प्रदान करना अनिवार्य है ताकि कार्य प्रारंभ किया जा सके)</p>
+                        </div>
+                      </div>
+                      <h6 class="fs-16 my-3">Column F</h6>
+                      <div class="d-flex mt-2">
+                        <div class="flex-shrink-0">
+                          <i class="ri-close-circle-fill text-danger"></i>
+                        </div>
+                        <div class="flex-grow-1 ms-2 ">
+                          <p class="text-muted mb-0">सभी भुगतान के एडवांस चैक पार्टी नं. 1 को शर्तों के अनुसार समय पर अग्रिम देंगे</p>
+                        </div>
+                      </div>
+                      <div class="d-flex mt-2">
+                        <div class="flex-shrink-0">
+                          <i class="ri-checkbox-circle-fill text-success"></i>
+                        </div>
+                        <div class="flex-grow-1 ms-2 ">
+                          <p class="text-muted mb-0">हो रहे निर्माण का निरीक्षण पार्टी न. 2 स्वयं की संतुष्टि हेतु अपनी स्वेक्षा से प्रति सप्ताह करवाने के लिए स्वतंत्र है</p>
+                        </div>
+                      </div>
+                      <div class="d-flex mt-2">
+                        <div class="flex-shrink-0">
+                          <i class="ri-close-circle-fill text-danger"></i>
+                        </div>
+                        <div class="flex-grow-1 ms-2 ">
+                          <p class="text-muted mb-0">किसी भी प्रकार के लाइट, पंखे गीजर, टीवी, कोई भी applinces, फर्निचर, चिमनी, कैमरा, dvr, अन्य सिस्टम कार्य में शामिल हैं ?</p>
+                        </div>
+                      </div>
+                      <div class="d-flex mt-2">
+                        <div class="flex-shrink-0">
+                          <i class="ri-checkbox-circle-fill text-success"></i>
+                        </div>
+                        <div class="flex-grow-1 ms-2 ">
+                          <p class="text-muted mb-0">किसी भी प्रकार की सरकारी, अर्धसरकारी, अन्य संस्थान, इन सभी से कार्यवाही कार्य में शामिल है ?</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">  
+                      <a href="<?php echo base_url("index.php/anubandh/make_anubandh/4");?>" class="btn btn-primary btn-sm">Edit Column</a>
+                    </div>
+                  </div>
+                  <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+              </div>
+          <!-------End of View Column----------->
     <!----------------------Client Information Modal-----------------------> 
         <div id="zoomInModal" class="modal fade zoomIn" tabindex="-1" aria-labelledby="zoomInModalLabel" aria-hidden="true" style="display: none;">
               <div class="modal-dialog modal-dialog-centered">

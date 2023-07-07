@@ -361,6 +361,9 @@
                             <div class="collapse menu-dropdown" id="ProjectDetails">
                                 <ul class="nav nav-sm flex-column">
                                     <li class="nav-item">
+                                        <a href="<?php echo site_url('/clientmanager/project_list')?>" class="nav-link" data-key="t-starter">Project List</a>
+                                    </li>
+                                    <li class="nav-item">
                                         <a href="#StageDetails" class="nav-link collapsed" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarProfile" data-key="t-profile">Stage Details
                                         </a>
                                         <div class="collapse menu-dropdown" id="StageDetails">
@@ -379,21 +382,7 @@
                                                 </li>
                                                 <li class="nav-item">
                                                     <a href="<?php echo site_url('/clientmanager/stagepayment')?>" class="nav-link" data-key="t-simple-page">
-                                                        Stage Payment List</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                </ul>
-                                <ul class="nav nav-sm flex-column">
-                                    <li class="nav-item">
-                                        <a href="#Gallery" class="nav-link collapsed" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarProfile" data-key="t-profile">Gallery
-                                        </a>
-                                        <div class="collapse menu-dropdown" id="Gallery">
-                                            <ul class="nav nav-sm flex-column">
-                                                <li class="nav-item">
-                                                    <a href="<?php echo site_url('/clientmanager/viewgallery')?>" class="nav-link" data-key="t-simple-page">
-                                                        View Gallery</a>
+                                                        Payment History</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -411,7 +400,7 @@
                                         <a href="<?php echo site_url('/clientmanager/addteam')?>" class="nav-link" data-key="t-starter">Add Team</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="<?php echo site_url('/clientmanager/userlist')?>" class="nav-link" data-key="t-team">Team List</a>
+                                        <a href="<?php echo site_url('/clientmanager/teamlist')?>" class="nav-link" data-key="t-team">Team List</a>
                                     </li>
                                 </ul>
                             </div>

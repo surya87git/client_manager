@@ -1261,6 +1261,7 @@ class Booking extends CI_Controller {
 		$frm_data["status"] = 0;
 
 		echo $res = $this->Master_model->updateData($source, $frm_data);		
+		//echo $this->db->last_query();
 	}
 
 
