@@ -195,27 +195,32 @@ class Clientmanager extends CI_Controller {
 			"end_date" => $end_date,
 			"work_tag" => $work_tag,
 			"stage_details" => $this->input->post("stage_details"),
-			"payable_amt" => $this->input->post("payable_amt"),			
+			"payable_amt" => $this->input->post("payable_amt"),	
+			"pending_amt" => $this->input->post("payable_amt"),			
 			"payable_date" => $payable_date,
 			"payment_status" =>  $this->input->post("payment_status"),	
 			"create_by" => $_COOKIE['employee_name'] ?? "",		
 			"ip"=> $this->input->ip_address()	
 		);
 
-		$qry = "SELECT * FROM bkf_stage_details where id = $sid";
-		$res = $this->Master_model->getCustom($qry);
+		if($sid != ""){
 
-		if($res){
-			$sid = $res[0]->id;
-			$frm_data['id'] = $sid;
-			$frm_data['update_date'] = date("Y-m-d H:i:s");
-			$res = $this->Master_model->updateData("bkf_stage_details", $frm_data);
+			$qry = "SELECT * FROM bkf_stage_details where id = $sid";
+			$res = $this->Master_model->getCustom($qry);
+
 			if($res){
-				echo "~~~2~~~$sid~~~$booking_id~~~";
+				$sid = $res[0]->id;
+				$frm_data['id'] = $sid;
+				$frm_data['update_date'] = date("Y-m-d H:i:s");
+				$res = $this->Master_model->updateData("bkf_stage_details", $frm_data);
+				if($res){
+					echo "~~~2~~~$sid~~~$booking_id~~~";
+				}
+				else{
+					echo "~~~0~~~";
+				}  		
 			}
-			else{
-				echo "~~~0~~~";
-			}  			
+			
 		}
 		else{
 
@@ -231,7 +236,7 @@ class Clientmanager extends CI_Controller {
 
 		}
 
-		echo $this->db->last_query();
+		//echo $this->db->last_query();
 	}
 
 	public function stage_detail_list(){
@@ -249,19 +254,20 @@ class Clientmanager extends CI_Controller {
     }
 
 	public function ajax_stage_payment(){
+				
+		//print_r($_REQUEST);
 		
-		//print_r($this->input->post());
+		$sid = $this->input->post("sid") ?? "";
+		$stage_id = $this->input->post("stage_id") ?? "";
+		$booking_id = $this->input->post("booking_id") ?? "";
 
-		$sid = $this->input->post("sid");
-		$stage_id = $this->input->post("stage_id");
-		$booking_id = $this->input->post("booking_id");
+		$payable_amt = $this->input->post("payable_amt") ?? "";		
+		$pending_amt = $this->input->post("pending_amt") ?? "";
+		$paid_amt = $this->input->post("paid_amt") ?? "";
 
-		$payable_amt = $this->input->post("payable_amt");		
-		$total_paid_amt = $this->input->post("total_paid_amt");
-		$paid_amt = $this->input->post("paid_amt");
+		$new_pending_amt = $pending_amt - $paid_amt;
 
-
-		$refrence_no = $this->input->post("refrence_no");
+		$refrence_no = $this->input->post("refrence_no") ?? "";
 		$received_as = $this->input->post("received_as");
 		$received_by = $this->input->post("received_by");
 		
@@ -269,18 +275,96 @@ class Clientmanager extends CI_Controller {
 			"stage_id" => $stage_id,	
 			"booking_id" => $booking_id,
 			"payable_amt" => $payable_amt,			
-			"paid_amt" => $paid_amt,			
+			"paid_amt" => $paid_amt,
+			"pending_amt" => $new_pending_amt,
 			"refrence_no" => $refrence_no,
 			"received_as" => $received_as,
-			"refrence_no" =>  $refrence_no,	
+			"received_by" =>  $received_by,
 			"create_by" => $_COOKIE['employee_name'] ?? "",		
-			"ip"=> $this->input->ip_address()	
+			"ip" => $this->input->ip_address()	
 		);
 
+		//echo "<pre>";
+		//print_r($frm_data);
+		//exit;
+		//$qry = "SELECT * FROM bkf_stage_details where id = $sid";
+		//$res = $this->Master_model->getCustom($qry);
 
+		if($booking_id != ""){
+
+			$frm_data['create_date'] = date("Y-m-d H:i:s");
+			$res = $this->Master_model->saveData("bkf_stage_payment_history", $frm_data);
+			$id = $this->db->insert_id();
+			if($res){
+				$frm_data_2 =array("pending_amt" => $new_pending_amt, "update_date" => date("Y-m-d H:i:s"));
+				$where_arr = array("stage_id"=>$stage_id);
+				$res = $this->Master_model->updateArr("bkf_stage_details", $frm_data_2, $where_arr);
+				$id = $this->db->insert_id();
+
+				echo "~~~1~~~$id~~~$booking_id~~~";
+			}
+			else{
+				echo "~~~0~~~";
+			}			
+		}
+		else{
+			echo "~~~0~~~";
+		}
+		echo $this->db->last_query();
+	}
+
+	public function ajax_stage_running_status(){
+		
+		$id = $this->input->post('sid');
+		$stage_id = $this->input->post('stage_id');
+		$running_status = $this->input->post('running_status');
+
+		$frm_data =array("running_status" => $running_status, "update_date" => date("Y-m-d H:i:s"));
+		$where_arr = array("stage_id"=>$stage_id);
+		$res = $this->Master_model->updateArr("bkf_stage_details", $frm_data, $where_arr);
+		if($res){
+
+			$status = $this->getStatus($running_status);
+			echo "~~~2~~~".$status."~~~";
+		}
+		else{
+			echo "~~~0~~~";
+		}
+		
+	}	
+
+	public function payment_history(){
+
+		$data['booking_id'] = $this->uri->segment(3);
+		if($data['booking_id'])
+		{
+			$qry = "SELECT a.*,b.stage_name FROM bkf_stage_details a LEFT JOIN bkf_work_stages b ON a.stage_id = b.id where a.booking_id = ".$data['booking_id']."";
+			$data['payment_list'] = $this->Master_model->getCustom($qry);
+		}
+
+		$this->load->view('header');
+		$this->load->view('top_sidebar');
+		$this->load->view('payment_history', $data);
 
 	}
 
+	public function getStatus($status){
+		
+		
+		if($status == "Untouched"){
+			$html = '<span class="badge badge-label bg-primary"><i class="mdi mdi-circle-medium"></i>Untouched</span>';
+		}
+		elseif($status == "Running"){
+			$html = '<span class="badge badge-label bg-warning"><i class="mdi mdi-circle-medium"></i>Running</span>';
+		}
+		elseif($status == "Hold"){
+			$html = '<span class="badge badge-label bg-secondary"><i class="mdi mdi-circle-medium"></i>Hold</span>';
+		}
+		elseif($status == "Completed"){
+			$html = '<span class="badge badge-label bg-success"><i class="mdi mdi-circle-medium"></i>Completed</span>';
+		}
+		return $html;
+	}
 
 	public function paymenthistory(){
          
@@ -316,6 +400,95 @@ class Clientmanager extends CI_Controller {
 		$this->load->view('top_sidebar');
 		$this->load->view('manage_team');
     }
+
+
+
+
+	public function addteam(){
+
+		$data['result'] = $this->Master_model->getAll("tbl_employee_type");
+   
+		$id = $this->uri->segment(3) ?? "";
+		if($id!="")
+		{
+		$data['editData'] = $this->Master_model->getDataById("tbl_employee", $id)[0];
+		}
+   
+	   $this->load->view('header');
+	   $this->load->view('top_sidebar');
+	   $this->load->view('addteam',$data);
+   }
+   public function ajax_addteam()
+   {
+
+	$id      = $this->input->post("id") ?? "";
+	$emp_name      = $this->input->post("emp_name") ?? "";
+	$emp_mobile   = $this->input->post("emp_mobile") ?? "";
+	$emp_type   = $this->input->post("emp_type") ?? "";
+
+	$frm_data = array(
+		"id"=>$id,
+		"emp_name"=> $emp_name,
+		"emp_mobile"=> $emp_mobile,
+		"emp_type"=> $emp_type,
+		"create_date"=> date("Y-m-d H:i:s"),
+		"ip" => $this->input->ip_address()
+		);
+
+	if($frm_data["id"] == ""){
+
+		$frm_data['create_date'] = date("Y-m-d H:i:s");
+		$frm_data['ip'] = $this->input->ip_address();               
+		$res = $this->Master_model->saveData("tbl_employee", $frm_data);                       
+		if($res)
+		{
+			echo "~~~1~~~";
+		}
+		else
+		{
+			echo "~~~0~~~";
+		}
+
+	} else {
+		
+		$frm_data["update_date"] = date("Y-m-d H:i:s");
+		$res = $this->Master_model->updateData("tbl_employee", $frm_data);
+		if($res)
+		{    
+			echo "~~~2~~~";
+		}
+		else
+		{
+			echo "~~~0~~~";
+		}
+		//echo $this->db->last_query(); 
+	}
+				  
+     
+   }
+   
+   public function teamlist(){
+		
+	   $qry = "SELECT * FROM tbl_employee where status = 1 ";
+	   $data['result'] = $this->Master_model->getCustom($qry);
+   
+	   $this->load->view('header');
+	   $this->load->view('top_sidebar');
+	   $this->load->view('teamlist',$data);
+   }
+
+   public function upload_certificate(){
+		
+	$qry = "SELECT * FROM tbl_employee where status = 1 ";
+	$data['result'] = $this->Master_model->getCustom($qry);
+
+	$this->load->view('header');
+	$this->load->view('top_sidebar');
+	$this->load->view('upload_certificate');
+}
+
+
+
 
 	public function get_name($tbl=NULL,$col=NULL,$id=NULL)
 	{

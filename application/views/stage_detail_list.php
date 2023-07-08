@@ -1,4 +1,7 @@
-
+<?php 
+$CI = & get_instance();
+$client_name = $CI->get_name("bkf_booking_form","client_name",$booking_id);
+?>
 <div class="main-content">
     <div class="page-content">
       <div class="container-fluid">
@@ -27,51 +30,57 @@
           <div class="col-xl-12">
             <div class="card">
               <div class="card-header align-items-center d-flex">
-                <h4 class="card-title mb-0 flex-grow-1">Stages Details List</h4>
-                <a href="<?php echo base_url("index.php/clientmanager/manage_stage_details/".$booking_id)?>" class="btn btn-success btn-sm btn-label waves-effect waves-light"><i class=" ri-file-add-fill label-icon align-middle fs-16 me-2"></i>Add Stage Destails</a>
+                <h4 class="card-title mb-0 flex-grow-1"><?php echo $client_name?></h4>
+                <a href="<?php echo base_url("index.php/clientmanager/payment_history/".$booking_id)?>" class="btn btn-success btn-sm btn-label waves-effect waves-light"><i class=" ri-file-list-fill label-icon align-middle fs-16 me-2"></i>Payment History</a>&nbsp;&nbsp;
+                <a href="<?php echo base_url("index.php/clientmanager/manage_stage_details/".$booking_id)?>" class="btn btn-success btn-sm btn-label waves-effect waves-light"><i class=" ri-file-add-fill label-icon align-middle fs-16 me-2"></i>Add Stage</a>
               </div>
               <!-- end card header -->
               <div class="card-body">
                 <div class="live-preview">
-                <form action="">
+                <!--form action="">
                     <div class="form-group">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Client</label>
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Stage</label>
                       <div class="col-md-12 col-sm-12 col-xs-12">
                         <select class=" js-example-basic-multiple select2_single form-control" name="states[]" tabindex="-1">
-                            <option value="ajayjain">Ajay Jain</option>
-                            <option value="Rahul Bansal">Rahul Bansal</option>
-                            <option value="Lalit Yadav">Lalit Yadav</option>
-                            <option value="Surya">Surya Narayan</option>
-                            <option value="Srini">Srini</option>
+                          <option value="ajayjain">Ajay Jain</option>
+                          <option value="Rahul Bansal">Rahul Bansal</option>
+                          <option value="Lalit Yadav">Lalit Yadav</option>
+                          <option value="Surya">Surya Narayan</option>
+                          <option value="Srini">Srini</option>
                         </select>
                       </div>
                     </div>
-                </form>
+                </form-->
                 <div class="table-responsive mt-3">
                   <table id="example" class="table table-striped table-bordered" style="width:100%">                     
                       <thead class="table-light">
                         <tr>
-                          <th nowrap>Client Name</th>
                           <th>Stages Name</th>
                           <th>Start Date</th>
                           <th>Total Payable</th>
                           <th>Payment Status</th>
                           <th>Pay Now</th>
+                          <th>Status</th>
                           <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
-                      <?php if($stage_list){
-                        $CI = & get_instance();
+                      <?php
+                     
+                      if($stage_list){
+                        
                       foreach($stage_list as $res)
                         {
+
+                          
                           $stage_name = $CI->get_name("bkf_work_stages","stage_name",$res->stage_id);
                           $start_date = date("d-M-Y", strtotime($res->start_date));
                           $end_date = date("d-M-Y", strtotime($res->end_date));
-                        
+
+                          $paid_amt = $res->payable_amt - $res->pending_amt;
+                          $running_status = $CI->getStatus($res->running_status);
                         ?>
                         <tr>
-                            <td>Ajay Jain</td>
                             <td class="text-primary"><b id="lbl_stage_name_<?php echo $res->id;?>"><?php echo $stage_name;?></b><br>
                               <!--small class="text-info">Stage Number: 1</small-->
                             </td>
@@ -80,13 +89,34 @@
                             </td>
                             <td>Rs. <?php echo $res->payable_amt;?><br>
                             <input type="hidden" id="payable_amt_<?php echo $res->id;?>" value="<?php echo $res->payable_amt ?? "";?>">
-                            <input type="hidden" id="total_paid_amt_<?php echo $res->id;?>" value="<?php echo $res->total_paid_amt ?? "";?>">
+                            <input type="hidden" id="pending_amt_<?php echo $res->id;?>" value="<?php echo $res->pending_amt ?? "";?>">
                             <!--small class="text-danger"> Days: 10 Days Left</small-->
                             </td>
-                            <td><span class="badge rounded-pill badge-soft-success" style="font-size:10px">Paid</span><br>
-                              <small class="text-info">Paid amt: Rs. <?php echo $res->paid_amt ?? "0";?>  &nbsp;&nbsp;&nbsp; Due: Rs. 0</small></td>
+                            <td><span class="badge rounded-pill badge-soft-success" style="font-size:11px">Paid amount: <span style="color:#f16c50"> Rs. <?php echo $paid_amt;?></span></span><br>
+                              <small class="text-info">Pending amount: Rs. <?php echo $res->pending_amt ?? "";?></small></td>
                             <td>
-                              <a href="javascript:void(0);" sid="<?php echo $res->id;?>" stage_id="<?php echo $res->stage_id;?>" booking_id="<?php echo $res->booking_id;?>" class="paynow btn btn-primary btn-label btn-sm waves-effect waves-light rounded-pill" data-bs-toggle="modal" data-bs-target="#exampleModalgrid"><i class="ri-bank-card-fill label-icon align-middle rounded-pill fs-16 me-2"></i>Pay Now</a>
+                              <?php if($res->pending_amt == 0){?>
+                                <a href="javascript:void(0);" class="btn btn-primary btn-label btn-sm waves-effect waves-light rounded-pill"><i class="ri-bank-card-fill label-icon align-middle rounded-pill fs-16 me-2"></i>All Paid</a>
+                              <?php }else{ ?>
+                                <a href="javascript:void(0);" sid="<?php echo $res->id;?>" stage_id="<?php echo $res->stage_id;?>" booking_id="<?php echo $res->booking_id;?>" class="paynow btn btn-primary btn-label btn-sm waves-effect waves-light rounded-pill" data-bs-toggle="modal" data-bs-target="#exampleModalgrid"><i class="ri-bank-card-fill label-icon align-middle rounded-pill fs-16 me-2"></i>Pay Now</a>
+                              <?php }?>  
+                            </td>
+                            <td nowrap>            
+                              <div class="dropdown">
+                                    <div id="status_<?php echo $res->id;?>"><?php echo $running_status;?></div>
+                                    <a href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="ri-more-2-fill"></i>
+                                    </a>                                    
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                      <li><a class="action dropdown-item" href="javascript:void(0);" sid="<?php echo $res->id;?>" running_status="Untouched" stage_id="<?php echo $res->stage_id;?>">Untouched</a></li>
+                                      <li><a class="action dropdown-item" href="javascript:void(0);" sid="<?php echo $res->id;?>" running_status="Running" stage_id="<?php echo $res->stage_id;?>">Running</a></li>
+                                      <li><a class="action dropdown-item" href="javascript:void(0);" sid="<?php echo $res->id;?>" running_status="Completed" stage_id="<?php echo $res->stage_id;?>">Completed</a></li>
+                                      <li><a class="action dropdown-item" href="javascript:void(0);" sid="<?php echo $res->id;?>" running_status="Hold" stage_id="<?php echo $res->stage_id;?>">Hold</a></li>
+                                    </ul>
+                                </div>
+
+
+                                
                             </td>
                             <td>
                               <div class="hstack gap-3 flex-wrap">
@@ -95,6 +125,7 @@
                                 <a href="javascript:void(0);" class="link-danger fs-15"><i class="ri-delete-bin-line"></i></a>
                               </div>
                             </td>
+                            
                         </tr>  
                         <?php }
                          
@@ -132,13 +163,13 @@
                       <div class="row">
                           <div class="col-xxl-12">
                               <div>
-                                  <h5 class="text-primary">Total Payable on Stage <b id="html_stage_name"><?php ?></b> : Rs. 2,00,000 </h5>  
+                                  <h5 class="text-primary">Total Payable on Stage <b id="html_stage_name"><?php ?></b></h5>  
                               </div>
                           </div><!--end col-->
                           <div class="col-xxl-12">
                               <div>
                                   <label for="enteramount" class="form-label">Enter Amount</label>
-                                  <input type="number" name="paid_amt" class="form-control" id="enteramount" placeholder="Enter Amount" required>
+                                  <input type="number" id="paid_amt" name="paid_amt" class="form-control" id="enteramount" placeholder="Enter Amount" required>
                               </div>
                           </div><!--end col-->
                           <div class="col-xxl-12 mt-2">
@@ -172,7 +203,7 @@
                               <input type="hidden" id="stage_id" name="stage_id">
                               <input type="hidden" id="booking_id" name="booking_id">
                               <input type="hidden" id="payable_amt" name="payable_amt">
-                              <input type="hidden" id="total_paid_amt" name="total_paid_amt">
+                              <input type="hidden" id="pending_amt" name="pending_amt">
                               <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
                               <button type="submit" class="btn btn-primary">Submit</button>
                             </div>
@@ -223,8 +254,34 @@
 
 <script type="text/javascript"> 
 $(document).ready(function(){
- 
+
+$(document).on("click", ".action", function(){
+
+  var id = $(this).attr("sid");
+  var stage_id =  $(this).attr("stage_id");
+  var running_status = $(this).attr("running_status");
+
+  var url = "<?php echo site_url('clientmanager/ajax_stage_running_status')?>";
+    $.ajax({
+          url:url,
+          type: "POST",
+          data: ({id: id, stage_id: stage_id, running_status: running_status}),
+          success: function(data){
+              var spl_txt = data.split("~~~");
+
+              if(spl_txt[1] == 2)
+              {
+                $("#status_"+id).html(spl_txt[2]);
+                alert("Status Successfully Changed....");
+              } 
+
+          }
+      });
+
+});
+
 $(document).on("click", ".paynow", function(){
+
     var sid = $(this).attr("sid");
     var stage_id = $(this).attr("stage_id");
     var booking_id = $(this).attr("booking_id");
@@ -232,9 +289,10 @@ $(document).on("click", ".paynow", function(){
     var stage_name = $('#lbl_stage_name_'+sid).html();
 
     $("#payable_amt").val($('#payable_amt_'+sid).val());
-    $("#total_paid_amt").val($('#total_paid_amt_'+sid).val());
+    $("#pending_amt").val($('#pending_amt_'+sid).val());
+    $("#paid_amt").val($('#pending_amt_'+sid).val());
     
-    $("#html_stage_name").html(stage_name);
+    $("#html_stage_name").html(stage_name+' Rs. '+$('#pending_amt_'+sid).val());
     $("#sid").val(sid);
     $("#stage_id").val(stage_id);
     $("#booking_id").val(booking_id);
@@ -274,12 +332,14 @@ $('#frmPay').validate({
                   var spl_txt = data.split("~~~");
                   if(spl_txt[1] == 1)
                   { 
-                    alert("Successfully Saved...");                          
+                    alert("Successfully Saved...");     
+                    location.reload()                     
                     //window.location.href = "<?php //echo base_url("index.php/clientmanager/manage_stage_details/")?>"+spl_txt[3];
                   }
                   else if(spl_txt[1] == 2)
                   { 
                     alert("Successfully Updated..."); 
+                    location.reload()
                     //window.location.href = "<?php //echo base_url("index.php/clientmanager/stage_detail_list/")?>"+spl_txt[3];                  
                   }
                   else

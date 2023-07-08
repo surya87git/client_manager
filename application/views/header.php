@@ -24,6 +24,9 @@
       <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet"/>
     <!--font awesome cdn---->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/fontawesome.min.css" integrity="sha512-RvQxwf+3zJuNwl4e0sZjQeX7kUa3o82bDETpgVCH2RiwYSZVDdFJ7N/woNigN/ldyOOoKw8584jM4plQdt8bhA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- dropzone css -->
+    <link rel="stylesheet" href="<?php echo base_url();?>assets/libs/dropzone/dropzone.css" type="text/css" />
+
     <!-- Icons Css --> 
     <link href="<?php echo base_url();?>assets/css/icons.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="<?php echo base_url();?>assets/plugins/daterangepicker/daterangepicker.css">
