@@ -34,25 +34,40 @@ $client_name = $CI->get_name("bkf_booking_form","client_name",$booking_id);
               <div class="card-body">
                 <div class="live-preview">
                   <div class="row">
+                    <form id="frmFilter" method="post">
                       <div class="col-xxl-12 col-md-12 mt-2">
-                        <label for="">Select Client</label>
-                        <select id="" name="" class=" js-example-basic-multiple select2_single form-control"  placeholder="Select" tabindex="-1">    
-                          <option value="" Selected>Select Stage</option>
-                          <option value="Stage 1">Stage 1</option>
-                          <option value="Stage 2">Stage 2</option>
-                          <option value="Stage 3">Stage 3</option>
-                          <option value="Stage 4">Stage 4</option>
+                        <label for="">Select Stage</label>
+                        <select id="stage_id" name="stage_id" class=" js-example-basic-multiple select2_single form-control"  placeholder="Select" tabindex="-1">    
+                          <option value="" Selected>Select</option>
+                          <?php if($stage_list){
+
+                              $cnt =0;
+                              foreach($stage_list as $res)
+                                {
+                                    $cnt++;
+                                    if($res->id == $stage_id){
+                                      $selected = 'selected="selected"';
+                                    }
+                                    else{
+                                      $selected = '';
+                                    }
+
+                                  echo '<option '.$selected.' value="'.$res->id.'"> Stage -'.$cnt.' [ '.$res->stage_name.' ]</option>';
+                                } 
+                              }
+                              ?> 
                         </select>
                       </div>
+                            </form>
                       <div class="table-responsive mt-3">
                   <table id="example" class="table table-striped table-bordered" style="width:100%">                     
                       <thead class="table-light">
                         <tr>                        
                           <th>Stages Name</th>
                           <th>Payment Date</th>
-                          <th>Total Payable</th>
+                          <th>Payable</th>
                           <th>Amount Paid</th>
-                          <th>Payment Status</th>
+                          <th>Pay As</th>
                           <th>Received</th>
                           <th>Action</th>
                         </tr>
@@ -74,19 +89,17 @@ $client_name = $CI->get_name("bkf_booking_form","client_name",$booking_id);
                             <!--small class="text-info">Stage Number: 1</small-->
                             </td>
                             <td><?php echo $create_date;?><br><small class="text-info"><?php echo $create_time;?></small></td>
-                              
-                            <td>Rs. 20,000 <br>
+                            <td>Rs. <?php echo $res->payable_amt;?> 
                             </td>
-                            <td>Rs. 20,000 <br>
-                              <small class="text-danger">Due: Rs. 0</small></td>
-                            <td>
-                            <span class="badge badge-soft-success badge-border" style="font-size: 12px;">Paid</span>
+                            <td>Rs. <?php echo $res->paid_amt;?><br>
+                              <small class="text-danger">Pending: Rs. <?php echo $res->pending_amt;?></small>
                             </td>
-                            <td> Received By: Vishal<br>
-                            <small class="text-info">As Payment</small></td>
+                            
+                            <td><?php echo $res->received_as;?></td>
+                            <td><?php echo $res->received_by;?></td>
                             <td>
                                 <div class="hstack gap-3 flex-wrap">
-                                    <a href="javascript:void(0);" class="link-primary fs-15"><i class="ri-edit-2-line"></i></a>
+                                    <!--a href="javascript:void(0);" class="link-primary fs-15"><i class="ri-edit-2-line"></i></a-->
                                     <a href="javascript:void(0);" class="link-danger fs-15"><i class="ri-delete-bin-line"></i></a>
                                 </div>
                             </td>
@@ -162,6 +175,14 @@ $client_name = $CI->get_name("bkf_booking_form","client_name",$booking_id);
 
 <script type="text/javascript"> 
 $(document).ready(function(){
+
+  $(document).on("change", "#stage_id", function(e){      
+        e.preventDefault();
+        $("#frmFilter").submit();
+    });
+
+
+
 
   $(".js-example-basic-multiple").select2({
     placeholder: "---Select---",

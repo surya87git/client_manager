@@ -96,8 +96,9 @@ $client_name = $CI->get_name("bkf_booking_form","client_name",$booking_id);
                               <small class="text-info">Pending amount: Rs. <?php echo $res->pending_amt ?? "";?></small></td>
                             <td>
                               <?php if($res->pending_amt == 0){?>
-                                <a href="javascript:void(0);" class="btn btn-primary btn-label btn-sm waves-effect waves-light rounded-pill"><i class="ri-bank-card-fill label-icon align-middle rounded-pill fs-16 me-2"></i>All Paid</a>
-                              <?php }else{ ?>
+                                <!--a href="javascript:void(0);" class="btn btn-primary btn-label btn-sm waves-effect waves-light rounded-pill"><i class="ri-bank-card-fill label-icon align-middle rounded-pill fs-16 me-2"></i>All Paid</a-->
+                                <span class="badge badge-soft-success badge-border" style="font-size: 12px;">Paid</span>
+                                <?php }else{ ?>
                                 <a href="javascript:void(0);" sid="<?php echo $res->id;?>" stage_id="<?php echo $res->stage_id;?>" booking_id="<?php echo $res->booking_id;?>" class="paynow btn btn-primary btn-label btn-sm waves-effect waves-light rounded-pill" data-bs-toggle="modal" data-bs-target="#exampleModalgrid"><i class="ri-bank-card-fill label-icon align-middle rounded-pill fs-16 me-2"></i>Pay Now</a>
                               <?php }?>  
                             </td>

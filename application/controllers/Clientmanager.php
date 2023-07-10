@@ -338,9 +338,20 @@ class Clientmanager extends CI_Controller {
 		$data['booking_id'] = $this->uri->segment(3);
 		if($data['booking_id'])
 		{
-			$qry = "SELECT a.*,b.stage_name FROM bkf_stage_details a LEFT JOIN bkf_work_stages b ON a.stage_id = b.id where a.booking_id = ".$data['booking_id']."";
+			
+			$qry = "";
+			$qry .= "SELECT a.*,b.stage_name FROM bkf_stage_payment_history a LEFT JOIN bkf_work_stages b ON a.stage_id = b.id where a.booking_id = ".$data['booking_id']." ";
+			if($_POST['stage_id']){
+			$qry .= "and a.stage_id = ".$_POST['stage_id']." ";
+			$data['stage_id'] =$_POST['stage_id'];
+			}
+			$qry .= "order by id desc";
+			
 			$data['payment_list'] = $this->Master_model->getCustom($qry);
 		}
+		
+		$qry = "SELECT * FROM bkf_work_stages where status = 1 order by id asc";
+		$data['stage_list'] = $this->Master_model->getCustom($qry);
 
 		$this->load->view('header');
 		$this->load->view('top_sidebar');

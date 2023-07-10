@@ -230,6 +230,8 @@ public function stageView(){
 
 
 
+
+
 public function get_name($tbl=NULL,$col=NULL,$id=NULL)
 	{
 		$name = $this->Master_model->getNameById($tbl,$col,$id); 
