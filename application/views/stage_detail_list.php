@@ -71,7 +71,6 @@ $client_name = $CI->get_name("bkf_booking_form","client_name",$booking_id);
                         
                       foreach($stage_list as $res)
                         {
-
                           
                           $stage_name = $CI->get_name("bkf_work_stages","stage_name",$res->stage_id);
                           $start_date = date("d-M-Y", strtotime($res->start_date));

@@ -31,64 +31,21 @@
                                         <form id="frmCommit">
                                             <div class="row mt-3">                         
                                             <?php 
-                                    
-                                                $chk_commit = $commit[0]->commitment;
-                                                $chk_arr = explode(",", $chk_commit);
-                                                
-                                                if($commit[0]->aggr_period  !="" && $commit[0]->aggr_period != "1970-01-01 00:00:00")
+                                                foreach($facility_list as $row)
                                                 {
-                                                    $aggr_period = date("Y-m-d", strtotime($commit[0]->aggr_period));
-                                                }
-                                                else {
-                                                    $aggr_period = "";
-                                                }
-                                                
-                                                if($commit[0]->comp_period  !="" && $commit[0]->comp_period != "1970-01-01 00:00:00")
-                                                {
-                                                    $comp_period = date("Y-m-d", strtotime($commit[0]->comp_period)) ?? "";
-                                                }
-                                                else
-                                                {
-                                                    $comp_period = "";
-                                                }
-                                                
-                                                if($commit[0]->work_start_on  !="" && $commit[0]->work_start_on != "1970-01-01 00:00:00")
-                                                {
-                                                    $work_start_on = date("Y-m-d", strtotime($commit[0]->work_start_on)) ?? "";
-                                                }
-                                                
-
-                                                $sba_data = $commit[0]->sba ?? "";
-                                                $est_cost = $commit[0]->est_cost ?? "";
-
-                                                $booking_id = $this->uri->segment(3);
-
-                                            if($commitment_list){
-                                                  $cnt = 0;
-                                                  foreach($commitment_list as $key=>$row){
-
-                                                    $cnt++;
-                                                                                                        
-                                                    $checked = "";
-                                                    if(in_array($row->id, $chk_arr)){
-                                                        $checked = "checked";
-                                                    }
-                                                    else{
-                                                        $checked = "";
-                                                    }
                                                                                               
                                                 ?>
                                                 <div class="col-md-12 mt-3">
                                                     <div>
                                                         <div class="icheck-success d-inline">
-                                                            <input type="checkbox" name="chk_commitment[]" value="<?php echo $row->id;?>" id="chk_<?php echo $row->id;?>" <?php echo $checked; ?>>
+                                                            <input type="checkbox" name="chk_facility[]" value="<?php echo $row->id;?>" id="chk_<?php echo $row->id;?>" >
                                                             <label for="chk_<?php echo $row->id;?>" title="">
-                                                             <?php echo $row->commitment;?>
+                                                             <?php echo $row->name;?>
                                                             </label>
                                                         </div>
                                                     </div> 
                                                 </div>
-                                              <?php } }?>                                            
+                                              <?php } ?>                                           
                                             </div>                                      
                                         </div>
                                         <!--end row-->
@@ -180,7 +137,7 @@ $('#frmCommit').validate({
             $(element).removeClass('is-invalid');
         },
         submitHandler: function(form) {      
-            var url = "<?php echo site_url('booking/ajax_add_commitment')?>";
+            var url = "<?php echo site_url('clientmanager/ajax_add_facility')?>";
             var frmdata = new FormData($('#frmCommit')[0]);
             console.log(frmdata);
             $.ajax({            
@@ -196,12 +153,12 @@ $('#frmCommit').validate({
                     if(spl_txt[1] == 1)
                     { 
                        alert("Successfully Saved...");                        
-                       window.location.href = "<?php echo base_url()."index.php/booking/booking_details/".$booking_id; ?>";
+                       window.location.href = "<?php echo base_url()."index.php/clientmanager/project_list/".$booking_id; ?>";
                     }
                     else if(spl_txt[1] == 2)
                     { 
                        alert("Successfully Updated...");
-                       window.location.href = "<?php echo base_url()."index.php/booking/booking_details/".$booking_id; ?>";                        
+                       window.location.href = "<?php echo base_url()."index.php/clientmanager/project_list/".$booking_id; ?>";                        
                     }
                     else
                     { 

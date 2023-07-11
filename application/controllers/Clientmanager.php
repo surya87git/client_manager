@@ -343,7 +343,7 @@ class Clientmanager extends CI_Controller {
 			$qry .= "SELECT a.*,b.stage_name FROM bkf_stage_payment_history a LEFT JOIN bkf_work_stages b ON a.stage_id = b.id where a.booking_id = ".$data['booking_id']." ";
 			if($_POST['stage_id']){
 			$qry .= "and a.stage_id = ".$_POST['stage_id']." ";
-			$data['stage_id'] =$_POST['stage_id'];
+			$data['stage_idCP_'] =$_POST['stage_id'];
 			}
 			$qry .= "order by id desc";
 			
@@ -398,11 +398,40 @@ class Clientmanager extends CI_Controller {
 		$this->load->view('top_sidebar');
 		$this->load->view('project_list');
     }
-	public function manage_facilities(){
-         
+	public function manage_facility(){
+
+		$data['booking_id'] = $this->uri->segment(3);
+		
+         $qry = "SELECT * FROM bkf_facility_worktag where cat_id = 1 AND status = 1";
+			$data['facility_list'] = $this->Master_model->getCustom($qry);
+		
+
 		$this->load->view('header');
 		$this->load->view('top_sidebar');
-		$this->load->view('manage_facilities');
+		$this->load->view('manage_facility',$data);
+    }
+    public function ajax_add_facility()
+    {
+
+		$facility_arr = $this->input->post("chk_facility");
+		$facility_str = implode(",", $facility_arr);
+		
+		$booking_id = $this->input->post("booking_id");
+		$frm_data = array(			
+			"booking_id" => $booking_id,
+			"my_facility" => $facility_str,
+			"update_date" => date("Y-m-d H:i:s"),
+		);
+			$where_arr = array("booking_id" => $booking_id);
+			$res = $this->Master_model->updateArr("bkf_aggrement_form", $frm_data, $where_arr);	
+			if($res){
+				echo "~~~2~~~";
+			}
+			else{
+				echo "~~~0~~~";
+			}
+
+		
     }
 
 	public function manage_team(){
@@ -489,13 +518,64 @@ class Clientmanager extends CI_Controller {
    }
 
    public function upload_certificate(){
-		
-	$qry = "SELECT * FROM tbl_employee where status = 1 ";
-	$data['result'] = $this->Master_model->getCustom($qry);
 
-	$this->load->view('header');
-	$this->load->view('top_sidebar');
-	$this->load->view('upload_certificate');
+		$qry = "SELECT * FROM bkf_work_stages where status = 1 order by id asc";
+		$data['stage_list'] = $this->Master_model->getCustom($qry);
+
+		$data['booking_id'] = $this->uri->segment(3) ?? "";
+
+		$this->load->view('header');
+		$this->load->view('top_sidebar');
+		$this->load->view('upload_certificate',$data);
+}
+public function ajax_upload_certificate()
+{
+		$stage_id = $this->input->post("stage_id") ?? "";
+		$c_name = $this->input->post("c_name") ?? "";
+		$booking_id = $this->input->post("booking_id") ?? "";
+
+		$frm_data = array(
+			'stage_id'=>$stage_id,
+			'booking_id'=>$booking_id,
+			'certificate_name'=>$c_name,
+			'create_date'=>date("Y-m-d H:i:s"),
+			'ip'=> $this->input->ip_address()
+		);
+
+			$file_name = $_FILES['file_name']['name'];
+			$tmp_name = $_FILES['file_name']['tmp_name'];			
+			$ad_c = $this->file_upload($file_name, $tmp_name, $c_name."_".$booking_id."_".$stage_id);
+			if($ad_c != "")
+			{
+				$frm_data['file_name'] = $ad_c;				
+			}
+
+
+			$res = $this->Master_model->saveData("bkf_uploaded_certificate", $frm_data);
+			if($res)
+			{
+				echo "~~~1~~~";
+			}
+			else
+			{
+				echo "~~~0~~~";
+			}
+
+}
+
+   public function certificate_list(){
+
+		$booking_id = $this->uri->segment(3) ?? "";
+		$data = array();
+		if($booking_id!="")
+		{
+			$qry = "SELECT * FROM bkf_uploaded_certificate where booking_id = $booking_id AND status = 1 order by id asc";
+			$data['uploaded_certificate'] = $this->Master_model->getCustom($qry);
+		}
+
+		$this->load->view('header');
+		$this->load->view('top_sidebar');
+		$this->load->view('upload_certificate',$data);
 }
 
 
@@ -505,6 +585,22 @@ class Clientmanager extends CI_Controller {
 	{
 		$name = $this->Master_model->getNameById($tbl,$col,$id); 
 		return $name;
+	}
+
+
+	public function file_upload($file_name, $tmp_name, $doc_type)
+	{
+		$f_name = explode(".", $file_name);
+		$imgpdf_file =  $doc_type."_".time().'.'.$f_name[1];		
+		$destination = 'assets/uploads/certificate/'.$imgpdf_file;
+		if(move_uploaded_file($tmp_name, $destination))
+		{
+			return $imgpdf_file;
+		}
+		else
+		{
+			return '';
+		}		
 	}
 }
 ?>

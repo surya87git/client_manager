@@ -228,6 +228,36 @@ public function stageView(){
 
 }
 
+public function paymentHistory(){
+
+  if($this->$permission == 0){       
+      return $this->output->set_status_header(401);
+      exit;
+  }   
+  $data = array();
+  
+  $input_res = $this->Master_model->jsonData();
+  $booking_id = $input_res['booking_id'];
+  
+  $qry = "";
+  $qry .= "SELECT a.*, b.stage_name FROM bkf_stage_payment_history a LEFT JOIN bkf_work_stages b ON a.stage_id = b.id ";
+  
+  $qry .= "where a.booking_id = $booking_id";  
+
+  $data['result'] = $this->Master_model->getCustom($qry);
+ 
+  if($data['result']){
+    $response = array('code' => 200, 'status' => 'success', 'message' => 'Success');
+  }
+  else{
+    $response = array('code' => 300, 'status' => 'error', 'message' => 'Data  Not Availble');
+  }
+
+  $merg_res = array_merge($data, $response);
+  $this->output->set_content_type('application/json')->set_output(json_encode($merg_res));
+
+}
+
 
 
 

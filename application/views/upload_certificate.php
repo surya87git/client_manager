@@ -1,4 +1,3 @@
-
 <div class="main-content">
     <div class="page-content">
       <div class="container-fluid">
@@ -29,7 +28,7 @@
               </div>
               <!-- end card header -->
               <div class="card-body">
-                <form id="frmStage">
+                <form id="frmStage" enctype="multipart/form-data">
                   <div class="live-preview">
                     <div class="row">
                         <div class="col-xxl-12 col-md-12 mt-3">
@@ -70,17 +69,17 @@
                         ?>
 
                       <div class="form-group col-xxl-6 col-md-6 mt-3">
-                        <label>Enter Name:</label>
-                        <input type="text" class="form-control" id="" value="" name="" placeholder="Enter Name of Certificates" required>                              
+                        <label>Certificate Name:</label>
+                        <input type="text" class="form-control" id="" value="" name="c_name" placeholder="Enter Name of Certificates" required>                              
                       </div>   
                       <div class="form-group col-xxl-6 col-md-6 mt-3">
                         <label>Upload the certificate:</label>
-                        <input type="file" class="form-control" id="" value="" name=""  required>                              
+                        <input type="file" class="form-control" id="" value="" name="file_name"  required>                              
                       </div> 
                     </div>
                     <div class="mt-3" style="float:right;">
                       <input type="hidden" name="booking_id" value="<?php echo $booking_id;?>">
-                      <input type="hidden" name="sid" value="<?php echo $sid;?>">
+                      <!-- <input type="hidden" name="sid" value="<?php //echo $sid;?>"> -->
                       <button type="submit" class="btn btn-success btn-label"><i class="ri-check-double-line label-icon align-middle fs-16 me-2"></i> Submit</button>
                     </div>
                   </div>
@@ -236,7 +235,7 @@ $('#frmStage').validate({
           $(element).removeClass('is-invalid');
       },
       submitHandler: function(form) {      
-          var url = "<?php echo site_url('clientmanager/ajax_stage_details')?>";
+          var url = "<?php echo site_url('clientmanager/ajax_upload_certificate')?>";
           var frmdata = new FormData($('#frmStage')[0]);
           //console.log(frmdata);
           $.ajax({            
@@ -247,17 +246,17 @@ $('#frmStage').validate({
               contentType: false,  
               success: function(data)
               {                 
-                  //console.log(data);
+                  console.log(data);
                   var spl_txt = data.split("~~~");
                   if(spl_txt[1] == 1)
                   { 
                     alert("Successfully Saved...");                          
-                    window.location.href = "<?php echo base_url("index.php/clientmanager/manage_stage_details/")?>"+spl_txt[3];
+                    window.location.href = "<?php echo base_url("index.php/clientmanager/upload_certificate/")?>"+spl_txt[3];
                   }
                   else if(spl_txt[1] == 2)
                   { 
                     alert("Successfully Updated..."); 
-                    window.location.href = "<?php echo base_url("index.php/clientmanager/stage_detail_list/")?>"+spl_txt[3];                  
+                    window.location.href = "<?php echo base_url("index.php/clientmanager/upload_certificate/")?>"+spl_txt[3];                  
                   }
                   else
                   { 

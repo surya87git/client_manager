@@ -1010,9 +1010,6 @@ class Booking extends CI_Controller {
 		$qry = "SELECT * FROM bkf_commitment_list where id <> 0 and status = 1";
 		$data['commitment_list'] = $this->Master_model->getCustom($qry);
 
-		$qry = "SELECT * FROM bkf_client_aggrement_column where id <> 0 and status = 1 and booking_id = $booking_id";
-		$data['column_list'] = $this->Master_model->getCustom($qry)[0];
-
 		$this->load->view('header');
 		$this->load->view('top_sidebar');
 		$this->load->view('booking_details',  $data);
@@ -1196,46 +1193,6 @@ class Booking extends CI_Controller {
 		$this->load->view('header');
 		$this->load->view('top_sidebar');
 		$this->load->view('add_commitment', $data);
-	}
-
-
-	public function ajax_make_anubandh(){
-	
-		$booking_id = $this->input->post("booking_id")  ?? "";	
-		$verify = $this->input->post('verify') ?? "";
-
-		$qry = "SELECT count(*) as cnt FROM bkf_aggrement_form where booking_id = $booking_id";
-		$res = $this->Master_model->getCustom($qry);
-
-		$cnt = $res[0]->cnt;
-		if($cnt == 0 && $verify == 1){
-
-			$frm_data = array(
-				"booking_id"=>$booking_id,			
-				"create_date" => date("Y-m-d H:i:s"),
-			);
-			$res = $this->Master_model->saveData("bkf_aggrement_form", $frm_data);
-			$frm_update = array(
-				"id" => $booking_id,
-				"aggrement_status" => $verify,
-				"aggrement_date" => date("Y-m-d H:i:s")
-			);
-			$res = $this->Master_model->updateData("bkf_booking_form", $frm_update);
-			if($res){
-				$aggr_date = date("d M, Y H:i:s");
-				echo "~~~1~~~".$aggr_date."~~~";
-			}
-			else{
-				echo "~~~0~~~";
-			}
-
-			echo $this->db->last_query();
-		}
-		else{
-
-			echo "~~~0~~~";
-		}
-
 	}
 
 	public function ajax_booking_verify()
