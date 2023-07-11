@@ -1,118 +1,124 @@
-<?php
-include("header.php");
-include_once("db/config.php");
-
+<?php 
+$CI = & get_instance();
+$client_name = $CI->get_name("bkf_booking_form","client_name",$booking_id);
 ?>
-<!-- Begin page -->
-<div id="layout-wrapper"> 
-<?php
-include("top-sidebar.php");
-?>
- 
 <div class="main-content">
     <div class="page-content">
       <div class="container-fluid">
         <!-- start page title -->
         <div class="row">
           <div class="col-12">
-            
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-              <h4 class="mb-sm-0">User List</h4>
+              <h4 class="mb-sm-0">Payment History</h4>
               <div class="page-title-right">
                 <ol class="breadcrumb m-0">
                   <li class="breadcrumb-item">
-                    <a href="javascript: void(0);">Manage User</a>
+                    <a href="javascript: void(0);">Admin Panel</a>
                   </li>
-                  <li class="breadcrumb-item active">User List</li>
+                  <li class="breadcrumb-item active">Payment History</li>
                 </ol>
-                
               </div>
-              
             </div>
-            
           </div>
         </div>
-        <!-- end page title -->
+  <!-- end page title -->
+  <!-----Add Stages--------->
         <div class="row">
           <div class="col-xl-12">
             <div class="card">
               <div class="card-header align-items-center d-flex">
-                <h4 class="card-title mb-0 flex-grow-1">User List</h4>
+                <h4 class="card-title mb-0 flex-grow-1"><?php echo $client_name?></h4>
+                <a href="<?php echo base_url("index.php/clientmanager/stage_detail_list/".$booking_id)?>" class="btn btn-success btn-sm btn-label waves-effect waves-light"><i class=" ri-file-list-fill label-icon align-middle fs-16 me-2"></i>Stage List</a>&nbsp;&nbsp;
               </div>
-              
               <!-- end card header -->
               <div class="card-body">
                 <div class="live-preview">
-                <div class="row">
-                    <div>
-                        
-                    </div>
-                    
-                </div>
-                <form action="">
-                    
-                      
-                </form>
-                <div class="table-responsive mt-3">
+                  <div class="row">
+                    <form id="frmFilter" method="post">
+                      <div class="col-xxl-12 col-md-12 mt-2">
+                        <label for="">Select Stage</label>
+                        <select id="stage_id" name="stage_id" class=" js-example-basic-multiple select2_single form-control"  placeholder="Select" tabindex="-1">    
+                          <option value="" Selected>Select</option>
+                          <?php if($stage_list){
+
+                              $cnt =0;
+                              foreach($stage_list as $res)
+                                {
+                                    $cnt++;
+                                    if($res->id == $stage_id){
+                                      $selected = 'selected="selected"';
+                                    }
+                                    else{
+                                      $selected = '';
+                                    }
+
+                                  echo '<option '.$selected.' value="'.$res->id.'"> Stage -'.$cnt.' [ '.$res->stage_name.' ]</option>';
+                                } 
+                              }
+                              ?> 
+                        </select>
+                      </div>
+                            </form>
+                      <div class="table-responsive mt-3">
                   <table id="example" class="table table-striped table-bordered" style="width:100%">                     
                       <thead class="table-light">
-                        <tr>
-                          <th nowrap>Client Name</th>
-                          <th>Stages Number</th>
+                        <tr>                        
                           <th>Stages Name</th>
-                          <th>Start Date</th>
-                          <th>Total Payment</th>
+                          <th>Payment Date</th>
+                          <th>Payable</th>
+                          <th>Amount Paid</th>
+                          <th>Pay As</th>
+                          <th>Received</th>
                           <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                            <td>Ajay Jain</td>
-                            <td>1 Stage</td>
-                            <td>Plint</td>
-                            <td>9-12-2022</td>
-                            <td>Rs. 20,000</td>
+                      <?php                    
+                      if($payment_list){
+                        foreach($payment_list as $res)
+                          {
+                            //$stage_name = $CI->get_name("bkf_work_stages","stage_name",$res->stage_id);
+                            $create_date = date("d-M-Y", strtotime($res->create_date));
+                            $create_time = date("H:i:sa", strtotime($res->create_date));
+                            
+                            $paid_amt = $res->payable_amt - $res->pending_amt;
+                            $running_status = $CI->getStatus($res->running_status);
+                        ?>
+                        <tr>                          
+                            <td class="text-primary"><b><?php echo $res->stage_name;?></b><br>
+                            <!--small class="text-info">Stage Number: 1</small-->
+                            </td>
+                            <td><?php echo $create_date;?><br><small class="text-info"><?php echo $create_time;?></small></td>
+                            <td>Rs. <?php echo $res->payable_amt;?> 
+                            </td>
+                            <td>Rs. <?php echo $res->paid_amt;?><br>
+                              <small class="text-danger">Pending: Rs. <?php echo $res->pending_amt;?></small>
+                            </td>
+                            
+                            <td><?php echo $res->received_as;?></td>
+                            <td><?php echo $res->received_by;?></td>
                             <td>
                                 <div class="hstack gap-3 flex-wrap">
-                                    <a href="javascript:void(0);" class="link-success fs-15"><i class="ri-gallery-fill"></i></a>
-                                    <a href="javascript:void(0);" class="link-primary fs-15"><i class="ri-edit-2-line"></i></a>
+                                    <!--a href="javascript:void(0);" class="link-primary fs-15"><i class="ri-edit-2-line"></i></a-->
                                     <a href="javascript:void(0);" class="link-danger fs-15"><i class="ri-delete-bin-line"></i></a>
                                 </div>
                             </td>
                         </tr>
-                        <tr>
-                            <td>Ajay Jain</td>
-                            <td>1 Stage</td>
-                            <td>Plint</td>
-                            <td>9-12-2022</td>
-                            <td>Rs. 20,000</td>
-                            <td>
-                                <div class="hstack gap-3 flex-wrap">
-                                    <a href="javascript:void(0);" class="link-success fs-15"><i class="ri-gallery-fill"></i></a>
-                                    <a href="javascript:void(0);" class="link-primary fs-15"><i class="ri-edit-2-line"></i></a>
-                                    <a href="javascript:void(0);" class="link-danger fs-15"><i class="ri-delete-bin-line"></i></a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Ajay Jain</td>
-                            <td>1 Stage</td>
-                            <td>Plint</td>
-                            <td>9-12-2022</td>
-                            <td>Rs. 20,000</td>
-                            <td>
-                                <div class="hstack gap-3 flex-wrap">
-                                    <a href="javascript:void(0);" class="link-success fs-15"><i class="ri-gallery-fill"></i></a>
-                                    <a href="javascript:void(0);" class="link-primary fs-15"><i class="ri-edit-2-line"></i></a>
-                                    <a href="javascript:void(0);" class="link-danger fs-15"><i class="ri-delete-bin-line"></i></a>
-                                </div>
-                            </td>
-                        </tr>
+                        <?php }
+                      }?>
+                       
                     </tbody>
                       
                     </table>
                     <!-- end table -->
                   </div>
+                </div>
+                  </div>
+                  <center><div class="mt-3">
+                  <button type="button" class="btn btn-success btn-label"><i class="ri-check-double-line label-icon align-middle fs-16 me-2"></i> Submit</button>
+                  </div></center>
+
+                  <!-- end table responsive -->
                 </div>
                 
               </div>
@@ -122,6 +128,8 @@ include("top-sidebar.php");
           </div>
           <!-- end col -->
         </div>
+        <!-----End of Add Stages--------->
+        
       </div>
       
       <!-- container-fluid -->
@@ -161,12 +169,28 @@ include("top-sidebar.php");
 <!-------Daterange Picker------------>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>assets/js/date_range.min.js"></script>
-
+<script src="<?php echo base_url();?>assets/js/select2.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 <script src="<?php echo base_url();?>assets/js/app.js"></script>
 
 <script type="text/javascript"> 
 $(document).ready(function(){
+
+  $(document).on("change", "#stage_id", function(e){      
+        e.preventDefault();
+        $("#frmFilter").submit();
+    });
+
+
+
+
+  $(".js-example-basic-multiple").select2({
+    placeholder: "---Select---",
+    allowClear: true
+  });
+
+
+
   $(function() {
   $('input[name="daterange"]').daterangepicker({
     opens: 'left'
@@ -174,6 +198,7 @@ $(document).ready(function(){
     console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
   });
 });
+
 
 
   $('#example').DataTable({
@@ -269,7 +294,5 @@ $(document).ready(function(){
 });
 
 </script>
-
-<?php
-  include("footer.php");
-?>
+</body>
+</html>

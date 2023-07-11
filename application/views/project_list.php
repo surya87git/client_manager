@@ -1,11 +1,4 @@
-<?php
-include("../admin_portal/header.php")
-?>
-<!-- Begin page -->
-<div id="layout-wrapper"> <?php
-include("../admin_portal/top-sidebar.php")
-?>
- 
+
 <div class="main-content">
     <div class="page-content">
       <div class="container-fluid">
@@ -13,13 +6,13 @@ include("../admin_portal/top-sidebar.php")
         <div class="row">
           <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-              <h4 class="mb-sm-0">Add Stages Details</h4>
+              <h4 class="mb-sm-0">PROJECT</h4>
               <div class="page-title-right">
                 <ol class="breadcrumb m-0">
                   <li class="breadcrumb-item">
                     <a href="javascript: void(0);">Masters</a>
                   </li>
-                  <li class="breadcrumb-item active">Project Stages </li>
+                  <li class="breadcrumb-item active">Project</li>
                 </ol>
               </div>
             </div>
@@ -31,72 +24,55 @@ include("../admin_portal/top-sidebar.php")
           <div class="col-xl-12">
             <div class="card">
               <div class="card-header align-items-center d-flex">
-                <h4 class="card-title mb-0 flex-grow-1">Stage Details</h4>
+                <h4 class="card-title mb-0 flex-grow-1">Project List</h4>
+                <a href="javascript(void);" class="btn btn-success btn-sm btn-label waves-effect waves-light"><i class="ri-file-list-fill label-icon align-middle fs-16 me-2"></i> Booking List</a>
               </div>
               <!-- end card header -->
               <div class="card-body">
                 <div class="live-preview">
                   <div class="row">
-                      <div class="col-xxl-12 col-md-12 mt-3">
-                        <label for="">Select Client</label>
-                        <select id="" name="" class=" js-example-basic-multiple select2_single form-control"  placeholder="Select" tabindex="-1">    
-                          <option value="" Selected>Select Client</option>
-                          <option value="Ajayjain">Ajay Jain</option>
-                          <option value="Kapil Goyel">Kapil Goyel</option>
-                          <option value="MD. Sajid">MD. Sajid</option>
-                          <option value="Ruchika Sabale">Ruchika Sabale</option>
-                          <option value="Priyank Kella">Priyank Kella</option>
-                        </select>
-                      </div>
-                      <div class="col-xxl-6 col-md-6 mt-3">
-                        <label for="">Enter Stage Name</label>
-                        <input type="text" id="" name="" class="form-control" placeholder="Enter Stage Name" required/>
-                      </div>
+                      <div class="table-responsive mt-3">
+                    <table id="example" class="table table-striped table-bordered" style="width:100%" >                     
+                      <thead class="table-light">
+                        <tr>
+                          <th> Date</th>
+                          <th>Client</th>
+                          <th>Manage Stage</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                            <td nowrap>
+                                28-08-2022 <br>
+                                <small class="text-primary">Start Date: 1-09-2023</small><br>
+                                <small class="text-success">End Date: 2-10-2023</small>
+                            </td>
+                                                          
+                            <td nowrap>
+                                Ajay Jain <br>
+                                <small class="text-primary">ajayjain@gmail.com</small><br>
+                                <small class="text-success">9876543212</small>
+                            </td>
+                            <td nowrap>
+                                <a href="<?php echo site_url('/clientmanager/stage_detail_list/4')?>" class="btn btn-primary btn-sm btn-label waves-effect waves-light mt-2"><i class="ri-profile-fill label-icon align-middle fs-16 me-2"></i>Manage Stage</a>
+                                <a href="<?php echo site_url('/clientmanager/payment_history/4')?>" class="btn btn-secondary btn-sm btn-label waves-effect waves-light mt-2"><i class=" ri-file-list-2-line label-icon align-middle fs-16 me-2"></i>Payment History</a>
+                                <a href="<?php echo site_url('/clientmanager/manage_team/4')?>" class="btn btn-success btn-sm btn-label waves-effect waves-light mt-2"><i class="  ri-team-line label-icon align-middle fs-16 me-2"></i>My Team</a>
+                                <a href="<?php echo site_url('/clientmanager/manage_facilities/4')?>" class="btn btn-info btn-sm btn-label waves-effect waves-light mt-2"><i class="  ri-gift-2-fill label-icon align-middle fs-16 me-2"></i>Facilities</a>
+                                <a href="<?php echo site_url('/clientmanager/upload_certificate/4')?>" class="btn btn-warning btn-sm btn-label waves-effect waves-light mt-2"><i class=" ri-file-paper-2-line label-icon align-middle fs-16 me-2"></i>Certificate</a>
+                            </td>
+                            <td nowrap>
+                                <a  class="btn btn-primary btn-sm waves-effect waves-light mt-2"> Edit</a>
+                                <a  class="btn btn-danger btn-sm waves-effect waves-light mt-2"> Delete</a>
+                            </td>
+                        </tr> 
+                    </tbody>
                       
-                      <div class="col-xxl-6 col-md-6 mt-3">
-                        <label for="">Enter Start and End Date</label>
-                        <input type="text" class="form-control" name="daterange" value="01/01/2015 - 01/31/2015">
-                      </div>
-                      <div class="col-xxl-12 col-md-12 mt-3">
-                        <label for="">Select Work Tag of the Stage</label>
-                        <select id="" name="[" class=" js-example-basic-multiple select2_single form-control" multiple="multiple" placeholder="Select" tabindex="-1">    
-                        <option value="brick">Brick</option>
-                            <option value="Level Casting">Level Casting</option>
-                            <option value="Elevation">Elevation</option>
-                            <option value="Plinth">Plinth</option>
-                            <option value="lorem">Lorem</option>
-                        </select>
-                      </div>                        
-                    <div class="col-xxl-12 col-md-12 mt-3">
-                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Details for the Stage</label>
-                        <textarea id="message" required="required" class="form-control" name="message" placeholder="Write your note according to stage" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100" data-parsley-minlength-message="Come on! You need to enter at least a 20 caracters long comment.." data-parsley-validation-threshold="10"></textarea>
-                    </div>
-                    <hr style="border-top: 1px dashed #405189;" class="mt-3">
-                    <div>
-                    <h5>Stage Payment</h5>
-                    </div>
-                    <div class="col-xxl-6 col-md-6 mt-3">
-                        <label for="">Total Payment</label>
-                        <input type="text" id="" name="" class="form-control" placeholder="Enter Total Payment" required/>
-                    </div>
-                    <div class="col-xxl-6 col-md-6 mt-3">
-                    <label for="">Select Payable Date</label>
-                        <input type="date" class="form-control" name="" value="01/01/2015 - 01/31/2015">
-                    </div>    
-                    <div class="col-xxl-6 col-md-6 mt-3">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Payment Status</label>
-                        <select class="select2_single form-control" tabindex="-1">
-                        <option value="Payment Status">Select Payment Status</option>
-                        <option value="Done">Done</option>
-                        <option value="Pending">Pending</option>
-                        </select>
-                    </div>
-                      
+                    </table>
+                    <!-- end table -->
                   </div>
-                  <div class="mt-3" style="float:right;">
-                  <button type="button" class="btn btn-success btn-label"><i class="ri-check-double-line label-icon align-middle fs-16 me-2"></i> Submit</button>
+                </div>
                   </div>
-
                   <!-- end table responsive -->
                 </div>
                 
@@ -263,10 +239,7 @@ $(document).ready(function(){
   });
 
 });
-
 </script>
-    
 
-<?php
-  include("footer.php");
-?>
+</body>
+</html>

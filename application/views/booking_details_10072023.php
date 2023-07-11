@@ -1,5 +1,4 @@
 <?php 
-  $CI = & get_instance();
  $permanent_addr_arr = json_decode($client_info[0]->permanent_addr, true);
  $permanent_addr = implode(", ", $permanent_addr_arr);
 
@@ -77,18 +76,6 @@
     $client_verify_date = "";
   }
   
-
-  if($client_info[0]->aggrement_status == 1)
-  {
-    $chk_aggr =   "checked"; 
-    $aggrement_date = $client_info[0]->aggrement_date;
-    $aggrement_date = date("d M, Y H:i:s A", strtotime($aggrement_date));
-  }
-  else
-  {
-    $chk_aggr = "";
-    $aggrement_date = "";
-  }
 ?>
 <style>
   .icheck-success>input:first-child:checked+input[type=hidden]+label::before, .icheck-success>input:first-child:checked+label::before{
@@ -589,7 +576,7 @@
                   $sba_data = $commit[0]->sba ?? "";
                   $est_cost = $commit[0]->est_cost ?? "";
 
-                
+                  $CI = & get_instance();
 
                   if($chk_arr){
 
@@ -656,16 +643,8 @@
                 </div>
                 <div class="row mt-3">
                   <div class="col-md-3">                    
-                    <div class="icheck-success d-inline">
-                      <input type="checkbox" class="switcher" <?php  echo $chk_aggr." disabled"; ?> name="" value="" id="chk_make_anumandh">
-                      <label title="Checked" for="chk_make_anumandh" id="">Checked to go for Aggrement</label>
-                    <br> 
-                        <small id="aggr_date">Aggrement Date: <?php echo $aggrement_date; ?></small>
-                    </div>
-                  </div>
-                  <div class="col-md-3" id="aggr_column" >                    
                     <div id="" class="mt-2">    
-                      <a id="" mid="" class="btn btn-success btn-sm  btn-label waves-effect waves-light" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg"><i class=" ri-eye-line label-icon align-middle fs-16 me-2"></i>View / Edit Anubandh Column</a>
+                      <a id="" mid="" class="btn btn-success btn-sm  btn-label waves-effect waves-light" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg"><i class=" ri-eye-line label-icon align-middle fs-16 me-2"></i>View Anubandh Column and Edit</a>
                     </div>
                   </div>
                 </div>               
@@ -675,7 +654,7 @@
       </div>
     <!-------Anubadh Verification End--------->
 
-    <!----Verify ----------->
+      <!----Verify ----------->
       <div class="row">
         <div class="col-xl-12">
           <div class="card">
@@ -715,7 +694,16 @@
                       <small id="admin_date">Date: <?php echo $admin_verify_date;?></small>
                     </div>
                   </div>  
-
+                  <div class="col-md-3">
+                    <div>
+                      <div class="icheck-success d-inline">
+                        <input type="checkbox" class="switcher" name="" value="" id="chk_admin">
+                        <label title="Checked" for="chk_admin" id="">For Client App</label>
+                      </div>
+                      <br> 
+                      <small id="">Date: </small>
+                    </div>
+                  </div>
                 </div>               
               </div>
           </div>
@@ -788,21 +776,21 @@
                 </div>
                 <div class="row mt-3">
                   <div class="col-md-4">
-                    <span>Estimate Cost</span><br><br>
+                    <span>Download Estimate Costing</span><br><br>
                     <div id="">  
-                      <a href="http://localhost/cost_calculator/pdf2/estimate_with_gst.php?cid=<?php echo $client_info[0]->calc_id;?>" id="" mid="" class="btn btn-success btn-sm  btn-label waves-effect waves-light"><i class=" ri-download-2-fill label-icon align-middle fs-16 me-2"></i>Download Now</a>
+                      <a href="javascript:void(0);" id="" mid="" class="btn btn-success btn-sm  btn-label waves-effect waves-light"><i class=" ri-download-2-fill label-icon align-middle fs-16 me-2"></i>Download and View</a>
                     </div>                 
                   </div>
                   <div class="col-md-4">
                     <span >Booking Form</span><br><br>
                     <div id="">  
-                      <a href="http://localhost/cost_calc/index.php/booking/client_booking_pdf/<?php echo $booking_id;?>" id="" mid="" class="btn btn-success btn-sm  btn-label waves-effect waves-light"><i class=" ri-download-2-fill label-icon align-middle fs-16 me-2"></i>Download Now</a>
+                      <a href="javascript:void(0);" id="" mid="" class="btn btn-success btn-sm  btn-label waves-effect waves-light"><i class=" ri-download-2-fill label-icon align-middle fs-16 me-2"></i>Download and View</a>
                     </div>                 
                   </div> 
                   <div class="col-md-4">
                     <span>Anubandh Details</span><br><br>
                     <div id="">  
-                      <a href="javascript:void(0);" id="" mid="" class="btn btn-success btn-sm  btn-label waves-effect waves-light"><i class=" ri-download-2-fill label-icon align-middle fs-16 me-2"></i>Download Now</a>
+                      <a href="javascript:void(0);" id="" mid="" class="btn btn-success btn-sm  btn-label waves-effect waves-light"><i class=" ri-download-2-fill label-icon align-middle fs-16 me-2"></i>Download and View</a>
                     </div>                 
                   </div>  
                   
@@ -824,56 +812,91 @@
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                    <!--h6 class="fs-15">Column C</h6-->
-                      <?php 
-                      if($column_list->column_data){
-
-                        $cdata = json_decode($column_list->column_data, true);
-
-                          $col_head = "";
-                          $temp = "";
-                        foreach($cdata as $key=>$val)
-                        {  
-                          //echo '<-->'.$val;
-
-                          $qry = "SELECT * FROM bkf_aggrement_column where id = $key";
-                          $res = $CI->Master_model->getCustom($qry)[0];
-                          
-                          if($val == "YES"){
-                            $add_css = "text-success";
-                          }
-                          else{
-                            $add_css = "text-danger";
-                          }
-
-                          if($res->column_name != $temp)
-                          {
-                            echo '<h6 class="fs-15">COLUMN '.$res->column_name.'</h6>';
-                          }
-                         
-                      ?>
-                      <div class="d-flex mt-2">
+                      <h6 class="fs-15">Column C</h6>
+                      <div class="d-flex">
                         <div class="flex-shrink-0">
-                          <i class="ri-checkbox-circle-fill <?php echo $add_css;?>"></i>
+                          <i class="ri-checkbox-circle-fill text-success"></i>
                         </div>
                         <div class="flex-grow-1 ms-2">
-                          <p class="text-muted mb-0"><?php  echo $res->column_desc; ?></p>
+                          <p class="text-muted mb-0">भूमि की रजिस्ट्री कापी प्रदान करेंगे</p>
                         </div>
-                        <div class="flex-shrink-0">
-                          <i class="<?php echo $add_css;?>"><?php echo $val?></i>
-                        </div>
-
                       </div>
-                      <?php 
-                          $temp = $res->column_name;
-                        }
-                      }
-                      ?>
-
-                    
+                      <div class="d-flex mt-2">
+                        <div class="flex-shrink-0">
+                          <i class="ri-checkbox-circle-fill text-success"></i>
+                        </div>
+                        <div class="flex-grow-1 ms-2 ">
+                          <p class="text-muted mb-0">निर्माण नक्शा अनुज्ञा है ? (यदि अनुज्ञा कराना हो तो सम्पूर्ण खर्चा पार्टी न. 2 द्वारा किया जाना है)</p>
+                        </div>
+                      </div>
+                      <div class="d-flex mt-2">
+                        <div class="flex-shrink-0">
+                          <i class="ri-checkbox-circle-fill text-success"></i>
+                        </div>
+                        <div class="flex-grow-1 ms-2 ">
+                          <p class="text-muted mb-0">निर्माण नक्शा स्वयं के निर्देष पर बनवा कर हस्ताक्षर करके निर्माण कार्य हेतु दिये</p>
+                        </div>
+                      </div>
+                      <div class="d-flex mt-2">
+                        <div class="flex-shrink-0">
+                          <i class="ri-checkbox-circle-fill text-success"></i>
+                        </div>
+                        <div class="flex-grow-1 ms-2 ">
+                          <p class="text-muted mb-0">अनुबंधानुसार पानी के लिए पानी की व्यवस्था पार्टी न. 2 प्रदान करेंगे </p>
+                        </div>
+                      </div>
+                      <div class="d-flex mt-2">
+                        <div class="flex-shrink-0">
+                          <i class="ri-checkbox-circle-fill text-success"></i>
+                        </div>
+                        <div class="flex-grow-1 ms-2 ">
+                          <p class="text-muted mb-0">पानी सप्लाई की मोटर लगा कर देंगे</p>
+                        </div>
+                      </div>
+                      <div class="d-flex mt-2">
+                        <div class="flex-shrink-0">
+                          <i class="ri-checkbox-circle-fill text-success"></i>
+                        </div>
+                        <div class="flex-grow-1 ms-2 ">
+                          <p class="text-muted mb-0">बिजली लगवाकर देंगे व बिल स्वयं भरेंगे (बिजली की सुविधा प्रदान करना अनिवार्य है ताकि कार्य प्रारंभ किया जा सके)</p>
+                        </div>
+                      </div>
+                      <h6 class="fs-16 my-3">Column F</h6>
+                      <div class="d-flex mt-2">
+                        <div class="flex-shrink-0">
+                          <i class="ri-close-circle-fill text-danger"></i>
+                        </div>
+                        <div class="flex-grow-1 ms-2 ">
+                          <p class="text-muted mb-0">सभी भुगतान के एडवांस चैक पार्टी नं. 1 को शर्तों के अनुसार समय पर अग्रिम देंगे</p>
+                        </div>
+                      </div>
+                      <div class="d-flex mt-2">
+                        <div class="flex-shrink-0">
+                          <i class="ri-checkbox-circle-fill text-success"></i>
+                        </div>
+                        <div class="flex-grow-1 ms-2 ">
+                          <p class="text-muted mb-0">हो रहे निर्माण का निरीक्षण पार्टी न. 2 स्वयं की संतुष्टि हेतु अपनी स्वेक्षा से प्रति सप्ताह करवाने के लिए स्वतंत्र है</p>
+                        </div>
+                      </div>
+                      <div class="d-flex mt-2">
+                        <div class="flex-shrink-0">
+                          <i class="ri-close-circle-fill text-danger"></i>
+                        </div>
+                        <div class="flex-grow-1 ms-2 ">
+                          <p class="text-muted mb-0">किसी भी प्रकार के लाइट, पंखे गीजर, टीवी, कोई भी applinces, फर्निचर, चिमनी, कैमरा, dvr, अन्य सिस्टम कार्य में शामिल हैं ?</p>
+                        </div>
+                      </div>
+                      <div class="d-flex mt-2">
+                        <div class="flex-shrink-0">
+                          <i class="ri-checkbox-circle-fill text-success"></i>
+                        </div>
+                        <div class="flex-grow-1 ms-2 ">
+                          <p class="text-muted mb-0">किसी भी प्रकार की सरकारी, अर्धसरकारी, अन्य संस्थान, इन सभी से कार्यवाही कार्य में शामिल है ?</p>
+                        </div>
+                      </div>
                     </div>
                     <div class="modal-footer">  
-                      <a href="<?php echo base_url("index.php/anubandh/make_anubandh/$booking_id");?>" class="btn btn-primary btn-sm">Edit Column</a>
+                      <a href="<?php echo base_url("index.php/anubandh/make_anubandh/4");?>" class="btn btn-primary btn-sm">Edit Column</a>
                     </div>
                   </div>
                   <!-- /.modal-content -->
@@ -1856,56 +1879,6 @@ $(document).on("change", "#chk_marketing", function(){
     });
 });
 
-/**--------------CHKECK Box Make Anubandh-------------------------*/
-
-$(document).on("change", "#chk_make_anumandh", function(){
-  
-  var verify = "";
-  if($(this).is(":checked")) {     
-    verify = 1;
-  }
-  else{
-    verify = 0;
-  }  
-
- var url = "<?php echo site_url('booking/ajax_make_anubandh')?>";
- var booking_id = $("#booking_id").val();
-
- $.ajax({
-         type: "POST",
-         url: url,
-         data: {booking_id: booking_id, verify: verify, type: "admin"}, 
-         success: function(data)
-         { 
-             //$("#chk_make_anumandh").attr("disabled", true);
-            //console.log(data);                 
-             var spl_txt = data.split("~~~");
-             if(spl_txt[1] == 1)
-             { 
-                if(verify == 1) {
-                    $("#aggr_date").html('Date: '+spl_txt[2]);
-                    alert("Successfully saved...");
-                    $("#chk_make_anumandh").attr("disabled", true);
-                  }
-                  else{
-                    $("#aggr_date").html('Date: ');
-                  
-                    alert("Unsaved...");
-                  }                        
-             }
-             else
-             { 
-               alert("Something went wrong...");                   
-             }   
-         }
-   });
-   
-});
-
-
-
-
-
 /**--------------CHKECK Box Verify Admin-------------------------*/
 
   $(document).on("change", "#chk_admin", function(){
@@ -2431,6 +2404,7 @@ $('#frmOfficeAddr').validate({
           });
       }
   });
+
 
 /**----------Payee Details Script----------------- */  
 

@@ -1,19 +1,12 @@
-<?php
-include("../admin_portal/header.php")
-?>
-<!-- Begin page -->
-<div id="layout-wrapper"> <?php
-include("../admin_portal/top-sidebar.php")
-?>
- 
 <div class="main-content">
     <div class="page-content">
       <div class="container-fluid">
         <!-- start page title -->
         <div class="row">
           <div class="col-12">
+            
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-              <h4 class="mb-sm-0">Stage Payment</h4>
+              <h4 class="mb-sm-0">Stages Details List</h4>
               <div class="page-title-right">
                 <ol class="breadcrumb m-0">
                   <li class="breadcrumb-item">
@@ -21,109 +14,103 @@ include("../admin_portal/top-sidebar.php")
                   </li>
                   <li class="breadcrumb-item active">Project Stages </li>
                 </ol>
+                
               </div>
+              
             </div>
+            
           </div>
         </div>
         <!-- end page title -->
-        <!-----Add Stages--------->
         <div class="row">
           <div class="col-xl-12">
             <div class="card">
               <div class="card-header align-items-center d-flex">
-                <h4 class="card-title mb-0 flex-grow-1">Stage Payment List</h4>
+                <h4 class="card-title mb-0 flex-grow-1">Stages Details List</h4>
+                <a href="index.php/clientmanager/manage_stage_details" class="btn btn-success btn-sm btn-label waves-effect waves-light"><i class=" ri-file-add-fill label-icon align-middle fs-16 me-2"></i>Add Stage Destails</a>
               </div>
               <!-- end card header -->
               <div class="card-body">
                 <div class="live-preview">
-                  <div class="row">
-                      <div class="col-xxl-12 col-md-12 mt-2">
-                        <label for="">Select Client</label>
-                        <select id="" name="" class=" js-example-basic-multiple select2_single form-control"  placeholder="Select" tabindex="-1">    
-                          <option value="" Selected>Select Client</option>
-                          <option value="Ajayjain">Ajay Jain</option>
-                          <option value="Kapil Goyel">Kapil Goyel</option>
-                          <option value="MD. Sajid">MD. Sajid</option>
-                          <option value="Ruchika Sabale">Ruchika Sabale</option>
-                          <option value="Priyank Kella">Priyank Kella</option>
+                <form action="">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Client</label>
+                      <div class="col-md-12 col-sm-12 col-xs-12">
+                        <select class=" js-example-basic-multiple select2_single form-control" name="states[]" tabindex="-1">
+                            <option value="ajayjain">Ajay Jain</option>
+                            <option value="Rahul Bansal">Rahul Bansal</option>
+                            <option value="Lalit Yadav">Lalit Yadav</option>
+                            <option value="Surya">Surya Narayan</option>
+                            <option value="Srini">Srini</option>
                         </select>
                       </div>
-                      <div class="table-responsive mt-3">
+                    </div>
+                </form>
+                <div class="table-responsive mt-3">
                   <table id="example" class="table table-striped table-bordered" style="width:100%">                     
                       <thead class="table-light">
                         <tr>
-                          <th>Client Name</th>
+                          <th nowrap>Client Name</th>
                           <th>Stages Name</th>
+                          <th>Start Date</th>
                           <th>Total Payable</th>
                           <th>Payment Status</th>
+                          <th>Pay Now</th>
                           <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
                             <td>Ajay Jain</td>
-                            <td>Plint</td>
+                            <td class="text-primary"><b>Footing</b><br>
+                            <small class="text-info">Stage Number: 1</small>
+                            </td>
+                            <td>13 July 2022<br>
+                            <small class="text-danger">End Date: 21 July 2022</small>
+                            </td>
                             <td>Rs. 20,000 <br>
-                                <small class="text-danger">Due: Rs. 2000  &nbsp;&nbsp;&nbsp; Days: 10 Days Left</small>
+                            <small class="text-danger"> Days: 10 Days Left</small>
                             </td>
-                            <td>Pending
-                            <br>
-                                <small class="text-danger">Payment Date: 10 Day Left</small>
-                            </td>
+                            <td><span class="badge rounded-pill badge-soft-success" style="font-size:10px">Paid</span><br>
+                            <small class="text-info">Paid: Rs. 20,000  &nbsp;&nbsp;&nbsp; Due: Rs. 0</small></td>
+                            <td>
+                            <a type="button" class="btn btn-primary btn-label btn-sm waves-effect waves-light rounded-pill" data-bs-toggle="modal" data-bs-target="#exampleModalgrid"><i class="ri-bank-card-fill label-icon align-middle rounded-pill fs-16 me-2"></i>Pay Now</a>
                             <td>
                                 <div class="hstack gap-3 flex-wrap">
+                                    <a href="javascript:void(0);" class="link-success fs-15"><i class="ri-gallery-fill"></i></a>
                                     <a href="javascript:void(0);" class="link-primary fs-15"><i class="ri-edit-2-line"></i></a>
                                     <a href="javascript:void(0);" class="link-danger fs-15"><i class="ri-delete-bin-line"></i></a>
                                 </div>
                             </td>
-                        </tr>
+                        </tr>   
                         <tr>
                             <td>Ajay Jain</td>
-                            <td>Plint</td>
-                            <td>Rs. 20,000 <br>
-                                <small class="text-danger">Due: Rs. 2000  &nbsp;&nbsp;&nbsp; Days: 10 Days Left</small>
+                            <td class="text-primary"><b>Plinth</b><br>
+                            <small class="text-info">Stage Number: 2</small>
                             </td>
-                            <td>Pending
-                            <br>
-                                <small class="text-danger">Payment Date: 10 Day Left</small>
+                            <td>25 July 2022<br>
+                            <small class="text-danger">End Date: 31 July 2022</small>
                             </td>
+                            <td>Rs. 10,000 <br>
+                            <small class="text-danger"> Days: 10 Days Left</small>
+                            </td>
+                            <td><span class="badge rounded-pill badge-soft-danger" style="font-size:10px">Pending</span><br>
+                            <small class="text-info">Paid: Rs. 5,000  &nbsp;&nbsp;&nbsp; Due: Rs. 5,000</small></td>
+                            <td>
+                            <a type="button" class="btn btn-primary btn-label btn-sm waves-effect waves-light rounded-pill" data-bs-toggle="modal" data-bs-target="#exampleModalgrid"><i class="ri-bank-card-fill label-icon align-middle rounded-pill fs-16 me-2"></i>Pay Now</a>
                             <td>
                                 <div class="hstack gap-3 flex-wrap">
+                                    <a href="javascript:void(0);" class="link-success fs-15"><i class="ri-gallery-fill"></i></a>
                                     <a href="javascript:void(0);" class="link-primary fs-15"><i class="ri-edit-2-line"></i></a>
                                     <a href="javascript:void(0);" class="link-danger fs-15"><i class="ri-delete-bin-line"></i></a>
                                 </div>
                             </td>
-                        </tr>
-                        <tr>
-                            <td>Ajay Jain</td>
-                            <td>Plint</td>
-                            <td>Rs. 20,000 <br>
-                                <small class="text-danger">Due: Rs. 2000  &nbsp;&nbsp;&nbsp; Days: 10 Days Left</small>
-                            </td>
-                            <td>Pending
-                            <br>
-                                <small class="text-danger">Payment Date: 10 Day Left</small>
-                            </td>
-                            <td>
-                                <div class="hstack gap-3 flex-wrap">
-                                    <a href="javascript:void(0);" class="link-primary fs-15"><i class="ri-edit-2-line"></i></a>
-                                    <a href="javascript:void(0);" class="link-danger fs-15"><i class="ri-delete-bin-line"></i></a>
-                                </div>
-                            </td>
-                        </tr>
-                        
+                        </tr>                    
                     </tbody>
                       
                     </table>
                     <!-- end table -->
                   </div>
-                </div>
-                  </div>
-                  <div class="mt-3" style="float:right;">
-                  <button type="button" class="btn btn-success btn-label"><i class="ri-check-double-line label-icon align-middle fs-16 me-2"></i> Submit</button>
-                  </div>
-
-                  <!-- end table responsive -->
                 </div>
                 
               </div>
@@ -133,13 +120,60 @@ include("../admin_portal/top-sidebar.php")
           </div>
           <!-- end col -->
         </div>
-        <!-----End of Add Stages--------->
-        
       </div>
       
       <!-- container-fluid -->
     </div>
     <!-- End Page-content -->
+    
+    <!-----Pay Now Modal------->
+    <div class="modal zoomIn" id="exampleModalgrid" tabindex="-1" aria-labelledby="paynow" aria-modal="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title text-primary" id="paynow" style="text-decoration: underline;">Pay Now</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <form action="javascript:void(0);">
+                      <div class="row">
+                          <div class="col-xxl-12">
+                              <div>
+                                  <h5 class="text-primary">Toat Payable on Stage <b>Plinth</b> : Rs. 2,00,000 </h5>  
+                              </div>
+                          </div><!--end col-->
+                          <div class="col-xxl-12">
+                              <div>
+                                  <label for="enteramount" class="form-label">Enter Amount</label>
+                                  <input type="number" class="form-control" id="enteramount" placeholder="Enter Amount">
+                              </div>
+                          </div><!--end col-->
+                          <div class="col-xxl-12 mt-2">
+                              <div>
+                                  <label for="entertransaction" class="form-label">Enter Transaction</label>
+                                  <input type="number" class="form-control" id="entertransaction" placeholder="Enter Transaction number">
+                              </div>
+                          </div><!--end col-->
+                          <div class="col-xxl-12 mt-2">
+                              <div>
+                                  <label for="receivedby" class="form-label">Enter Received By</label>
+                                  <input type="text" class="form-control" id="receivedby" placeholder="Enter Receiver Name">
+                              </div>
+                          </div><!--end col--> 
+                          <div class="col-lg-12 mt-2">
+                              <div class="hstack gap-2 justify-content-end">
+                                  <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                  <button type="submit" class="btn btn-primary">Submit</button>
+                              </div>
+                          </div><!--end col-->
+                      </div><!--end row-->
+                  </form>
+              </div>
+          </div>
+      </div>
+    </div>
+    <!-----End of Pay Now Modal--------->
+
     <footer class="footer">
       <div class="container-fluid">
         <div class="row">
@@ -156,8 +190,6 @@ include("../admin_portal/top-sidebar.php")
 </div>
 <!-- END layout-wrapper -->
 <!-- JAVASCRIPT -->
-
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script src="<?php echo base_url();?>assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="<?php echo base_url();?>assets/libs/simplebar/simplebar.min.js"></script>
@@ -173,29 +205,14 @@ include("../admin_portal/top-sidebar.php")
 <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
 <!-------Daterange Picker------------>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>assets/js/date_range.min.js"></script>
 <script src="<?php echo base_url();?>assets/js/select2.min.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 <script src="<?php echo base_url();?>assets/js/app.js"></script>
 
 <script type="text/javascript"> 
 $(document).ready(function(){
-
-  $(".js-example-basic-multiple").select2({
-    placeholder: "---Select---",
-    allowClear: true
-  });
-
-
-
-  $(function() {
-  $('input[name="daterange"]').daterangepicker({
-    opens: 'left'
-  }, function(start, end, label) {
-    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-  });
-});
-
+  
 
 
   $('#example').DataTable({
@@ -206,6 +223,10 @@ $(document).ready(function(){
       "info": true,
       "autoWidth": false,
       "responsive": true,
+  });
+  $(".js-example-basic-multiple").select2({
+    placeholder: "---Select---",
+    allowClear: true
   });
 
   $(document).on("change", ".switcher", function(e){
@@ -291,8 +312,3 @@ $(document).ready(function(){
 });
 
 </script>
-    
-
-<?php
-  include("footer.php");
-?>

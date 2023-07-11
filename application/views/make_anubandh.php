@@ -22,7 +22,7 @@
                                 <div class="card-header align-items-center d-flex">
                                     <h4 class="card-title mb-0 flex-grow-1"><?php echo $client_name;?></h4>
                                   
-                                    <a href="<?php echo base_url("index.php/anubandh/anubandh_details")?>" class="btn btn-primary btn-sm">Anubandh Details</a>
+                                    <a href="<?php echo base_url("index.php/booking/booking_details/$booking_id")?>" class="btn btn-primary btn-sm">Booking Details</a>
 
                                 </div><!-- end card header -->
                                 <div class="card-body">                                  
@@ -61,7 +61,7 @@
                                                                 <table class="table  table-stripped align-middle  mb-0">
                                                                     <tbody>'; 
                                                        
-                                                    $qry = "SELECT * FROM anu_aggrement_column where id <> 0 and status = 1 and column_name = '$cname' order by column_name";
+                                                    $qry = "SELECT * FROM bkf_aggrement_column where id <> 0 and status = 1 and column_name = '$cname' order by column_name";
                                                     $column_list = $CI->Master_model->getCustom($qry);
                                       
                                                     foreach($column_list as $res){

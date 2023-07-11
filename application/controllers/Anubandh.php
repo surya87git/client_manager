@@ -29,11 +29,11 @@ class Anubandh extends CI_Controller {
 		$id =$this->uri->segment(3) ?? "";
 		if($id)
 		{
-			$qry = "SELECT * FROM anu_aggrement_column where id = $id";
+			$qry = "SELECT * FROM bkf_aggrement_column where id = $id";
 			$data['row_data'] = $this->Master_model->getCustom($qry);
 		}
 		
-		$qry = "SELECT * FROM anul_aggrement_col_head where id <> 0 and status = 1";
+		$qry = "SELECT * FROM bkf_aggrement_col_head where id <> 0 and status = 1";
 		$data['col_head'] = $this->Master_model->getCustom($qry);
 
 		$this->load->view('new_header/header');
@@ -42,7 +42,7 @@ class Anubandh extends CI_Controller {
 	}
 	public function anubandh_column_list()
 	{
-		$qry = "SELECT * FROM anu_aggrement_column where id <> 0 and status = 1 order by column_name asc";
+		$qry = "SELECT * FROM bkf_aggrement_column where id <> 0 and status = 1 order by column_name asc";
 		$data['column_list'] = $this->Master_model->getCustom($qry);
 
 		$this->load->view('new_header/header');
@@ -64,7 +64,7 @@ class Anubandh extends CI_Controller {
 		if($column_id != ""){
 
 			$frm_data['id'] = $column_id;
-			$res = $this->Master_model->updateData("anu_aggrement_column", $frm_data);
+			$res = $this->Master_model->updateData("bkf_aggrement_column", $frm_data);
 
 			if($res){
 			  echo "~~~2~~~";
@@ -76,7 +76,7 @@ class Anubandh extends CI_Controller {
 		}
 		else{
 
-			$res = $this->Master_model->saveData("anu_aggrement_column", $frm_data);
+			$res = $this->Master_model->saveData("bkf_aggrement_column", $frm_data);
 
 			if($res){
 				echo "~~~1~~~";
@@ -145,7 +145,7 @@ class Anubandh extends CI_Controller {
 		$data['booking_id'] = $this->uri->segment(3);
 		$data['client_name'] = "Make Anubandh Column";
 
-		$qry = "SELECT column_name FROM anu_aggrement_column where id <> 0 and status = 1 group by column_name order by column_name asc ";
+		$qry = "SELECT column_name FROM bkf_aggrement_column where id <> 0 and status = 1 group by column_name order by column_name asc ";
 		$data['column_name'] = $this->Master_model->getCustom($qry);
 
 		$qry = 'SELECT count(id) as cnt FROM bkf_client_aggrement_column where booking_id = 4';

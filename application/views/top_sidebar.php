@@ -349,7 +349,7 @@
                                         <a href="<?php echo site_url('/clientmanager/add_usertype')?>" class="nav-link" data-key="t-starter">Add User Type</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="<?php echo site_url('/clientmanager/addfacilitiesworktag')?>" class="nav-link" data-key="t-team">Add Facilities / Work Tag</a>
+                                        <a href="<?php echo site_url('/clientmanager/manage_facility_worktag')?>" class="nav-link" data-key="t-team">Add Facilities / Work Tag</a>
                                     </li>
                                 </ul>
                             </div>
@@ -361,39 +361,28 @@
                             <div class="collapse menu-dropdown" id="ProjectDetails">
                                 <ul class="nav nav-sm flex-column">
                                     <li class="nav-item">
+                                        <a href="<?php echo site_url('/clientmanager/project_list')?>" class="nav-link" data-key="t-starter">Project List</a>
+                                    </li>
+                                    <li class="nav-item">
                                         <a href="#StageDetails" class="nav-link collapsed" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarProfile" data-key="t-profile">Stage Details
                                         </a>
                                         <div class="collapse menu-dropdown" id="StageDetails">
                                             <ul class="nav nav-sm flex-column">
                                                 <li class="nav-item">
-                                                    <a href="<?php echo site_url('/clientmanager/addstages')?>" class="nav-link" data-key="t-simple-page">
-                                                        Add Stages</a>
+                                                    <a href="<?php echo site_url('/clientmanager/manage_stages')?>" class="nav-link" data-key="t-simple-page">
+                                                        Manage Stages</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="<?php echo site_url('/clientmanager/addstagedetails')?>" class="nav-link" data-key="t-simple-page">
+                                                    <a href="<?php echo site_url('/clientmanager/manage_stage_details')?>" class="nav-link" data-key="t-simple-page">
                                                         Stage Details</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="<?php echo site_url('/clientmanager/stagedetaillist')?>" class="nav-link" data-key="t-simple-page">
+                                                    <a href="<?php echo site_url('/clientmanager/stage_detail_list')?>" class="nav-link" data-key="t-simple-page">
                                                         Stage Details List</a>
                                                 </li>
                                                 <li class="nav-item">
                                                     <a href="<?php echo site_url('/clientmanager/stagepayment')?>" class="nav-link" data-key="t-simple-page">
-                                                        Stage Payment List</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                </ul>
-                                <ul class="nav nav-sm flex-column">
-                                    <li class="nav-item">
-                                        <a href="#Gallery" class="nav-link collapsed" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarProfile" data-key="t-profile">Gallery
-                                        </a>
-                                        <div class="collapse menu-dropdown" id="Gallery">
-                                            <ul class="nav nav-sm flex-column">
-                                                <li class="nav-item">
-                                                    <a href="<?php echo site_url('/clientmanager/viewgallery')?>" class="nav-link" data-key="t-simple-page">
-                                                        View Gallery</a>
+                                                        Payment History</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -402,16 +391,16 @@
                             </div>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link menu-link collapsed " href="#sidebarPages" data-bs-toggle="collapse" role="button" aria-expanded="true" aria-controls="sidebarPages">
-                                <i class="ri-pages-line"></i> <span data-key="t-pages">Manage User</span>
+                            <a class="nav-link menu-link collapsed " href="#manageteam" data-bs-toggle="collapse" role="button" aria-expanded="true" aria-controls="sidebarPages">
+                                <i class="ri-pages-line"></i> <span data-key="t-pages">Manage Team</span>
                             </a>
-                            <div class="collapse menu-dropdown" id="sidebarPages">
+                            <div class="collapse menu-dropdown" id="manageteam">
                                 <ul class="nav nav-sm flex-column">
                                     <li class="nav-item">
-                                        <a href="<?php echo site_url('/clientmanager/adduser')?>" class="nav-link" data-key="t-starter">Add User</a>
+                                        <a href="<?php echo site_url('/clientmanager/addteam')?>" class="nav-link" data-key="t-starter">Add Team</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="<?php echo site_url('/clientmanager/userlist')?>" class="nav-link" data-key="t-team">User List</a>
+                                        <a href="<?php echo site_url('/clientmanager/teamlist')?>" class="nav-link" data-key="t-team">Team List</a>
                                     </li>
                                 </ul>
                             </div>
