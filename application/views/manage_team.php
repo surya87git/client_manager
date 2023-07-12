@@ -1,11 +1,4 @@
-<?php
-include("../admin_portal/header.php")
-?>
-<!-- Begin page -->
-<div id="layout-wrapper"> <?php
-include("../admin_portal/top-sidebar.php")
-?>
- 
+
 <div class="main-content">
     <div class="page-content">
       <div class="container-fluid">
@@ -28,105 +21,88 @@ include("../admin_portal/top-sidebar.php")
         <!-- end page title -->
         <!-----Add Stages--------->
         <div class="row">
-                        <div class="col-xl-6">
-                            <div class="card">
-                                <div class="card-header align-items-center d-flex">
-                                    <h4 class="card-title mb-0 flex-grow-1">Assign Team</h4>
-                                </div><!-- end card header -->
-                                <div class="card-body">
-                                    <div class="table-responsive table-card">
-                                    <table id="example" class="table table-striped table-bordered" style="width:100%">                     
-                                        <thead class="table-light">
-                                        <tr>
-                                            
-                                            <th>Employee</th>
-                                            <th>Designation</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td><input type="checkbox" class="form-check-input ms-0" id="task_one"> &nbsp;Srinivas Kusre</td>
-                                                <td><span class="badge rounded-pill badge-soft-primary">UI/UX Designer</span></td>
-                                                
-                                            </tr>
-                                            <tr>
-                                                <td><input type="checkbox" class="form-check-input ms-0" id="task_one"> &nbsp;Surya Narayan</td>
-                                                <td><span class="badge rounded-pill badge-soft-primary">Developer</span></td>
-                                                
-                                            </tr>
-                                            <tr>
-                                                <td><input type="checkbox" class="form-check-input ms-0" id="task_one"> &nbsp;Preetam</td>
-                                                <td><span class="badge rounded-pill badge-soft-primary">Android Developer</span></td>
-                                                
-                                            </tr>
-                                            <tr>
-                                                <td><input type="checkbox" class="form-check-input ms-0" id="task_one"> &nbsp;Radhika</td>
-                                                <td><span class="badge rounded-pill badge-soft-primary">Telecaller</span></td>
-                                                
-                                            </tr>
-                                            <tr>
-                                                <td><input type="checkbox" class="form-check-input ms-0" id="task_one"> &nbsp;Dev</td>
-                                                <td><span class="badge rounded-pill badge-soft-primary">Marketing</span></td>
-                                                
-                                            </tr>
-                                        </tbody>
-                      
-                                     </table>
-                                    </div><!-- end table responsive -->
-                                </div><!-- end card body -->
-                            </div><!-- end card -->
-                        </div><!-- end col -->
+          <div class="col-xl-6">
+              <div class="card">
+                  <div class="card-header align-items-center d-flex">
+                      <h4 class="card-title mb-0 flex-grow-1">Employee List</h4>
+                  </div><!-- end card header -->
+                  <div class="card-body">
+                      <div class="table-responsive table-card">
+                      <table id="example" class="table table-striped table-bordered" style="width:100%">                     
+                          <thead class="table-light">
+                          <tr>                             
+                              <th>Employee</th>
+                              <th>Mobile No.</th>
+                              <th>Designation</th>
+                          </tr>
+                          </thead>
+                          <tbody id="emp_list">
+                            <?php if($user_list){
+                              foreach($user_list as $res){
 
-                        <div class="col-xl-6">
-                            <div class="card">
-                                <div class="card-header align-items-center d-flex">
-                                    <h4 class="card-title mb-0 flex-grow-1">Assigned Team</h4>
-                                </div><!-- end card header -->
-                                <div class="card-body">
-                                    <div class="table-responsive table-card">
-                                    <table id="example" class="table table-striped table-bordered" style="width:100%">                     
-                                        <thead class="table-light">
-                                        <tr>
-                                            <th>Employee</th>
-                                            <th>Designation</th>
-                                            <th>Action  </th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Srinivas Kusre</td>
-                                                <td><span class="badge rounded-pill badge-soft-primary">UI/UX Designer</span></td>
-                                                <td><button type="button" class="btn btn-sm btn-danger btn-label waves-effect right waves-light rounded-pill"><i class="ri-close-fill label-icon align-middle rounded-pill fs-16 ms-2"></i> Remove</button></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Surya Narayan</td>
-                                                <td><span class="badge rounded-pill badge-soft-primary">Developer</span></td>
-                                                <td><button type="button" class="btn btn-sm btn-danger btn-label waves-effect right waves-light rounded-pill"><i class="ri-close-fill label-icon align-middle rounded-pill fs-16 ms-2"></i> Remove</button></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Preetam</td>
-                                                <td><span class="badge rounded-pill badge-soft-primary">Android Developer</span></td>
-                                                <td><button type="button" class="btn btn-sm btn-danger btn-label waves-effect right waves-light rounded-pill"><i class="ri-close-fill label-icon align-middle rounded-pill fs-16 ms-2"></i> Remove</button></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Radhika</td>
-                                                <td><span class="badge rounded-pill badge-soft-primary">Telecaller</span></td>
-                                                <td><button type="button" class="btn btn-sm btn-danger btn-label waves-effect right waves-light rounded-pill"><i class="ri-close-fill label-icon align-middle rounded-pill fs-16 ms-2"></i> Remove</button></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Dev</td>
-                                                <td><span class="badge rounded-pill badge-soft-primary">Marketing</span></td>
-                                                <td><button type="button" class="btn btn-sm btn-danger btn-label waves-effect right waves-light rounded-pill"><i class="ri-close-fill label-icon align-middle rounded-pill fs-16 ms-2"></i> Remove</button></td>
-                                            </tr>
-                                        </tbody>
-                      
-                                     </table>
-                                    </div><!-- end table responsive -->
-                                </div><!-- end card body -->
-                            </div><!-- end card -->
-                        </div><!-- end col -->
+                              ?>
+                                <tr id="tr_<?php echo $res->id;?>">
+                                  <td>
+                                    <input type="checkbox" class="switcher form-check-input ms-0" id="<?php echo $res->id;?>"> 
+                                    <label for="<?php echo $res->id;?>"><?php echo $res->user_name;?></label>
+                                  </td>
+                                  <td><?php echo $res->mobile;?></td>
+                                  <td>
+                                    <span class="badge rounded-pill badge-soft-primary"><?php echo $res->designation;?></span>
+                                  </td>                                 
+                                </tr>
+                              <?php                 
+                                }
+                              }
+                            ?>  
+                          </tbody>
+                        </table>
+                       <input type="hidden" id="booking_id" name="booking_id" value="<?php echo $booking_id ?? ""; ?>">
+                    </div><!-- end table responsive -->
+                </div><!-- end card body -->
+            </div><!-- end card -->
+        </div><!-- end col -->
 
-                    </div><!-- end row -->
+          <div class="col-xl-6">
+              <div class="card">
+                  <div class="card-header align-items-center d-flex">
+                      <h4 class="card-title mb-0 flex-grow-1">Assigned Team</h4>
+                  </div><!-- end card header -->
+                  <div class="card-body">
+                      <div class="table-responsive table-card">
+                      <table id="example" class="table table-striped table-bordered" style="width:100%">                     
+                          <thead class="table-light">
+                          <tr>
+                              <th>Employee</th>
+                              <th>Mobile No.</th>
+                              <th>Designation</th>
+                              <th>Action</th>
+                          </tr>
+                          </thead>
+                          <tbody id="team_list">
+                            <?php if($team_list){
+                              foreach ($team_list as $key => $val) {
+                                
+                              ?>
+                              <tr id="tr_<?php echo $val->id;?>">
+                                  <td><?php echo $val->user_name;?></td>
+                                  <td><?php echo $val->mobile;?></td>
+                                  <td><span class="badge rounded-pill badge-soft-primary"><?php echo $val->designation;?></span></td>
+                                  <td><button type="button" class="btn btn-sm btn-danger btn-label waves-effect right waves-light rounded-pill"><i class="ri-close-fill label-icon align-middle rounded-pill fs-16 ms-2"></i> Remove</button></td>
+                              </tr>
+                             <?php 
+                                }
+                              }
+                            ?>   
+                          </tbody>
+        
+                        </table>
+                      </div><!-- end table responsive -->
+                  </div><!-- end card body -->
+              </div><!-- end card -->
+          </div><!-- end col -->
+
+      </div><!-- end row -->
         <!-----End of Add Stages--------->
         
       </div>
@@ -175,73 +151,29 @@ include("../admin_portal/top-sidebar.php")
 <script type="text/javascript"> 
 $(document).ready(function(){
 
-  $(".js-example-basic-multiple").select2({
-    placeholder: "---Select---",
-    allowClear: true
-  });
-
-
-
-  $(function() {
-  $('input[name="daterange"]').daterangepicker({
-    opens: 'left'
-  }, function(start, end, label) {
-    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-  });
-});
-
-
-
-  $('#example').DataTable({
-      "paging": false,
-      "lengthChange": false,
-      "searching": true,
-      "ordering": false,
-      "info": false,
-      "autoWidth": false,
-      "responsive": true,
-  });
-
-  $(document).on("change", ".switcher", function(e){
-    
-    var id = $(this).attr("id");
-    var status = 0;
-
-    if(e.target.checked)
-    {
-      status = 1;
-    }
-          
-  $.ajax({
-
-      url:'ajax_login_user.php',
+$(document).on("change", ".switcher", function(){
+  
+    var user_id = $(this).attr("id");
+    var booking_id  = $("#booking_id").val();
+   
+      $.ajax({
         type: "POST",
-        data: ({id: id, status: status, source: "users"}),
-        dataType: 'json',
-        success: function(data){
+        url: "<?php echo base_url();?>index.php/clientmanager/ajax_my_team",
+        data: ({user_id: user_id, booking_id: booking_id, source: "tbl_users"}),
+        success: function (data) {   
           
-          if(data == parseInt(1))
-          {
-              /*Toast.fire({
-                  icon: 'success',
-                  title: 'Successfully Updated...'
-              });
-              if(status == 1)
-              {
-                $("#lbl_sw_"+id).html("Active");
-                $("#lbl_sw_"+id).attr("title", "Checked");
-              }
-              else
-              {
-                $("#lbl_sw_"+id).html("Inactive");
-                $("#lbl_sw_"+id).attr("title", "Unchecked");
-              }*/
-              //alert("Successfully deleted...");
-          } 
+          var spl_txt = data.split("~~~");
 
+            if(spl_txt[1] == 1)
+            {
+              location.reload();
+            }
+            else{
+              alert("Something went wrong...");
+            }
         }
-
-    }); 
+      });
+    
     
 });
 
@@ -282,11 +214,23 @@ $(document).ready(function(){
 
   });
 
+
+
+
+  $('#example').DataTable({
+      "paging": false,
+      "lengthChange": false,
+      "searching": true,
+      "ordering": false,
+      "info": false,
+      "autoWidth": false,
+      "responsive": true,
+  });
+
+
 });
 
 </script>
-    
-
-<?php
-  include("footer.php");
-?>
+<body>
+  
+</html>    

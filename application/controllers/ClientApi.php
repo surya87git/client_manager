@@ -28,6 +28,14 @@ class ClientApi extends CI_Controller {
         //}
 
     }
+
+
+
+public function get_name($tbl=NULL,$col=NULL,$id=NULL)
+    {
+        $name = $this->Master_model->getNameById($tbl,$col,$id); 
+        return $name;
+    }
     
     public function login(){
         
@@ -87,7 +95,7 @@ class ClientApi extends CI_Controller {
         $booking_id = $input_res['booking_id'];
         
         $qry = "";
-        $qry .= "SELECT a.id AS booking_id,client_name,email_id,mobile_no,permanent_addr, DATE_FORMAT(a.create_date, '%d, %M %Y') AS booking_date, b.final_amt AS project_cost, DATE_FORMAT(c.aggr_period, '%d, %M %Y') AS aggrement_date, DATE_FORMAT(c.work_start_on, '%d, %M %Y') AS start_date, c.comp_period AS end_date ";
+        $qry .= "SELECT a.id AS booking_id,a.client_name,a.email_id,a.mobile_no,a.permanent_addr, DATE_FORMAT(a.create_date, '%d, %M %Y') AS booking_date, b.final_amt AS project_cost, DATE_FORMAT(a.aggrement_date, '%d, %M %Y') AS aggrement_date,DATE_FORMAT(c.aggr_period, '%d, %M %Y') AS aggr_period, DATE_FORMAT(c.work_start_on, '%d, %M %Y') AS start_date, c.comp_period AS end_date ";
         $qry .= "FROM bkf_booking_form a LEFT JOIN bkf_booking_transaction b ON a.id = b.booking_id ";
         $qry .= "LEFT JOIN bkf_commitment c ON a.id = c.booking_id ";
 		$qry .= "where a.id = $booking_id";  
@@ -260,14 +268,5 @@ public function paymentHistory(){
 
 
 
-
-
-public function get_name($tbl=NULL,$col=NULL,$id=NULL)
-	{
-		$name = $this->Master_model->getNameById($tbl,$col,$id); 
-		return $name;
-	}
-
 }
-
 ?>

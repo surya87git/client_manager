@@ -25,7 +25,7 @@
             <div class="card">
               <div class="card-header align-items-center d-flex">
                 <h4 class="card-title mb-0 flex-grow-1">Project List</h4>
-                <a href="javascript(void);" class="btn btn-success btn-sm btn-label waves-effect waves-light"><i class="ri-file-list-fill label-icon align-middle fs-16 me-2"></i> Booking List</a>
+                <a href="<?php echo base_url('index.php/booking/booking_list');?>" class="btn btn-success btn-sm btn-label waves-effect waves-light"><i class="ri-file-list-fill label-icon align-middle fs-16 me-2"></i> Booking List</a>
               </div>
               <!-- end card header -->
               <div class="card-body">
@@ -35,37 +35,54 @@
                     <table id="example" class="table table-striped table-bordered" style="width:100%" >                     
                       <thead class="table-light">
                         <tr>
-                          <th> Date</th>
+                          <th>Aggrement Date</th>
                           <th>Client</th>
-                          <th>Manage Stage</th>
-                          <th>Action</th>
+                          <th>Manage Project</th>
+                          <!--th>Action</th-->
                         </tr>
                       </thead>
                       <tbody>
+
+                      <?php 
+                      if($project_list){
+                          foreach($project_list as $res){  
+
+                            $aggr_date = date("d-M-Y", strtotime($res->aggr_date));
+                          $start_date = date("d-M-Y", strtotime($res->start_date));
+                          $end_date = date("d-M-Y", strtotime($res->end_date));
+
+                        ?>
                         <tr>
+                            <td nowrap> <?php echo $aggr_date;?> <br>
+                              <small class="text-primary">Start Date: <?php echo $start_date;?></small><br>
+                              <small class="text-success">End Date: <?php echo $end_date;?></small>
+                            </td>                          
                             <td nowrap>
-                                28-08-2022 <br>
-                                <small class="text-primary">Start Date: 1-09-2023</small><br>
-                                <small class="text-success">End Date: 2-10-2023</small>
-                            </td>
-                                                          
-                            <td nowrap>
-                                Ajay Jain <br>
-                                <small class="text-primary">ajayjain@gmail.com</small><br>
-                                <small class="text-success">9876543212</small>
+                                <label for="">
+                                  <a href="<?php echo base_url('index.php/booking/booking_details/'.$res->booking_id);?>">
+                                  <?php echo $res->client_name ?? "";?>
+                                  </a> 
+                                </label>
+                                <br>
+                                <small class="text-primary"><?php echo $res->email_id ?? "";?></small><br>
+                                <small class="text-success"><?php echo $res->mobile_no ?? "";?></small>
                             </td>
                             <td nowrap>
                                 <a href="<?php echo site_url('/clientmanager/stage_detail_list/4')?>" class="btn btn-primary btn-sm btn-label waves-effect waves-light mt-2"><i class="ri-profile-fill label-icon align-middle fs-16 me-2"></i>Manage Stage</a>
                                 <a href="<?php echo site_url('/clientmanager/payment_history/4')?>" class="btn btn-secondary btn-sm btn-label waves-effect waves-light mt-2"><i class=" ri-file-list-2-line label-icon align-middle fs-16 me-2"></i>Payment History</a>
                                 <a href="<?php echo site_url('/clientmanager/manage_team/4')?>" class="btn btn-success btn-sm btn-label waves-effect waves-light mt-2"><i class="  ri-team-line label-icon align-middle fs-16 me-2"></i>My Team</a>
-                                <a href="<?php echo site_url('/clientmanager/manage_facilities/4')?>" class="btn btn-info btn-sm btn-label waves-effect waves-light mt-2"><i class="  ri-gift-2-fill label-icon align-middle fs-16 me-2"></i>Facilities</a>
-                                <a href="<?php echo site_url('/clientmanager/upload_certificate/4')?>" class="btn btn-warning btn-sm btn-label waves-effect waves-light mt-2"><i class=" ri-file-paper-2-line label-icon align-middle fs-16 me-2"></i>Certificate</a>
+                                <a href="" class="btn btn-info btn-sm btn-label waves-effect waves-light mt-2" data-bs-toggle="modal" data-bs-target="#myModal"><i class="  ri-gift-2-fill label-icon align-middle fs-16 me-2"></i>Facilities</a>
+                                <a href="<?php echo site_url('/clientmanager/certificate_list/4')?>" class="btn btn-warning btn-sm btn-label waves-effect waves-light mt-2"><i class=" ri-file-paper-2-line label-icon align-middle fs-16 me-2"></i>Certificate</a>
                             </td>
-                            <td nowrap>
+                            <!--td nowrap>
                                 <a  class="btn btn-primary btn-sm waves-effect waves-light mt-2"> Edit</a>
                                 <a  class="btn btn-danger btn-sm waves-effect waves-light mt-2"> Delete</a>
-                            </td>
-                        </tr> 
+                            </td-->
+                        </tr>
+                      <?php 
+                        }
+                      }
+                      ?>      
                     </tbody>
                       
                     </table>
@@ -89,6 +106,33 @@
       
       <!-- container-fluid -->
     </div>
+    <!-------Add FAcilities----------------->
+      <div id="myModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel">Facilities Provided</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                <h6 class="text-muted">Facilities you got from our side:</h6>
+                <span class="badge badge-soft-success mt-2" style="font-size:15px;">Gym</span>
+                <span class="badge badge-soft-success mt-2" style="font-size:15px;">Spa</span>
+                <span class="badge badge-soft-success mt-2" style="font-size:15px;">Mini Theater</span>
+                <span class="badge badge-soft-success mt-2" style="font-size:15px;">Swimming Pool</span>
+                <span class="badge badge-soft-success mt-2" style="font-size:15px;">Gardening</span>
+                <span class="badge badge-soft-success mt-2" style="font-size:15px;">Bar</span>
+                <span class="badge badge-soft-success mt-2" style="font-size:15px;">Roof Gardening</span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                    <a href="<?php echo site_url('/clientmanager/manage_facility/4')?>" type="button" class="btn btn-primary ">Edit Facilities</a>
+                </div>
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <!-------Add FAcilities----------------->
     <!-- End Page-content -->
     <footer class="footer">
       <div class="container-fluid">

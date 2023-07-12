@@ -1505,6 +1505,10 @@ public function generate_booking_pdf($booking_id)
 		$this->load->view('top_sidebar');
 		$this->load->view('booking_list_2');
 	}
+	public function anubandh_pdf()
+	{
+		$this->load->view('anubandh_pdf');
+	}
 
 
 

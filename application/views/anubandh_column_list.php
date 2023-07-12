@@ -223,7 +223,7 @@ if(confirm('Are you sure you want to delete from the list...?')) {
     $.ajax({
       url:'<?php echo site_url('booking/ajax_trash')?>',
           type: "POST",
-          data: ({id: id, source: "anu_aggrement_column"}),
+          data: ({id: id, source: "bkf_aggrement_column"}),
           dataType: 'json',
           success: function(data){          
               if(data == parseInt(1))

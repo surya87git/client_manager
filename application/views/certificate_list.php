@@ -7,13 +7,13 @@
           <div class="col-12">
             
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-              <h4 class="mb-sm-0">User List</h4>
+              <h4 class="mb-sm-0">Certificate List</h4>
               <div class="page-title-right">
                 <ol class="breadcrumb m-0">
                   <li class="breadcrumb-item">
                     <a href="javascript: void(0);">Manage User</a>
                   </li>
-                  <li class="breadcrumb-item active">User List</li>
+                  <li class="breadcrumb-item active">Certificate List</li>
                 </ol>
                 
               </div>
@@ -27,9 +27,9 @@
           <div class="col-xl-12">
             <div class="card">
               <div class="card-header align-items-center d-flex">
-                <h4 class="card-title mb-0 flex-grow-1">User List</h4>
+                <h4 class="card-title mb-0 flex-grow-1">Certificate List</h4>
                 <div class="flex-shrink-0">
-                    <a href="<?php echo site_url('/clientmanager/addteam')?>" class="btn btn-success btn-sm"><i class=" ri-add-fill align-bottom"></i>&nbsp; Add Team</a>
+                    <a href="<?php echo site_url('/clientmanager/upload_certificate/'.$booking_id)?>" class="btn btn-success btn-sm"><i class=" ri-add-fill align-bottom"></i>&nbsp; Add Certificate</a>
                 </div>
               </div>
               
@@ -40,28 +40,31 @@
                   <table id="example" class="table table-striped table-bordered" style="width:100%">                     
                       <thead class="table-light">
                         <tr>
-                          <th nowrap>Employee</th>
-                          <th>Mobile Number</th>
-                          <th>Designation</th>
+                          <th >S. No.</th>
+                          <th nowrap>Stage Name</th>
+                          <th>Certificate Name</th>
+                          <th>Certificate </th>
                           <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
                         <?php 
+                        $i= 0;
                         $CI = & get_instance();
                         foreach($result as $data)
                         {
-                          $designation = $CI->get_name("tbl_user_type","user_type",$data->user_type);
+                          $i++;
+                          $stage_name = $CI->get_name("bkf_work_stages","stage_name",$data->stage_id);
                         ?>
                         <tr>
-                            <td><?= $data->user_name ?></td>
-                            <td><?= $data->mobile ?></td>
-                            <td><?= $designation ?></td>
+                            <td><?= $i ?></td>
+                            <td><?= $stage_name ?></td>
+                            <td><?= $data->certificate_name ?></td>
+                            <td><a><img src="<?php echo base_url()."assets/uploads/certificate/".$data->file_name ?>" height="50" width="50"></a></td>
                             <td>
                                 <div class="hstack gap-3 flex-wrap">
-                                    <a href="<?php echo base_url();?>index.php/clientmanager/addteam/<?=$data->id ?>" class="link-primary fs-15"><i class="ri-edit-2-line"></i></a>
                                     <a href="javascript:void(0);" id="<?=$data->id ?>" class="trash link-danger fs-15"><i class="ri-delete-bin-line"></i></a>
-                                </d iv>
+                                </div>
                             </td>
                         </tr>
                         <?php } ?>
@@ -199,7 +202,7 @@ $(document).ready(function(){
       $.ajax({
         url:'<?php echo base_url();?>index.php/Booking/ajax_trash',
         type: "POST",
-        data: ({id: id, source: "tbl_employee"}),
+        data: ({id: id, source: "bkf_uploaded_certificate"}),
         success: function(data){
         console.log(data);
         alert("Successfully Deleted...");

@@ -35,23 +35,23 @@
                   <div class="live-preview">
                     <div class="row">
                         <div class="col-xxl-6 col-md-6 mt-3">
-                          <label for="">Employee Name</label>
-                          <input type="text" id="" name="emp_name" class="form-control" value="<?= $editData->emp_name ?? ''?>" placeholder="Enter User Name" required/>
+                          <label for="">User Name</label>
+                          <input type="text" id="" name="user_name" class="form-control" value="<?= $editData->user_name ?? ''?>" placeholder="Enter User Name" required/>
                         </div>
                         <div class="col-xxl-6 col-md-6 mt-3">
                           <label for="">Mobile Number</label>
-                          <input type="text" id=""  name="emp_mobile" class="form-control" value="<?= $editData->emp_mobile ?? ''?>" placeholder="Enter User Number" required>
+                          <input type="text" id=""  name="mobile" class="form-control" value="<?= $editData->mobile ?? ''?>" placeholder="Enter User Number" required>
                         </div>
                         
                         <div class="col-xxl-12 col-md-12 mt-3">
                           <label for="">Select User Designation</label>
-                          <select id="" name="emp_type" class=" js-example-basic-multiple select2_single form-control"  placeholder="Select User Designation" tabindex="-1" required>    
+                          <select id="" name="user_type" class=" js-example-basic-multiple select2_single form-control"  placeholder="Select User Designation" tabindex="-1" required>    
                             <option value="" >Select Role for User</option>
                             <?php
                                foreach($result as $data)
                               {
                              ?>
-                            <option value="<?= $data->id ?>" <?php if($data->id==$editData->emp_type)echo 'Selected'; ?>><?= $data->employee_type ?></option>
+                            <option value="<?= $data->id ?>" <?php if($data->id==$editData->user_type)echo 'selected'; ?>><?= $data->user_type ?></option>
                           <?php } ?>
                           </select>
                         </div>   
@@ -136,7 +136,7 @@ $(document).ready(function(){
           $(element).removeClass('is-invalid');
       },
       submitHandler: function(form) {      
-          var url = "<?php echo base_url();?>index.php/ClientApi/ajax_addteam";
+          var url = "<?php echo base_url();?>index.php/clientmanager/ajax_addteam";
           var frmdata = new FormData($('#frmTeam')[0]);
           //console.log(frmdata);
           $.ajax({            
@@ -152,12 +152,12 @@ $(document).ready(function(){
                   if(spl_txt[1] == 1)
                   { 
                     alert("Successfully Saved...");                        
-                    
+                    window.location.href = "<?php echo base_url();?>index.php/clientmanager/teamlist";
                   }
                   else if(spl_txt[1] == 2)
                   { 
                     alert("Successfully Updated...");
-                    window.location.href = "<?php echo base_url();?>index.php/ClientApi/teamlist";
+                    window.location.href = "<?php echo base_url();?>index.php/clientmanager/teamlist";
                     
                   }
                   else
@@ -217,19 +217,19 @@ $(document).ready(function(){
     
 });
 
-  $(".view").on("click", function(){    
-      var id = $(this).attr("cid");   
-      $.ajax({
-        url:'ajax_cost_calc.php',
-        type: "POST",
-        data: ({id: id, type: "model_client"}),
-        success: function(data){
-          $(".modal-body").html(data);   
-        }
+$(".view").on("click", function(){    
+    var id = $(this).attr("cid");   
+    $.ajax({
+      url:'ajax_cost_calc.php',
+      type: "POST",
+      data: ({id: id, type: "model_client"}),
+      success: function(data){
+        $(".modal-body").html(data);   
+      }
 
-      });
+    });
 
-  });
+});
 
   $(".trash").on("click", function(){
     
@@ -257,8 +257,3 @@ $(document).ready(function(){
 });
 
 </script>
-    
-
-<?php
-  include("footer.php");
-?>

@@ -80,7 +80,7 @@
 
   if($client_info[0]->aggrement_status == 1)
   {
-    $chk_aggr =   "checked"; 
+    $chk_aggr =   "checked disabled"; 
     $aggrement_date = $client_info[0]->aggrement_date;
     $aggrement_date = date("d M, Y H:i:s A", strtotime($aggrement_date));
   }
@@ -657,7 +657,7 @@
                 <div class="row mt-3">
                   <div class="col-md-3">                    
                     <div class="icheck-success d-inline">
-                      <input type="checkbox" class="switcher" <?php  echo $chk_aggr." disabled"; ?> name="" value="" id="chk_make_anumandh">
+                      <input type="checkbox" class="switcher" <?php  echo $chk_aggr; ?> name="" value="" id="chk_make_anumandh">
                       <label title="Checked" for="chk_make_anumandh" id="">Checked to go for Aggrement</label>
                     <br> 
                         <small id="aggr_date">Aggrement Date: <?php echo $aggrement_date; ?></small>
@@ -802,7 +802,7 @@
                   <div class="col-md-4">
                     <span>Anubandh Details</span><br><br>
                     <div id="">  
-                      <a href="javascript:void(0);" id="" mid="" class="btn btn-success btn-sm  btn-label waves-effect waves-light"><i class=" ri-download-2-fill label-icon align-middle fs-16 me-2"></i>Download Now</a>
+                      <a href="<?php echo site_url('/booking/anubandh_pdf')?>" target="_blank" id="" mid="" class="btn btn-success btn-sm  btn-label waves-effect waves-light"><i class=" ri-download-2-fill label-icon align-middle fs-16 me-2"></i>Download Now</a>
                     </div>                 
                   </div>  
                   
@@ -1883,12 +1883,12 @@ $(document).on("change", "#chk_make_anumandh", function(){
              if(spl_txt[1] == 1)
              { 
                 if(verify == 1) {
-                    $("#aggr_date").html('Date: '+spl_txt[2]);
+                    $("#aggr_date").html('Aggrement Date: '+spl_txt[2]);
                     alert("Successfully saved...");
                     $("#chk_make_anumandh").attr("disabled", true);
                   }
                   else{
-                    $("#aggr_date").html('Date: ');
+                    $("#aggr_date").html('Aggrement Date: ');
                   
                     alert("Unsaved...");
                   }                        
