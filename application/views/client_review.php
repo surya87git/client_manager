@@ -6,7 +6,7 @@ $curr_date = date("Y-m-d H:i:s");
 $encode_data = $this->uri->segment(3);
 
 if($curr_date > $booking_timer){
-  redirect('/welcome/expired_link/'.$encode_data, 'refresh');
+  //redirect('/welcome/expired_link/'.$encode_data, 'refresh');
 }
 
 

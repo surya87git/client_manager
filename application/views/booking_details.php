@@ -347,14 +347,7 @@
                 </div>
               </div>
               <div class="card-body">
-                <div class="d-flex align-items-center mb-2">
-                  <div class="flex-shrink-0">
-                    <p class="text-muted mb-0">Any Offer:</p>
-                  </div>
-                  <div class="flex-grow-1 ms-2">
-                    <h6 class="mb-0">Rs. <?php echo $trans_detail[0]->offer_amt; ?></h6>
-                  </div>
-                </div>
+                
                 <div class="d-flex align-items-center mb-2">
                   <div class="flex-shrink-0">
                     <p class="text-muted mb-0">Quotation:</p>
@@ -371,10 +364,17 @@
                     <h6 class="mb-0">Rs. <?php echo $trans_detail[0]->final_rate; ?></h6>
                   </div>
                 </div>
-                
                 <div class="d-flex align-items-center mb-2">
                   <div class="flex-shrink-0">
-                    <p class="text-muted mb-0">Amount:</p>
+                    <p class="text-muted mb-0">Discounted Amount:</p>
+                  </div>
+                  <div class="flex-grow-1 ms-2">
+                    <h6 class="mb-0">Rs. <?php echo $trans_detail[0]->offer_amt; ?></h6>
+                  </div>
+                </div>  
+                <div class="d-flex align-items-center mb-2">
+                  <div class="flex-shrink-0">
+                    <p class="text-muted mb-0">Final Amount:</p>
                   </div>
                   <div class="flex-grow-1 ms-2">
                     <h6 class="mb-0">Rs. <?php echo $trans_detail[0]->final_amt; ?></h6>
@@ -471,6 +471,7 @@
             </div>
           </div>
         </div>
+
             <!--end card-->
           <div class="card">
               <div class="card-header">
@@ -486,19 +487,23 @@
                 </div>
                 <div class="col-md-12">
                   <img src="<?php echo base_url();?>assets/images/icons/plot_no.png" alt="plot_no">
-                  <span>Plot No. : <?php echo $plot_detail[0]->plot_no; ?></span>
+                  <span>Plot No.: <?php echo $plot_detail[0]->plot_no; ?></span>
                 </div>
                 <div class="col-md-12">
                   <img src="<?php echo base_url();?>assets/images/icons/size.png" alt="plot_no">
-                  <span>Plot Size : <?php echo $plot_detail[0]->plot_size; ?> sqft</span>
-                </div>
+                  <span>Plot Size: <?php echo $plot_detail[0]->plot_size; ?> sqft</span>
+                </div>               
                 <div class="col-md-12">
                   <img src="<?php echo base_url();?>assets/images/icons/compass.png" alt="plot_no">
-                  <span>Plot Facing : <?php echo $plot_detail[0]->plot_facing; ?></span>
+                  <span>Plot Facing: <?php echo $plot_detail[0]->plot_facing; ?></span>
+                </div>               
+                <div class="col-md-12">
+                  <img src="<?php echo base_url();?>assets/images/icons/compass.png" alt="plot_no">
+                  <span>Road Facing: <?php echo $plot_detail[0]->num_road; ?> Side</span>
                 </div>
                 <div class="col-md-12">
                   <img src="<?php echo base_url();?>assets/images/icons/depth.png" alt="plot_no">
-                  <span>Depth (from plint) : <?php echo $plot_detail[0]->num_road; ?> ft</span>
+                  <span>Depth (from plint): <?php echo $plot_detail[0]->num_road; ?> ft</span>
                 </div>
               </div>
           </div>
@@ -606,26 +611,29 @@
                   </div>
 
                 <?php } }?>
-                  
+                
+                <div class="row">
                   <div class="col-md-3">
                     <div>
                       <i class="ri-check-double-line label-icon align-middle fs-16 me-2" style="color: #838fb9;"></i>
-                      Agreement Period: <?php echo $aggr_period;?>
+                     <b> Agreement Period: <?php echo $aggr_period;?></b>
                     </div>
                   </div>
                   <div class="col-md-3">
                     <div>
                       <i class="ri-check-double-line label-icon align-middle fs-16 me-2" style="color: #838fb9;"></i>
-                      Project Completion Period: <?php echo $comp_period;?>
+                      <b>Project Completion Period: <?php echo $comp_period;?></b>
                     </div>
                   </div>
                   <div class="col-md-3">
                     <div>
                       <i class="ri-check-double-line label-icon align-middle fs-16 me-2" style="color: #838fb9;"></i>
-                      Work Start on Site: <?php echo $work_start_on;?>
+                      <b>Work Start on Site: <?php echo $work_start_on;?></b>
                     </div>
                   </div>
-                  <div class="col-md-3">
+                </div>
+
+                  <!--div class="col-md-3">
                     <div>
                       <i class="ri-check-double-line label-icon align-middle fs-16 me-2" style="color: #838fb9;"></i>
                       Super Build-up area: <?php echo $sba_data;?> Sqft.
@@ -636,10 +644,10 @@
                       <i class="ri-check-double-line label-icon align-middle fs-16 me-2" style="color: #838fb9;"></i>
                       Estimate Cost: Rs. <?php echo number_format($est_cost);?>
                     </div>
-                  </div>
+                  </div-->
 
+                </div>
 
-                </div>               
               </div>
           </div>
         </div>
@@ -1256,7 +1264,7 @@
                         <div class="row">
                           <div class="col-xl-6 mt-2">   
                           <label for="">Enter Any Offer</label>                        
-                            <input type="number" id="offer_amt" name="offer_amt" value="<?php echo $trans_detail[0]->offer_amt; ?>" class="form-control" placeholder="Enter Offer">
+                            <input type="number" id="offer_amt" name="offer_amt" value="<?php echo $trans_detail[0]->offer_amt; ?>" class="form-control" placeholder="Enter Offer" readonly>
                           </div>
                           <div class="col-xl-6 mt-2">     
                           <label for="">Select Quotation</label>                      
@@ -1272,13 +1280,13 @@
                             <input type="number" id="final_rate" name="final_rate" value="<?php echo $trans_detail[0]->final_rate ?? "";; ?>" class="form-control" placeholder="Discounted Rate">
                           </div>
                           <div class="col-xl-6 mt-2">                         
-                            <input type="number" id="final_amt" name="final_amt" value="<?php echo $trans_detail[0]->final_amt ?? "";; ?>" class="form-control" placeholder="Final Amount">
+                            <input type="number" id="final_amt" name="final_amt" value="<?php echo $trans_detail[0]->final_amt ?? "";; ?>" class="form-control" placeholder="Final Amount" readonly>
                           </div>
                           <div class="col-xl-12 mt-2">                         
-                            <input type="text" id="final_amt_in_word" name="final_amt_in_word" value="<?php echo $trans_detail[0]->final_amt_in_word ?? "";; ?>" class="form-control" placeholder="Enter Amount in words">
+                            <input type="text" id="final_amt_in_word" name="final_amt_in_word" value="<?php echo ucwords($trans_detail[0]->final_amt_in_word); ?>" class="form-control" placeholder="Enter Amount in words" readonly>
                           </div>
                           <div class="col-xl-12 mt-2">                         
-                            <input type="number" id="paid_booking_amt" name="paid_booking_amt" value="<?php echo $trans_detail[0]->paid_booking_amt ?? "";; ?>"  class="form-control" placeholder="Enter Booking Amount Paid(Not-Refundable)">
+                            <input type="number" id="paid_booking_amt" name="paid_booking_amt" value="<?php echo $trans_detail[0]->paid_booking_amt ?? "";; ?>"  class="form-control" placeholder="Enter Booking Amount Paid(Not-Refundable)" readonly>
                           </div>
 
 
@@ -1308,7 +1316,7 @@
                         
                           <div class="col-xl-6 mt-2">                         
                               <select class="form-select" id="funding_mode" name="funding_mode" aria-label="Default select example">
-                                <option>Funding Mode</option>
+                                <option value="">Funding Mode</option>
                                 <option <?php if($trans_detail[0]->funding_mode == "Self"){ echo 'selected="selected"'; } ?> value="Self">Self</option>
                                 <option <?php if($trans_detail[0]->funding_mode == "Bank"){ echo 'selected="selected"'; } ?> value="Bank">Bank</option>
                                 <option <?php if($trans_detail[0]->funding_mode == "Both"){ echo 'selected="selected"'; } ?> value="Both">Both</option>
@@ -1374,10 +1382,10 @@
                           <div class="col-xl-6 mt-2">                         
                               <select class="form-select" id="num_road" name="num_road" value="<?php echo $plot_detail[0]->num_road; ?>" aria-label="Default select example">
                                 <option>Select Road Number</option>
-                                <option <?php if($plot_detail[0]->num_road == 1){ echo 'selected="selected"'; } ?> value="1">1</option>
-                                <option <?php if($plot_detail[0]->num_road == 2){ echo 'selected="selected"'; } ?> value="2">2</option>
-                                <option <?php if($plot_detail[0]->num_road == 3){ echo 'selected="selected"'; } ?> value="3">3</option>
-                                <option <?php if($plot_detail[0]->num_road == 4){ echo 'selected="selected"'; } ?> value="4">4</option>
+                                <option <?php if($plot_detail[0]->num_road == 1){ echo 'selected="selected"'; } ?> value="1">One Site</option>
+                                <option <?php if($plot_detail[0]->num_road == 2){ echo 'selected="selected"'; } ?> value="2">Two Side</option>
+                                <option <?php if($plot_detail[0]->num_road == 3){ echo 'selected="selected"'; } ?> value="3">Three Side</option>
+                                <option <?php if($plot_detail[0]->num_road == 4){ echo 'selected="selected"'; } ?> value="4">Four side</option>
                               </select>
                           </div>  
                           <div class="col-xl-6 mt-2">                         

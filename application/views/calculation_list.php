@@ -170,15 +170,15 @@
                             <div class="row mt-2">
                               <div class="col-md-12 mt-2">
                                 <label for="">Enter Name</label>
-                                <input type="text" id="client_name" name="client_name" class="form-control" placeholder="Enter Name" required>
+                                <input type="text" readonly id="client_name" name="client_name" class="form-control" placeholder="Enter Name" required>
                               </div>
                               <div class="col-md-6 mt-2">
                                 <label for="">Enter Mobile No.</label>
-                                <input type="number" id="mobile_no" name="mobile_no" class="form-control" placeholder="Enter Mobile number" required>
+                                <input type="number" readonly id="mobile_no" name="mobile_no" class="form-control" placeholder="Enter Mobile number" required>
                               </div>
                               <div class="col-md-6 mt-2">
                                 <label for="">Enter Email Address</label>
-                                <input type="email"  id="email_id" name="email_id" class="form-control" placeholder="Enter Email Address" required>
+                                <input type="email" id="email_id" name="email_id" class="form-control" placeholder="Enter Email Address" required>
                               </div>
                               <div class="col-md-6 mt-2">
                                 <label for="">Enter Adhaar Card No.</label>
@@ -476,7 +476,7 @@ $('#frmBooking').validate({
                             },
                             success: function(data)
                             {
-                              //console.log("~~~~!-->"+data);
+                              console.log("~~~~!-->"+data);
 
                               //return false;
                               $("#div_loader").html("Successfully Sent...");;
@@ -484,7 +484,7 @@ $('#frmBooking').validate({
                                 $("#div_mail").show();
                                 $("#div_loader").hide(); 
                                 
-                                window.location.href = "<?php echo base_url();?>index.php/booking/booking_details/"+booking_id;
+                                //window.location.href = "<?php //echo base_url();?>index.php/booking/booking_details/"+booking_id;
 
                               }, 5000);  
                             },
@@ -581,7 +581,7 @@ $('#frmTrans').validate({
                 if(spl_txt[1] == 1)
                 { 
                   alert("Successfully Saved...");
-                  window.location.href = "<?php echo base_url();?>index.php/booking/booking_details/"+booking_id;
+                  //window.location.href = "<?php //echo base_url();?>index.php/booking/booking_details/"+booking_id;
                 }
                 else if(spl_txt[1] == 2)
                 { 
