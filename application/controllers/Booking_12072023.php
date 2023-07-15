@@ -170,21 +170,12 @@ class Booking extends CI_Controller {
 
 			$f_data = array("booking_id"=>$last_id, "booking_date"=>$current_date);
 			$where_arr = array("id"=>$calc_id);
-			$res = $this->Master_model->updateArr("tbl_cost_calculator_new", $f_data, $where_arr);	
-
+			$res = $this->Master_model->updateArr("tbl_cost_calculator_new", $f_data, $where_arr);		
 			if($res){
 
-				$frm_data_2 = array(
-					"paid_booking_amt"=>$this->input->post("booking_amt") ?? "",
-					"booking_id"=>$last_id,
-					"create_date" => $current_date,
-					"ip"=>$this->input->ip_address()
-				);
 
-				$res = $this->Master_model->saveData("bkf_booking_transaction", $frm_data_2);
 
 			}
-
 			echo "~~~1~~~".$last_id."~~~";
 		}
 		else

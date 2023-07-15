@@ -139,7 +139,7 @@
               <div class="card-header">
              
                 <div class="d-flex align-items-center">
-                  <h5 class="card-title flex-grow-1 mb-0">Client Information</h5>
+                  <h5 class="card-title flex-grow-1 mb-0">Project Deatails</h5>
                   <button type="button" class="btn btn-success btn-sm btn-label waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#zoomInModal"><i class=" ri-edit-2-fill label-icon align-middle fs-16 me-2"></i>Edit</button>
                 </div>
               </div>

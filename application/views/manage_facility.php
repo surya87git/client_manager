@@ -31,21 +31,33 @@
                                         <form id="frmCommit">
                                             <div class="row mt-3">                         
                                             <?php 
+                                            if($facility_list)
+                                            {
+                                                $fa_arr = explode(',', $my_facility);
+                                                
                                                 foreach($facility_list as $row)
-                                                {
-                                                                                              
+                                                {  
+                                                    if(in_array($row->id, $fa_arr)){
+                                                        $checked =  'checked';
+                                                    }
+                                                    else{
+                                                        $checked = '';
+                                                    }
+
                                                 ?>
                                                 <div class="col-md-12 mt-3">
                                                     <div>
                                                         <div class="icheck-success d-inline">
-                                                            <input type="checkbox" name="chk_facility[]" value="<?php echo $row->id;?>" id="chk_<?php echo $row->id;?>" >
+                                                            <input type="checkbox" name="chk_facility[]" <?php echo $checked;?> value="<?php echo $row->id;?>" id="chk_<?php echo $row->id;?>" >
                                                             <label for="chk_<?php echo $row->id;?>" title="">
                                                              <?php echo $row->name;?>
                                                             </label>
                                                         </div>
                                                     </div> 
                                                 </div>
-                                              <?php } ?>                                           
+                                              <?php } 
+
+                                            }?>                                           
                                             </div>                                      
                                         </div>
                                         <!--end row-->

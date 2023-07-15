@@ -226,7 +226,7 @@
                 <ul class="navbar-nav" id="navbar-nav">
                     <li class="menu-title"><span data-key="t-menu">Dashboard</span></li>
                     <li class="nav-item">
-                      <a class="nav-link menu-link" href="dashboard.html" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarDashboards">
+                      <a class="nav-link menu-link" href="<?php echo base_url();?>" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarDashboards">
                         <i class="ri-home-2-line"></i> <span data-key="t-dashboards">Home</span>
                       </a>
                     </li> <!-- end Dashboard Menu -->
@@ -276,7 +276,7 @@
                         <div class="collapse menu-dropdown" id="calculator">
                             <ul class="nav nav-sm flex-column">
                                 <li class="nav-item">
-                                  <a href="<?php echo site_url('Calculator/new_calculation')?>" class="nav-link" data-key="t-calendar">Add Calculation</a>
+                                  <a href="javascript:void(0);" class="nav-link" data-key="t-calendar">Add Calculation</a>
                                 </li>
                             </ul>
                         </div>
@@ -319,15 +319,7 @@
                                 <li class="nav-item">
                                   <a href="<?php echo site_url('anubandh/anubandh_column_list')?>" class="nav-link" data-key="t-chat">Column List</a>
                                 </li>
-                                <li class="nav-item">
-                                  <a href="<?php echo site_url('anubandh/')?>" class="nav-link" data-key="t-calendar">Add Anubandh</a>
-                                </li>
-                                <li class="nav-item">
-                                  <a href="<?php echo site_url('anubandh/anubadh_agreement_list')?>" class="nav-link" data-key="t-chat">Agreement List</a>
-                                </li> 
-                                <li class="nav-item">
-                                  <a href="<?php echo site_url('anubandh/anubandh_details')?>" class="nav-link" data-key="t-calendar">Anubandh Details</a>
-                                </li>
+                                
                             </ul>
                         </div>
                     </li>

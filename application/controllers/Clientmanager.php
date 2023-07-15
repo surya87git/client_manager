@@ -401,7 +401,12 @@ class Clientmanager extends CI_Controller {
 		
         $qry = "SELECT * FROM bkf_facility_worktag where cat_id = 1 AND status = 1";
 		$data['facility_list'] = $this->Master_model->getCustom($qry);
-		
+
+		$qry2 = "SELECT my_facility FROM bkf_aggrement_form WHERE booking_id = ".$data['booking_id']."";
+		$res = $this->Master_model->getCustom($qry2);
+		$data['my_facility'] = $res[0]->my_facility;
+		//echo $this->db->last_query();
+
 		$this->load->view('header');
 		$this->load->view('top_sidebar');
 		$this->load->view('manage_facility',$data);
@@ -430,6 +435,34 @@ class Clientmanager extends CI_Controller {
 		
     }
 
+	public function ajax_my_facility(){
+		
+		$booking_id = $this->input->post("booking_id");
+
+		$qry = "";
+		$qry .= "SELECT a.id, a.name FROM bkf_facility_worktag a ";
+		$qry .= "WHERE FIND_IN_SET(a.id, (SELECT my_facility FROM bkf_aggrement_form WHERE booking_id = $booking_id)) ";
+		$qry .= "order by a.name asc";
+
+		$facility_list = $this->Master_model->getCustom($qry);
+
+		$html = "";
+		
+		if($facility_list){
+			$html .= '<h6 class="text-muted">Facilities included in project...</h6>';
+			foreach($facility_list as $res){
+				$html .= '<span class="badge badge-soft-success mt-2" style="font-size:15px;">'.$res->name.'</span>';
+				$html .= "&nbsp;&nbsp;";
+			}
+			echo $html;
+		}
+		else{
+			$html .= '<h6 class="text-muted">Facilities not included in project...</h6>';
+			echo $html;
+		}
+
+	}
+
 	public function manage_team(){
 
 		$data['booking_id'] = $this->uri->segment(3);
@@ -447,7 +480,6 @@ class Clientmanager extends CI_Controller {
 		$qry2 .= "AND  FIND_IN_SET(a.id, (SELECT my_team FROM bkf_aggrement_form WHERE booking_id = ".$data['booking_id'].")) ";
 		$qry2 .= " order by a.user_name asc";
 		$data['team_list'] = $this->Master_model->getCustom($qry2);
-		
 
 		$this->load->view('header');
 		$this->load->view('top_sidebar');

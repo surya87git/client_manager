@@ -48,8 +48,8 @@
                           foreach($project_list as $res){  
 
                             $aggr_date = date("d-M-Y", strtotime($res->aggr_date));
-                          $start_date = date("d-M-Y", strtotime($res->start_date));
-                          $end_date = date("d-M-Y", strtotime($res->end_date));
+                            $start_date = date("d-M-Y", strtotime($res->start_date));
+                            $end_date = date("d-M-Y", strtotime($res->end_date));
 
                         ?>
                         <tr>
@@ -68,11 +68,12 @@
                                 <small class="text-success"><?php echo $res->mobile_no ?? "";?></small>
                             </td>
                             <td nowrap>
-                                <a href="<?php echo site_url('/clientmanager/stage_detail_list/4')?>" class="btn btn-primary btn-sm btn-label waves-effect waves-light mt-2"><i class="ri-profile-fill label-icon align-middle fs-16 me-2"></i>Manage Stage</a>
-                                <a href="<?php echo site_url('/clientmanager/payment_history/4')?>" class="btn btn-secondary btn-sm btn-label waves-effect waves-light mt-2"><i class=" ri-file-list-2-line label-icon align-middle fs-16 me-2"></i>Payment History</a>
-                                <a href="<?php echo site_url('/clientmanager/manage_team/4')?>" class="btn btn-success btn-sm btn-label waves-effect waves-light mt-2"><i class="  ri-team-line label-icon align-middle fs-16 me-2"></i>My Team</a>
-                                <a href="" class="btn btn-info btn-sm btn-label waves-effect waves-light mt-2" data-bs-toggle="modal" data-bs-target="#myModal"><i class="  ri-gift-2-fill label-icon align-middle fs-16 me-2"></i>Facilities</a>
-                                <a href="<?php echo site_url('/clientmanager/certificate_list/4')?>" class="btn btn-warning btn-sm btn-label waves-effect waves-light mt-2"><i class=" ri-file-paper-2-line label-icon align-middle fs-16 me-2"></i>Certificate</a>
+                                <a href="<?php echo site_url('/clientmanager/stage_detail_list/'.$res->booking_id)?>" class="btn btn-primary btn-sm btn-label waves-effect waves-light mt-2"><i class="ri-profile-fill label-icon align-middle fs-16 me-2"></i>Manage Stage</a>
+                                <a href="<?php echo site_url('/clientmanager/payment_history/'.$res->booking_id)?>" class="btn btn-secondary btn-sm btn-label waves-effect waves-light mt-2"><i class=" ri-file-list-2-line label-icon align-middle fs-16 me-2"></i>Payment History</a>
+                                <a href="<?php echo site_url('/clientmanager/manage_team/'.$res->booking_id)?>" class="btn btn-success btn-sm btn-label waves-effect waves-light mt-2"><i class="  ri-team-line label-icon align-middle fs-16 me-2"></i>My Team</a>
+                                <a href="<?php echo site_url('/clientmanager/certificate_list/'.$res->booking_id)?>" class="btn btn-warning btn-sm btn-label waves-effect waves-light mt-2"><i class=" ri-file-paper-2-line label-icon align-middle fs-16 me-2"></i>Certificate</a>
+
+                                <a href="javascript:void(0);" id="<?php echo $res->booking_id;?>" class="view btn btn-info btn-sm btn-label waves-effect waves-light mt-2" data-bs-toggle="modal" data-bs-target="#myModal"><i class="  ri-gift-2-fill label-icon align-middle fs-16 me-2"></i>Facilities</a>
                             </td>
                             <!--td nowrap>
                                 <a  class="btn btn-primary btn-sm waves-effect waves-light mt-2"> Edit</a>
@@ -92,7 +93,7 @@
                   </div>
                   <!-- end table responsive -->
                 </div>
-                
+              
               </div>
               <!-- end card-body -->
             </div>
@@ -114,21 +115,15 @@
                     <h5 class="modal-title" id="myModalLabel">Facilities Provided</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+                
                 <div class="modal-body">
-                <h6 class="text-muted">Facilities you got from our side:</h6>
-                <span class="badge badge-soft-success mt-2" style="font-size:15px;">Gym</span>
-                <span class="badge badge-soft-success mt-2" style="font-size:15px;">Spa</span>
-                <span class="badge badge-soft-success mt-2" style="font-size:15px;">Mini Theater</span>
-                <span class="badge badge-soft-success mt-2" style="font-size:15px;">Swimming Pool</span>
-                <span class="badge badge-soft-success mt-2" style="font-size:15px;">Gardening</span>
-                <span class="badge badge-soft-success mt-2" style="font-size:15px;">Bar</span>
-                <span class="badge badge-soft-success mt-2" style="font-size:15px;">Roof Gardening</span>
+                  
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                    <a href="<?php echo site_url('/clientmanager/manage_facility/4')?>" type="button" class="btn btn-primary ">Edit Facilities</a>
+                    <a href="javascript:void(0);" id="btnFacility" class="btn btn-primary ">Edit Facilities</a>
+                      <input type="hidden" id="booking_id" name="booking_id">
                 </div>
-
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
@@ -175,21 +170,26 @@
 <script type="text/javascript"> 
 $(document).ready(function(){
 
-  $(".js-example-basic-multiple").select2({
-    placeholder: "---Select---",
-    allowClear: true
-  });
-
-
-
-  $(function() {
-  $('input[name="daterange"]').daterangepicker({
-    opens: 'left'
-  }, function(start, end, label) {
-    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-  });
+$("#btnFacility").on("click", function(){
+  var booking_id = $("#booking_id").val();
+  window.location.href = "<?php echo base_url().'index.php/clientmanager/manage_facility/'; ?>"+booking_id;
 });
 
+  $(".view").on("click", function(){    
+      var booking_id = $(this).attr("id");   
+      $("#booking_id").val(booking_id);   
+      var url = "<?php echo site_url('clientmanager/ajax_my_facility')?>";
+      $.ajax({
+        url: url,
+        type: "POST",
+        data: ({booking_id: booking_id, type: "model_client"}),
+        success: function(data){
+
+          $(".modal-body").html(data); 
+
+        }
+      });
+  });
 
 
   $('#example').DataTable({
@@ -200,86 +200,6 @@ $(document).ready(function(){
       "info": true,
       "autoWidth": false,
       "responsive": true,
-  });
-
-  $(document).on("change", ".switcher", function(e){
-    
-    var id = $(this).attr("id");
-    var status = 0;
-
-    if(e.target.checked)
-    {
-      status = 1;
-    }
-          
-  $.ajax({
-
-      url:'ajax_login_user.php',
-        type: "POST",
-        data: ({id: id, status: status, source: "users"}),
-        dataType: 'json',
-        success: function(data){
-          
-          if(data == parseInt(1))
-          {
-              /*Toast.fire({
-                  icon: 'success',
-                  title: 'Successfully Updated...'
-              });
-              if(status == 1)
-              {
-                $("#lbl_sw_"+id).html("Active");
-                $("#lbl_sw_"+id).attr("title", "Checked");
-              }
-              else
-              {
-                $("#lbl_sw_"+id).html("Inactive");
-                $("#lbl_sw_"+id).attr("title", "Unchecked");
-              }*/
-              //alert("Successfully deleted...");
-          } 
-
-        }
-
-    }); 
-    
-});
-
-  $(".view").on("click", function(){    
-      var id = $(this).attr("cid");   
-      $.ajax({
-        url:'ajax_cost_calc.php',
-        type: "POST",
-        data: ({id: id, type: "model_client"}),
-        success: function(data){
-          $(".modal-body").html(data);   
-        }
-
-      });
-
-  });
-
-  $(".trash").on("click", function(){
-    
-      var id = $(this).attr("id");
-
-      $.ajax({
-        url:'ajax_cost_calc.php',
-        type: "POST",
-        data: ({id: id, type: "delete_list"}),
-        success: function(data){
-
-          var spl_txt = data.split("~~~");
-          if(spl_txt[1] == 1)
-          {
-            $("#tr_"+id).remove();
-            alert(spl_txt[2]);
-          } 
-
-        }
-
-    }); 
-
   });
 
 });

@@ -1,4 +1,13 @@
 
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="x-apple-disable-message-reformatting">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Welcome</title>
+  </head>
 <body style="margin:0;padding:0;word-spacing:normal;background-color:#ffffff;">
     <div role="article" aria-roledescription="email" lang="en" style="-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;background-color:#ffffff;">
       <table role="presentation" style="width:100%;border:0;border-spacing:0;">
@@ -26,21 +35,16 @@
                       Your Boooking is in <span style="color: #ac9c72; font-weight: bolder;">Process</span> 
                     </span>
                     <h1 style="margin-top:10px;font-family:Arial,sans-serif;font-size:14px;line-height:28px;font-weight: normal; color: ac9c72;text-align: center;color: #ac9c72;">Please verify your booking details and make a payment of your inital booking amount i.e 
-                    <br><span style="color: #ac9c72;text-decoration: underline;font-weight: 800;"> Rs. <?php echo $amount?></span> </h1>             
+                    <br><span style="color: #ac9c72;text-decoration: underline;font-weight: 800;"> Rs. <?php echo $booking_amt; ?></span> </h1>             
+                    <p style="margin-top: 20px;font-family:Arial,sans-serif;"><a href="<?php echo $booking_link; ?>" target="_blank" style="background: #ffffff; border: 2px solid #a6976e; text-decoration: none; padding: 10px 25px; color: #ab8238; border-radius: 4px; display:inline-block; mso-padding-alt:0;text-underline-color:#ffffff"><span style="mso-text-raise:10pt;font-weight:bold;">Pay Now</span></a></p>
+                    <p style="color: #ac9c72; font-weight: bolder;">within a same day.</p>
                   </div>
                 </div>                
               </div>
-              <table role="presentation" style="width:100%;border:0;border-spacing:0;">
-                <tr>
-                  <td style="text-align:center;">
-                    <p style="margin-top: 20px;font-family:Arial,sans-serif;"><a href="<?php echo base_url('index.php/welcome/client_review/'.$link); ?>" target="_blank" style="background: #ffffff; border: 2px solid #a6976e; text-decoration: none; padding: 10px 25px; color: #ab8238; border-radius: 4px; display:inline-block; mso-padding-alt:0;text-underline-color:#ffffff"><span style="mso-text-raise:10pt;font-weight:bold;">Verify and Pay</span></a></p>
-                    <p style="color: #ac9c72; font-weight: bolder;">within 3 days.</p>
-                  </td>
-                </tr>
-              </table>
-              <center><img src="<?php echo base_url();?>assets/email_images/process.png" alt="" style="width: 300px; height: 300px;"></center>
+          
           </td>
         </tr>
       </table>
     </div>
   </body>
+  </html>
