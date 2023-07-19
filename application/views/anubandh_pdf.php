@@ -1,3 +1,21 @@
+<?php 
+$CI = & get_instance();
+$cdata = json_decode($column_list->column_data, true);
+
+$p_addr = json_decode($client_info[0]->permanent_addr, true);
+$r_addr = json_decode($client_info[0]->present_addr, true);
+$o_addr = json_decode($client_info[0]->office_addr, true);
+
+$aggr_date = date("d, M Y", strtotime($client_info[0]->aggrement_date));
+$payment_date = date("d, M Y", strtotime($trans_detail[0]->payment_date));
+
+
+$booking_amt = $CI->master->getWord($trans_detail[0]->paid_booking_amt);
+
+//print_r($p_addr);
+//echo $p_addr['p_hno']
+//[p_hno] => HNO. 441 [p_street] => Magneto Mall [p_landmark] => Magneto Mall [p_city] => Raipur [p_state] => Raipur [p_pincode] => 492001 )
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,63 +33,118 @@
 <body>
     <h3 style="text-align: center; text-decoration: underline;">अनुबंद पत्र </h3>
     <div style="padding-left: 10px;padding-right: 10px;">
-    <p>पाटी नंबर 1 - यहाँ रहने वाले कंसल्टेंट डिजाइनर (वेबसाइटर), मोहित सोलंकी, का पता है - ऑफिस नंबर 441, चौथा मंज़िल, सिविल लाइन के पास, मेंटो मॉल, लाभांडी, रायपुर (छत्तीसगढ़)। मोबाइल नंबर - 7898716164, पैन नंबर - CGGPS3467M, आधार नंबर - 312168337474, ईमेल - planner.mohit12@gmail.com।</p>
-
-    <p>पाटी नं 2-</p>
+    <p>पार्टी नं 1 - यु.के. कांसेप्ट डिजाईनर (प्रोप्राइटर मोहित सोलंकी) पता- आफिस न. 441, 4th फ्लोर, सर्विस लिफ्ट के पास, मेग्नेटो मॉल, लाभांडी, रायपुर (छ.ग.) मोबाईल न. 7898716164 पान. न. CGGPS3467M आधार न. 312168337474 ई-मेल - planner.mohit12@gmail.com</p>    
+    <p>पाटी नं 2- </p>
     <table style="width:100%">
-
         <tr>
             <td>नाम</td>
-            <td>मिस्टर होमन सिंह जलछतरी</td>
-            <td>तो मिस्टर थानू राम जलछतरी</td>
-            <td>उम्र 46 वर्ष</td>
+            <td><?php echo $client_info[0]->client_name ?? ""; ?></td>
+            <td>c/o <?php echo $client_info[0]->spouse_name ?? ""; ?></td>
+            <td>उम्र <?php echo $client_info[0]->age ?? ""; ?> वर्ष</td>
         </tr>        
         <tr>
             <td>पता</td>
-            <td>घर नंबर 88/7, डब्ल्यूआरएस कॉलोनी, होमन सिंह जलछतरी</td>
-            <td>पिनकोड - 492008, रायपुर</td>
-            <td>मोबाइल - 9584746406</td>
+            <td>घर नंबर <?php echo $p_addr['p_hno'].', '.$p_addr['p_street'].', '.$p_addr['p_landmark'].', '.$p_addr['p_city']; ?></td>
+            <td>पिनकोड - <?php echo $p_addr['p_pincode'];?></td>
+            <td>प्रान्त - <?php echo $p_addr['p_state'];?></td>
         </tr>
         <tr>
             <td>पेशा</td>
-            <td>जूनियर इंजीनियर (डीएलएस रायपुर, एसईसी रेलवे)</td>
-            <td>घर नंबर 88/7, डब्ल्यूआरएस कॉलोनी</td>
-            <td>मोबाइल - 9584746406</td>
+            <td><?php echo $client_info[0]->occupation ?? ""; ?></td>
+            <td>मोबाइल - <?php echo $client_info[0]->mobile_no ?? ""; ?></td>
+            <td>ईमेल - <?php echo $client_info[0]->email_id ?? ""; ?></td>
         </tr>
         <tr>
             <td>पैन नंबर</td>
-            <td>AHTPJ9505F</td>
-            <td>आधार नंबर - 2147483647</td>
-            <td>ईमेल - homansingh7@gmail.com</td>
+            <td><?php echo $client_info[0]->pan_no ?? ""; ?></td>
+            <td>आधार नंबर - <?php echo $client_info[0]->aadhar_no ?? ""; ?></td>
+            <td>&nbsp;</td>
         </tr>
-                
+        <tr>
+            <td colspan="4">&nbsp;</td>
+
+        </tr>
+        <tr>
+            <td>वर्तमान पता -</td>
+            <td>घर नंबर <?php echo $r_addr['r_hno'].', '.$r_addr['r_street'].', '.$r_addr['r_landmark'].', '.$r_addr['r_city']; ?></td>
+            <td>पिनकोड - <?php echo $r_addr['r_pincode'];?></td>
+            <td>प्रान्त - <?php echo $r_addr['r_state'];?></td>
+        </tr>
+        <tr>
+            <td>ऑफिस पता -</td>
+            <td>घर नंबर - <?php echo $o_addr['o_hno'].', '.$o_addr['o_street'].', '.$o_addr['o_landmark'].', '.$o_addr['o_city']; ?></td>
+            <td>पिनकोड - <?php echo $o_addr['o_pincode'];?></td>
+            <td>प्रान्त - <?php echo $o_addr['o_state'];?></td>
+        </tr>   
     </table>
-    <p>आज दिनांक 01-01-1970 को पाठी नंबर 1 और 2 के मालिक भवन में निम्नलिखित विवरण के अनुसार काम करने के लिए निम्नलिखित अनुबंध बनाया गया है:</p>
+
+
+    <p>आज दिनांक <?php echo $aggr_date; ?> को पार्टी  नं. 1 व 2 के मध्य भवन निर्माण करने बाबत निम्नलिखित अनुबंध किया गया हैं :-</p>
     <br>
     <h4 style="text-align: center;">COLUMN A</h4>
-    <p style="text-align: center;">अनुबंध के पूर्ववर्ती ड्राइंग कार्यों के लिए अग्रिम राशि का भुगतान पाठी नंबर 2 द्वारा किया जाएगा:</p>
+    <p style="text-align: center;">अनुबंध के पूर्ववर्ती ड्राइंग कार्यों के लिए अग्रिम राशि का भुगतान पार्टी नंबर 2 द्वारा किया जाएगा:</p>
     <table style="width:100%">
         <tr>
             <td>पार्टी</td>
-            <td>बैंक का नाम</td>
-            <td></td>
-            <td>चेक तिथि - 30-11--0001</td>
+            <td>भुगतान का प्रकार</td>
+            <td><?php echo $trans_detail[0]->payment_mode; ?></td>
+            <td>भुगतान तिथि - <?php echo $payment_date; ?></td>
         </tr>
         <tr>
             <td>राशि</td>
-            <td>100000</td>
-            <td>शब्दों में - एक लाख रुपये मात्र</td>
-            <td>चेक नंबर -</td>
-        </tr>
-        <tr>
-            <td>नगद</td>
-            <td>100000</td>
-            <td>शब्दों में - एक लाख रुपये मात्र</td>
-            <td>नगद तिथि -</td>
+            <td><?php echo number_format($trans_detail[0]->paid_booking_amt); ?></td>
+            <td>शब्दों में - <?php echo ucwords($booking_amt); ?> Only</td>
+            <td>ट्रांसेक्शन संख्या - <?php echo $trans_detail[0]->trans_id; ?></td>
         </tr>
     </table>
     <br>
-    <h4 style="text-align: center;">COLUMN C</h4>
+    <?php 
+
+    $col_head = "";
+    $temp = "";
+    $opt = "";
+    $rcnt = 0; // Initialize row count
+
+    echo '<table style="width:100%">'; // Start the table outside the loop
+
+    foreach ($cdata as $key => $val) {
+
+        $qry = "SELECT * FROM bkf_aggrement_column WHERE id = $key";
+        $res = $CI->Master_model->getCustom($qry)[0];
+
+        if ($val == "YES") {
+            $opt = "हाँ";
+        } else {
+            $opt = "नहीं";
+        }
+
+        if ($res->column_name != $temp) {
+            echo '<tr>';
+            echo '<td colspan="3" style="text-align: center; border-left: none; border-right: none;"><h4>COLUMN ' . $res->column_name . '</h4></td>';
+            echo '</tr>';
+            $rcnt = 0;
+        }
+        echo '<td>' . $res->column_desc . '<span style="color: red; font-weight: bold;">' . $opt . '</span></td>';
+        $rcnt++;    
+        // Check if three columns have been displayed
+        if ($rcnt == 3) {
+            echo '</tr>'; // Close the current row
+            $rcnt = 0; // Reset row count
+        }
+        $temp = $res->column_name;
+    }
+
+    // Close the table if it's still open after the loop
+    if ($rcnt > 0) {
+        echo '</tr>';
+    }
+
+echo '</table>'; // Close the table
+
+    ?>
+
+    <br><br><br>
+
     <table style="width:100%">
         <tr>
            <td>भुगतान की रिसीट और कॉपी देने का वादा किया गया <span style="color: red; font-weight: bold;">हाँ</span></td>
@@ -95,8 +168,7 @@
          </tr>
     </table>
 
-    <br>
-    <h4 style="text-align: center;">COLUMN D</h4>
+    
     <p>इनमांणण कायदा का विवरण:</p>
     <table style="width:100%">
         <tr>

@@ -29,6 +29,7 @@
               <div class="card-header align-items-center d-flex">
                 <h4 class="card-title mb-0 flex-grow-1">Certificate List</h4>
                 <div class="flex-shrink-0">
+                <a href="<?php echo base_url("index.php/clientmanager/project_list/".$booking_id)?>" class="btn btn-primary btn-sm btn-label waves-effect waves-light"><i class=" ri-file-list-fill label-icon align-middle fs-16 me-2"></i>Project List</a>&nbsp;&nbsp;
                     <a href="<?php echo site_url('/clientmanager/upload_certificate/'.$booking_id)?>" class="btn btn-success btn-sm"><i class=" ri-add-fill align-bottom"></i>&nbsp; Add Certificate</a>
                 </div>
               </div>

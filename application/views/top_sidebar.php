@@ -269,6 +269,26 @@
                             </ul>
                         </div>
                     </li-->
+                    <li class="nav-item">
+                            <a class="nav-link menu-link collapsed" href="#sidebarPages" data-bs-toggle="collapse" role="button" aria-expanded="true" aria-controls="sidebarPages">
+                                <i class="ri-pages-line"></i> <span data-key="t-pages">Master</span>
+                            </a>
+                            <div class="collapse menu-dropdown" id="sidebarPages">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="<?php echo site_url('/clientmanager/manage_facility_worktag')?>" class="nav-link" data-key="t-team">Facilities / Work Tag</a>
+                                    </li>
+                                    <li class="nav-item">
+                                  <a href="<?php echo base_url('index.php/booking/manage_commitment/')?>" class="nav-link" data-key="t-calendar">Manage Commitment</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?php echo site_url('/clientmanager/manage_stages')?>" class="nav-link" data-key="t-simple-page">
+                                        Manage Stages</a>
+                                </li>
+                                </ul>
+                            </div>
+                            
+                        </li>
                     <li class="nav-item active">
                         <a class="nav-link menu-link" href="#calculator" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps2">
                           <i class="ri-calculator-line"></i><span data-key="t-apps">Calculator</span>
@@ -300,10 +320,7 @@
                                 </li>
                                 <li class="nav-item">
                                   <a href="<?php echo base_url('index.php/booking/booking_list')?>" class="nav-link" data-key="t-calendar">Booking List</a>
-                                </li>
-                                <li class="nav-item">
-                                  <a href="<?php echo base_url('index.php/booking/manage_commitment/')?>" class="nav-link" data-key="t-calendar">Manage Commitment</a>
-                                </li>
+                                </li>   
                             </ul>
                         </div>
                     </li>
@@ -332,18 +349,6 @@
                     <hr style="color: white;">
                     <li class="menu-title"><span data-key="t-menu">Client Portal</span></li>
                         <li class="nav-item">
-                            <a class="nav-link menu-link collapsed" href="#sidebarPages" data-bs-toggle="collapse" role="button" aria-expanded="true" aria-controls="sidebarPages">
-                                <i class="ri-pages-line"></i> <span data-key="t-pages">Master</span>
-                            </a>
-                            <div class="collapse menu-dropdown" id="sidebarPages">
-                                <ul class="nav nav-sm flex-column">
-                                    <li class="nav-item">
-                                        <a href="<?php echo site_url('/clientmanager/manage_facility_worktag')?>" class="nav-link" data-key="t-team">Add Facilities / Work Tag</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link menu-link collapsed" href="#ProjectDetails" data-bs-toggle="collapse" role="button" aria-expanded="true" aria-controls="sidebarPages">
                                 <i class="ri-pages-line"></i> <span data-key="t-pages">Project Details</span>
                             </a>
@@ -357,10 +362,6 @@
                                         </a>
                                         <div class="collapse menu-dropdown" id="StageDetails">
                                             <ul class="nav nav-sm flex-column">
-                                                <li class="nav-item">
-                                                    <a href="<?php echo site_url('/clientmanager/manage_stages')?>" class="nav-link" data-key="t-simple-page">
-                                                        Manage Stages</a>
-                                                </li>
                                                 <li class="nav-item">
                                                     <a href="<?php echo site_url('/clientmanager/manage_stage_details')?>" class="nav-link" data-key="t-simple-page">
                                                         Stage Details</a>

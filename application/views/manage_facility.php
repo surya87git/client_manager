@@ -23,7 +23,8 @@
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-header align-items-center d-flex">
-                                    <h4 class="card-title mb-0 flex-grow-1 text-primary" style="text-decoration:underline;">Manage Facilities</h4>                               
+                                    <h4 class="card-title mb-0 flex-grow-1 text-primary" style="text-decoration:underline;">Manage Facilities</h4>  
+                                    <a href="<?php echo base_url("index.php/clientmanager/project_list/".$booking_id)?>" class="btn btn-primary btn-sm btn-label waves-effect waves-light"><i class=" ri-file-list-fill label-icon align-middle fs-16 me-2"></i>Project List</a>&nbsp;&nbsp;                             
                                 </div><!-- end card header -->
                                 <div class="card-body">
                                     <div class="live-preview">

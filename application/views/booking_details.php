@@ -1,5 +1,6 @@
-<?php 
-  $CI = & get_instance();
+<?php
+
+$CI = & get_instance();
  $permanent_addr_arr = json_decode($client_info[0]->permanent_addr, true);
  $permanent_addr = implode(", ", $permanent_addr_arr);
 
@@ -909,8 +910,8 @@
                             <input type="text" id="mobile_no" name="mobile_no" value="<?php echo $client_info[0]->mobile_no ?? ""; ?>" class="form-control" placeholder="Mobile Number">
                           </div>
                           <div class="col-xl-6 mt-2">  
-                            <label for="">Enter Relation</label>                          
-                            <input type="text" id="spouse_name" name="spouse_name" value="<?php echo $client_info[0]->spouse_name ?? ""; ?>" class="form-control" placeholder="Enter Relation">
+                            <label for="">Enter Care of</label>                          
+                            <input type="text" id="spouse_name" name="spouse_name" value="<?php echo $client_info[0]->spouse_name ?? ""; ?>" class="form-control" placeholder="Enter Care of  ">
                           </div>
                           <div class="col-xl-6 mt-2"> 
                             <label for="">Enter Email</label>                          
@@ -920,13 +921,17 @@
                             <label for="">Enter Age</label>                      
                             <input type="number" id="age" name="age" value="<?php echo $client_info[0]->age ?? ""; ?>" class="form-control" placeholder="Enter Age">
                           </div>
-                          <div class="col-xl-6 mt-2">  
+                          <div class="col-xl-3 mt-2">  
                             <label for="">Select Gender</label>         
                             <select name="gender" class="form-select mb-3" aria-label="Default select example" aria-invalid="false">
                               <!--option selected="">Select Gender</option-->
                               <option <?php if($client_info[0]->gender == "Male"){ echo 'selected="selected"'; } ?> value="Male">Male</option>
                               <option <?php if($client_info[0]->gender == "Female"){ echo 'selected="selected"'; } ?> value="Female">Female</option>                       
                             </select>
+                          </div>
+                          <div class="col-xl-6 mt-2">
+                            <label for="">Enter Occupation</label>                          
+                            <input type="text" id="" name="panno" value="" class="form-control" placeholder="Enter Occupation">
                           </div>
                           <div class="col-xl-6 mt-2">
                             <label for="">Enter Pan Card</label>                          
@@ -1276,17 +1281,22 @@
                                 <option <?php if($trans_detail[0]->quotation_type == "Ultra Luxuary"){ echo 'selected="selected"'; } ?> value="Ultra Luxuary">Ultra Luxuary</option>
                               </select>
                           </div>               
-                          <div class="col-xl-6 mt-2">                         
-                            <input type="number" id="final_rate" name="final_rate" value="<?php echo $trans_detail[0]->final_rate ?? "";; ?>" class="form-control" placeholder="Discounted Rate">
+                          <div class="col-xl-6 mt-2">     
+                          <label for="">Enter Discounted Rate</label>                        
+                          <input type="number" id="final_rate" name="final_rate" value="<?php echo $trans_detail[0]->final_rate ?? "";; ?>" class="form-control" placeholder="Discounted Rate">
                           </div>
-                          <div class="col-xl-6 mt-2">                         
-                            <input type="number" id="final_amt" name="final_amt" value="<?php echo $trans_detail[0]->final_amt ?? "";; ?>" class="form-control" placeholder="Final Amount" readonly>
+                          <div class="col-xl-6 mt-2">
+                          <label for="">Enter Final Amount</label>                        
+                          <input type="number" id="final_amt" name="final_amt" value="<?php echo $trans_detail[0]->final_amt ?? "";; ?>" class="form-control" placeholder="Final Amount" readonly>
                           </div>
-                          <div class="col-xl-12 mt-2">                         
-                            <input type="text" id="final_amt_in_word" name="final_amt_in_word" value="<?php echo ucwords($trans_detail[0]->final_amt_in_word); ?>" class="form-control" placeholder="Enter Amount in words" readonly>
+                          <div class="col-xl-12 mt-2">
+                          <label for="">Enter Amount in words</label>                          
+                          <input type="text" id="final_amt_in_word" name="final_amt_in_word" value="<?php echo ucwords($trans_detail[0]->final_amt_in_word); ?>" class="form-control" placeholder="Enter Amount in words" readonly>
                           </div>
-                          <div class="col-xl-12 mt-2">                         
-                            <input type="number" id="paid_booking_amt" name="paid_booking_amt" value="<?php echo $trans_detail[0]->paid_booking_amt ?? "";; ?>"  class="form-control" placeholder="Enter Booking Amount Paid(Not-Refundable)" readonly>
+                          
+                          <div class="col-xl-12 mt-2">    
+                          <label for="">Enter Booking Amount</label>                      
+                          <input type="number" id="paid_booking_amt" name="paid_booking_amt" value="<?php echo $trans_detail[0]->paid_booking_amt ?? "";; ?>"  class="form-control" placeholder="Enter Booking Amount Paid(Not-Refundable)" readonly>
                           </div>
 
 
@@ -1314,28 +1324,33 @@
                         
                         */?>
                         
-                          <div class="col-xl-6 mt-2">                         
-                              <select class="form-select" id="funding_mode" name="funding_mode" aria-label="Default select example">
-                                <option value="">Funding Mode</option>
-                                <option <?php if($trans_detail[0]->funding_mode == "Self"){ echo 'selected="selected"'; } ?> value="Self">Self</option>
-                                <option <?php if($trans_detail[0]->funding_mode == "Bank"){ echo 'selected="selected"'; } ?> value="Bank">Bank</option>
-                                <option <?php if($trans_detail[0]->funding_mode == "Both"){ echo 'selected="selected"'; } ?> value="Both">Both</option>
-                              </select>
+                          <div class="col-xl-6 mt-2">       
+                          <label for="">Select Funding Mode</label>                   
+                            <select class="form-select" id="funding_mode" name="funding_mode" aria-label="Default select example">
+                              <option value="">Funding Mode</option>
+                              <option <?php if($trans_detail[0]->funding_mode == "Self"){ echo 'selected="selected"'; } ?> value="Self">Self</option>
+                              <option <?php if($trans_detail[0]->funding_mode == "Bank"){ echo 'selected="selected"'; } ?> value="Bank">Bank</option>
+                              <option <?php if($trans_detail[0]->funding_mode == "Both"){ echo 'selected="selected"'; } ?> value="Both">Both</option>
+                            </select>
                           </div>  
-                          <div class="col-xl-12 mt-2">                         
-                            <input type="number" id="self_amt" name="self_amt" value="<?php echo $trans_detail[0]->self_amt ?? "";; ?>" class="form-control" placeholder="Self Amount">
+                          <div class="col-xl-12 mt-2">
+                          <label for="">Enter Self Amount</label>                        
+                          <input type="number" id="self_amt" name="self_amt" value="<?php echo $trans_detail[0]->self_amt ?? "";; ?>" class="form-control" placeholder="Self Amount">
                           </div>     
-                          <div class="col-xl-6 mt-2">                         
+                          <div class="col-xl-6 mt-2">
+                          <label for="">Enter Bank Name</label>                         
                             <input type="text" id="bank_name" name="bank_name" value="<?php echo $trans_detail[0]->bank_name ?? "";; ?>" class="form-control" placeholder="Bank Name">
                           </div> 
-                          <div class="col-xl-6 mt-2">                         
+                          <div class="col-xl-6 mt-2"> 
+                          <label for="">Enter Loan Amount</label>                        
                             <input type="number" id="loan_amt" name="loan_amt" value="<?php echo $trans_detail[0]->loan_amt ?? "";; ?>" value="" class="form-control" placeholder="Loan Amount">
                           </div>
-                          <div class="col-xl-12 mt-2">                         
+                          <div class="col-xl-12 mt-2">   
+                          <label for="">Enter Loan Acoumt Number</label>                      
                             <input type="number" id="loan_acc_no" name="loan_acc_no" value="<?php echo $trans_detail[0]->loan_acc_no ?? "";; ?>" class="form-control" placeholder="Loan Account No.">
                           </div>                                         
                         </div>  
-                        <div class="modal-footer">
+                        <div class="modal-footer mt-2">
                           <input type="hidden" name="booking_id" value="<?php echo $client_info[0]->id ?? ""; ?>">
                           <input type="hidden" name="trans_id" value="<?php echo $trans_detail[0]->id ?? ""; ?>">
                           <input type="hidden" name="type" value="trans_details">                       
@@ -1361,16 +1376,20 @@
                       <div class="modal-body">
                     <form id="frmPlot">
                         <div class="row">
-                          <div class="col-xl-12 mt-2">                         
+                          <div class="col-xl-12 mt-2">   
+                          <label for="">Enter Lot Location</label>                      
                             <input type="text" id="plot_location" name="plot_location" value="<?php echo $plot_detail[0]->plot_location ?? "";; ?>"  class="form-control" placeholder="Plot Location">
                           </div>
-                          <div class="col-xl-4 mt-2">                         
+                          <div class="col-xl-4 mt-2">  
+                          <label for="">Enter Plot Number</label>                       
                             <input type="text" id="plot_no" name="plot_no" value="<?php echo $plot_detail[0]->plot_no ?? "";; ?>" class="form-control" placeholder="Plot No.">
                           </div>               
-                          <div class="col-xl-3 mt-2">                         
+                          <div class="col-xl-3 mt-2">
+                          <label for="">Enter Plot Size</label>                         
                             <input type="number" id="plot_size" name="plot_size" value="<?php echo $plot_detail[0]->plot_size ?? "";; ?>" class="form-control" placeholder="Plot Size">
                           </div>
-                          <div class="col-xl-5 mt-2">                         
+                          <div class="col-xl-5 mt-2">   
+                          <label for="">Select Plot Facing</label>                      
                               <select class="form-select" id="plot_facing" name="plot_facing" aria-label="Default select example">
                                 <option>Select Plot Facing</option>
                                 <option <?php if($plot_detail[0]->plot_facing == "North"){ echo 'selected="selected"'; } ?> value="North">North</option>
@@ -1379,7 +1398,8 @@
                                 <option <?php if($plot_detail[0]->plot_facing == "West"){ echo 'selected="selected"'; } ?> value="West">West</option>
                               </select>
                           </div> 
-                          <div class="col-xl-6 mt-2">                         
+                          <div class="col-xl-6 mt-2"> 
+                          <label for="">Select Road Facing</label>                        
                               <select class="form-select" id="num_road" name="num_road" value="<?php echo $plot_detail[0]->num_road; ?>" aria-label="Default select example">
                                 <option>Select Road Number</option>
                                 <option <?php if($plot_detail[0]->num_road == 1){ echo 'selected="selected"'; } ?> value="1">One Site</option>
@@ -1388,11 +1408,12 @@
                                 <option <?php if($plot_detail[0]->num_road == 4){ echo 'selected="selected"'; } ?> value="4">Four side</option>
                               </select>
                           </div>  
-                          <div class="col-xl-6 mt-2">                         
+                          <div class="col-xl-6 mt-2">  
+                          <label for="">Enter Depth</label>                       
                             <input type="number" id="plot_depth" name="plot_depth" value="<?php echo $plot_detail[0]->plot_depth ?? ""; ?>"  class="form-control" placeholder="Depth from Plinth">
                           </div>                                               
                         </div>
-                        <div class="modal-footer">
+                        <div class="modal-footer mt-2">
                           <input type="hidden" name="booking_id" value="<?php echo $client_info[0]->id ?? ""; ?>">
                           <input type="hidden" name="plot_id" value="<?php echo $plot_detail[0]->id ?? ""; ?>">
                           <input type="hidden" name="type" value="plot_details">                       
@@ -1465,6 +1486,7 @@
                                 {
                                   $approved_tncp = base_url("assets/uploads/".$attach_doc[0]->approved_tncp);
                                   echo '&nbsp;&nbsp;<a href="'.$approved_tncp.'" class="badge bg-primary" style="color:white;" download="'.$approved_tncp.'">Map TNCP/Municipal &nbsp;<i class="ri-download-2-line"></i></a>';
+                        
                                 }
 
                                 if($attach_doc[0]->chk_tax_receipt == "yes")

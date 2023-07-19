@@ -1,6 +1,5 @@
 
 
-
 /*------Assign Team-------------------*/
 
 SELECT a.id, a.user_name, a.mobile, a.designation, b.user_type FROM tbl_users a LEFT JOIN tbl_user_type b ON a.user_type = b.id WHERE a.status = 1
@@ -31,6 +30,14 @@ SELECT d.create_date AS aggrement_date, d.site_id, a.id AS booking_id,a.client_n
 DATE_FORMAT(a.aggrement_date, '%d, %M %Y') AS aggrement_date,DATE_FORMAT(c.aggr_period, '%d, %M %Y') AS aggr_period, DATE_FORMAT(c.work_start_on, '%d, %M %Y') AS start_date, c.comp_period AS end_date 
 FROM bkf_booking_form a LEFT JOIN bkf_booking_transaction b ON a.id = b.booking_id LEFT JOIN bkf_commitment c ON a.id = c.booking_id
 LEFT JOIN bkf_aggrement_form AS d ON a.id = d.booking_id WHERE a.id = 4
+
+/*------------Anubandh PDF--------------------*/
+
+
+select * from bkf_aggrement_column where FIND_IN_SET(id, '19,20,21,22,31,24,25,26') order by column_name desc
+
+
+
 
 
 

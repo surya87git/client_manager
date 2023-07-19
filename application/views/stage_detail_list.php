@@ -31,6 +31,7 @@ $client_name = $CI->get_name("bkf_booking_form","client_name",$booking_id);
             <div class="card">
               <div class="card-header align-items-center d-flex">
                 <h4 class="card-title mb-0 flex-grow-1"><?php echo $client_name?></h4>
+                <a href="<?php echo base_url("index.php/clientmanager/project_list/".$booking_id)?>" class="btn btn-primary btn-sm btn-label waves-effect waves-light"><i class="ri-file-list-fill label-icon align-middle fs-16 me-2"></i>Project List</a>&nbsp;&nbsp;
                 <a href="<?php echo base_url("index.php/clientmanager/payment_history/".$booking_id)?>" class="btn btn-success btn-sm btn-label waves-effect waves-light"><i class=" ri-file-list-fill label-icon align-middle fs-16 me-2"></i>Payment History</a>&nbsp;&nbsp;
                 <a href="<?php echo base_url("index.php/clientmanager/manage_stage_details/".$booking_id)?>" class="btn btn-success btn-sm btn-label waves-effect waves-light"><i class=" ri-file-add-fill label-icon align-middle fs-16 me-2"></i>Add Stage</a>
               </div>

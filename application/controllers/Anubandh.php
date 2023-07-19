@@ -2,16 +2,16 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Anubandh extends CI_Controller {
-
-
+	
 	public function __construct()
 	 {
 		parent::__construct(); 
-		 //$this->load->library("session");
+		//$this->load->library("session");
 		$this->load->helper('cookie');
 		$this->load->helper("form");
 		$this->load->helper("url");
 		$this->load->library('user_agent');
+		$this->load->library('master');
 		$this->load->database();
 	    $this->load->model("Master_model");    
 	}	 
@@ -52,7 +52,6 @@ class Anubandh extends CI_Controller {
    public function ajax_anubandh_column()
 	{
 		//$id = $this->input->post("id");
-
 		$frm_data = array(			
 		  "column_name" => $this->input->post("column_name") ?? "",
 		  "column_desc" => $this->input->post("column_desc") ?? "",			
@@ -156,6 +155,32 @@ class Anubandh extends CI_Controller {
 		$this->load->view('top_sidebar');
 		$this->load->view('make_anubandh', $data);
 	}	
+	public function anubandh_pdf(){
+
+		$booking_id = 2;
+		
+		$qry = "SELECT * FROM bkf_booking_form where id = $booking_id";
+        $data['client_info'] = $this->Master_model->getCustom($qry);
+	
+		//echo $this->db->last_query();
+		$qry = "SELECT * FROM bkf_decision_maker where booking_id = $booking_id";
+        $data['dec_maker'] = $this->Master_model->getCustom($qry);
+
+		$qry = "SELECT * FROM bkf_client_payee where booking_id = $booking_id";
+        $data['payee'] = $this->Master_model->getCustom($qry);
+
+		$qry = "SELECT * FROM bkf_booking_transaction where booking_id = $booking_id";
+        $data['trans_detail'] = $this->Master_model->getCustom($qry);
+
+		$qry = "SELECT * FROM bkf_client_aggrement_column where id <> 0 and status = 1 and booking_id = $booking_id";
+		$data['column_list'] = $this->Master_model->getCustom($qry)[0];
+
+		$this->load->view('anubandh_pdf', $data);
+
+	}
+
+
+
 	public function anubadh_agreement_list()
 	{
 		$this->load->view('new_header/header');

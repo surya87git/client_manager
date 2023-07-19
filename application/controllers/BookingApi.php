@@ -743,8 +743,6 @@ class BookingApi extends CI_Controller {
 						'aggr_period'=>$aggr_period,
 						'comp_period'=>$comp_period,
 						'work_start_on'=>$work_start_on,
-						'sba'=>$this->input->post('sba'),
-						'est_cost'=>$this->input->post('est_cost'),
 					);
 		$booking_id = $this->input->post('booking_id');
 		$qry = "SELECT * FROM bkf_commitment where booking_id = $booking_id";
@@ -979,7 +977,8 @@ class BookingApi extends CI_Controller {
 
 			$f_data = array("booking_id"=>$last_id, "booking_date"=>$current_date);
 			$where_arr = array("id"=>$calc_id);
-			$res = $this->Master_model->updateArr("tbl_cost_calculator_new", $f_data, $where_arr);		
+			$res = $this->Master_model->updateArr("tbl_cost_calculator_new", $f_data, $where_arr);	
+				$data['message'] = "last Query".$this->db->last_query();
 
 				$data['status'] = 'Successfully';
 				$data['code'] = 200;
