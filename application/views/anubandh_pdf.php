@@ -28,11 +28,12 @@ $booking_amt = $CI->master->getWord($trans_detail[0]->paid_booking_amt);
     table, th, td {
       border: 1px solid black;
       border-collapse: collapse;
+      
     }
   </style>
 <body>
-    <h3 style="text-align: center; text-decoration: underline;">अनुबंद पत्र </h3>
-    <div style="padding-left: 10px;padding-right: 10px;">
+    <h2 style="text-align: center; text-decoration: underline;">अनुबंद पत्र </h2>
+    <div style="padding-left: 10px;padding-right: 10px; font-size:18px;">
     <p>पार्टी नं 1 - यु.के. कांसेप्ट डिजाईनर (प्रोप्राइटर मोहित सोलंकी) पता- आफिस न. 441, 4th फ्लोर, सर्विस लिफ्ट के पास, मेग्नेटो मॉल, लाभांडी, रायपुर (छ.ग.) मोबाईल न. 7898716164 पान. न. CGGPS3467M आधार न. 312168337474 ई-मेल - planner.mohit12@gmail.com</p>    
     <p>पाटी नं 2- </p>
     <table style="width:100%">
@@ -124,7 +125,7 @@ $booking_amt = $CI->master->getWord($trans_detail[0]->paid_booking_amt);
             echo '</tr>';
             $rcnt = 0;
         }
-        echo '<td>' . $res->column_desc . '<span style="color: red; font-weight: bold;">' . $opt . '</span></td>';
+        echo '<td width="33%" style="padding: 5px;">' . $res->column_desc . '<span style="color: red; font-weight: bold;">&nbsp;[ ' . $opt . ' ]</span></td>';
         $rcnt++;    
         // Check if three columns have been displayed
         if ($rcnt == 3) {

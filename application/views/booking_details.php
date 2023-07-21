@@ -742,7 +742,7 @@ $CI = & get_instance();
                 </div>
                 <div class="row mt-3">
                 <div class="col-md-4">  
-                  <span>Mail for Booking Amount and Verification</span><br><br>
+                  <span>Booking Review Mail to Client</span><br><br>
                   <div id="div_mail">  
                     <a href="javascript:void(0);" id="btnMail" mid="<?php echo $client_info[0]->id ?? ""; ?>" class="btn btn-danger btn-sm  btn-label waves-effect waves-light"><i class=" ri-mail-fill label-icon align-middle fs-16 me-2"></i>Send Now</a>
                   </div>
@@ -761,6 +761,7 @@ $CI = & get_instance();
                       $bid = 'id="btnMail_2"';
                       }
                     ?>
+
                     <div id="div_mail_2">
                       <a href="javascript:void(0);" <?php echo  $bid; ?> mid="<?php echo $client_info[0]->id ?? ""; ?>" style="margin-top: 5px;" class="btnMail_2 btn btn-danger btn-sm  btn-label waves-effect waves-light"><i class=" ri-mail-fill label-icon align-middle fs-16 me-2"></i>Send Now</a>
                     </div>
@@ -785,7 +786,6 @@ $CI = & get_instance();
         </div>
       </div>
     <!-------Email--------->
-    
 
     <!--------Download and view---------->
       <div class="row">
@@ -811,7 +811,7 @@ $CI = & get_instance();
                   <div class="col-md-4">
                     <span>Anubandh Details</span><br><br>
                     <div id="">  
-                      <a href="<?php echo site_url('/booking/anubandh_pdf')?>" target="_blank" id="" mid="" class="btn btn-success btn-sm  btn-label waves-effect waves-light"><i class=" ri-download-2-fill label-icon align-middle fs-16 me-2"></i>Download Now</a>
+                      <a href="<?php echo base_url('/anubandh/anubandh_pdf/'.$booking_id)?>" target="_blank" id="" mid="" class="btn btn-success btn-sm  btn-label waves-effect waves-light"><i class=" ri-download-2-fill label-icon align-middle fs-16 me-2"></i>Download Now</a>
                     </div>                 
                   </div>  
                   
@@ -1692,7 +1692,7 @@ $(document).on("click", "#btnMail", function(){
 
   var booking_id = $(this).attr("mid");
   $.ajax({ 
-      url: "<?php echo site_url('mail/send_booking_mail')?>", 
+      url: "<?php echo site_url('mail/send_review_mail')?>", 
       type: "POST",
       data: ({booking_id: booking_id, mail_type: "verification"}),
       beforeSend: function(){
@@ -1785,7 +1785,7 @@ $(document).on("click", "#btnMail_2", function(){
 
     }
 
-});
+ });
 
 });
 

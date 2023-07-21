@@ -14,14 +14,14 @@
       <td>    
         <div>
           <p style="text-align: center; color: red; text-decoration: underline;"><b>Mail For Booking Form</b> </p>
-          <p style="margin-top: 20px; color: black; text-align: left;margin-left: 20px;margin-right: 20px;">Dear <b> <?php echo $name ;?>,</b></p>
+          <p style="margin-top: 20px; color: black; text-align: left;margin-left: 20px;margin-right: 20px;"><b>Dear <?php echo $client_name ;?>,</b></p>
           <p style="margin-top: 20px; color: black; text-align: left;margin-left: 20px;margin-right: 20px;">
             We would like to kindly remind you to <b> complete the booking form</b>  with all the required details.
             To ensure a smooth and efficient booking process, it is essential 
             that you fill in all the necessary information accurately
           </p>
           <p style="margin-top: 20px; color: black; text-align: left; margin-left: 20px;margin-right: 20px;">
-            Please take a moment to review the form and make sure you have provided all the required details. 
+              Please take a moment to review the form and make sure you have provided all the required details. 
             <span style="color: red;"> <b>Incomplete or inaccurate information may lead to delays in finalizing your booking or even result in its cancellation.</b> </span>
           </p>
           <p style="margin-top: 20px; color: black; text-align: left; margin-left: 20px;margin-right: 20px;">
@@ -33,9 +33,13 @@
             If you have any questions or require any assistance while filling out the form, please do not hesitate to contact us.
             Our team is here to support you throughout the process and ensure your experience with us is exceptional.
           </p>
+
           <p style="margin-top: 20px; color: black; margin-left: 20px;margin-right: 20px;">
             Thank you for choosing our services. We look forward to welcoming you soon.
           </p>          
+
+          <p style="margin-top: 20px;font-family:Arial,sans-serif;text-align:center;"><a href="<?php echo base_url('index.php/welcome/client_review/'.$link); ?>" target="_blank" style="background: #ffffff; border: 2px solid #a6976e; text-decoration: none; padding: 10px 25px; color: #ab8238; border-radius: 4px; display:inline-block; mso-padding-alt:0;text-underline-color:#ffffff"><span style="mso-text-raise:10pt;font-weight:bold;">Review Now</span></a></p>
+
           <p style="margin-top: 20px; color: black; margin-left: 20px;margin-right: 20px;">
               Best regards, <br>
               Ankur Band <br>
@@ -43,6 +47,7 @@
               U.K. Concept Designer <br>
               Mo. – (+91 9343679850)
           </p>
+          
         </div>
       </td>
   </tr>

@@ -5,20 +5,19 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="x-apple-disable-message-reformatting">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Welcome</title>
-    
+    <title>Welcome</title>   
   </head>
   <body style="margin:0;padding:0;word-spacing:normal;background-color:#ffffff;">
     <div role="article" aria-roledescription="email" lang="en" style="-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;background-color:#ffffff;">
     <table style="border: 1px solid rgb(202, 202, 202); margin-left: 20px;margin-right: 20px;margin-top: 20px;margin-bottom: 20px;">
-        <tr>
+        <tr>            
             <td>                   
                 <div>
                     <p style="text-align: center; color: red; text-decoration: underline;"><b>Confirmation Mail After Booking</b> </p>
                     <p style="margin-top: 20px; color: black; text-align: center;margin-left: 20px;margin-right: 20px;">
                     <b>Thank you for Booking Your Construction Work with UK Concept Designer! </b> 
                     </p>
-                    <p style="margin-top: 20px; color: black; text-align: left;margin-left: 20px;margin-right: 20px;">Dear <b> <?php echo $client_name;?>,</b></p>
+                    <p style="margin-top: 20px; color: black; text-align: left;margin-left: 20px;margin-right: 20px;"><b>Dear <?php echo $client_name;?>,</b></p>
                     <p style="margin-top: 20px; color: black; text-align: left;margin-left: 20px;margin-right: 20px;">
                         We hope this email finds you well. We are writing to express our sincere gratitude and excitement for choosing 
                         <span style="color: red;"><b> UK Concept Designer</b></span> 
