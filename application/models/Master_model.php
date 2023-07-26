@@ -128,27 +128,27 @@ class Master_model extends CI_Model {
 
         public function headerAuth(){
 
-                //echo "dsfdsfsdfsdf"; 
-                //print_r();
+           $authHeader = $this->input->get_request_header('Authorization', TRUE);;
+           
+           $token = str_replace('Bearer ', '', $authHeader);
 
-                echo $authHeader = $this->input->get_request_header('Authorization', TRUE);;
+           $query = $this->db->query("select count(id) as cnt from tbl_access_token where access_token = '$token' and status = 1");
+           $res = $query->result();
+           
+           $query = $this->db->query("select count(id) as cnt from tbl_access_token where access_token = '$token' and status = 1"); 
+           $res = $query->result();                    
+           return $res[0]->cnt;
 
-            if (!isset($_SERVER['HTTP_AUTHORIZATION'])) {
-                $response = array('status' => 'error', 'message' => 'Unauthorized');
-                $this->output->set_content_type('application/json')->set_output(json_encode($response));
-                return;
-            }
-           $authorizationHeader = $_SERVER['HTTP_AUTHORIZATION'];
-           echo $token = str_replace('Bearer ', '', $authorizationHeader);
-
-           return $this->validateToken("select count(id) from tbl_access_token where access_token = '$token' and status = 1");
-
+          //return $query->num_rows();
+           
         }
 
-        public function validateToken($qry)
+        public function jsonData()
         {
-             $query = $this->db->query($qry);
-             echo $query->num_rows();
+            $input_content = file_get_contents('php://input');
+            $response_data = json_decode($input_content, true);
+            $response_data = array_map('xss_clean', $response_data);
+            return $response_data;
         }
         
 }
