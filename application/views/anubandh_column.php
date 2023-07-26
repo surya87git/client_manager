@@ -99,7 +99,7 @@
                     </div>
                     <!-- Textarea -->
                     <div class="col-md-12">
-                      <textarea id="editor"><?php echo $row_data[0]->column_desc;?></textarea>
+                      <textarea name="column_desc" rows="10" cols="170" id="column_desc"><?php echo $row_data[0]->column_desc;?></textarea>
                     </div>
                     
                     <!-- end card-body -->
@@ -165,9 +165,9 @@
 <script src="<?php echo base_url();?>assets/js/app.js"></script>
 <script type="text/javascript">
 
-CKEDITOR.replace('editor', {
-  height: 200
-});
+// CKEDITOR.replace('editor', {
+//   height: 200
+// });
   
 
 $(document).ready(function() {
@@ -193,16 +193,16 @@ $('#frmColumn').validate({
         
         var column_id = $("#column_id").val();
         var column_name = $("#column_name").val();
-                
-        var editorData = CKEDITOR.instances.editor.getData();
-
-        console.log(editorData);
+        var column_desc = $("#column_desc").val(); 
+               
+        //var editorData = CKEDITOR.instances.editor.getData();
+        //console.log(editorData);
 
         var url = "<?php echo site_url('anubandh/ajax_anubandh_column')?>"; 
         $.ajax({
           type: "POST",
           url: url,
-          data: {column_id: column_id, column_name: column_name, column_desc: editorData },
+          data: {column_id: column_id, column_name: column_name, column_desc: column_desc },
           success: function(data) {
             console.log(data);
             var spl_txt = data.split("~~~");

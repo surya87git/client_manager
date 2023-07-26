@@ -51,17 +51,17 @@
                         $CI = & get_instance();
                         foreach($result as $data)
                         {
-                          $designation = $CI->get_name("tbl_employee_type","employee_type",$data->emp_type);
+                          $designation = $CI->get_name("tbl_user_type","user_type",$data->user_type);
                         ?>
                         <tr>
-                            <td><?= $data->emp_name ?></td>
-                            <td><?= $data->emp_mobile ?></td>
+                            <td><?= $data->user_name ?></td>
+                            <td><?= $data->mobile ?></td>
                             <td><?= $designation ?></td>
                             <td>
                                 <div class="hstack gap-3 flex-wrap">
-                                    <a href="<?php echo base_url();?>index.php/ClientApi/addteam/<?=$data->id ?>" class="link-primary fs-15"><i class="ri-edit-2-line"></i></a>
+                                    <a href="<?php echo base_url();?>index.php/clientmanager/addteam/<?=$data->id ?>" class="link-primary fs-15"><i class="ri-edit-2-line"></i></a>
                                     <a href="javascript:void(0);" id="<?=$data->id ?>" class="trash link-danger fs-15"><i class="ri-delete-bin-line"></i></a>
-                                </div>
+                                </d iv>
                             </td>
                         </tr>
                         <?php } ?>

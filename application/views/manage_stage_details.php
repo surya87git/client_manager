@@ -25,7 +25,7 @@
             <div class="card">
               <div class="card-header align-items-center d-flex">
                 <h4 class="card-title mb-0 flex-grow-1"><span class="badge badge-soft-primary" style="font-size: 15px;">Ajay Jain</span></h4>
-                <a href="" class="btn btn-success btn-sm btn-label waves-effect waves-light"><i class="ri-list-check label-icon align-middle fs-16 me-2"></i>Stage List</a>
+                <a href="<?= base_url("index.php/clientmanager/stage_detail_list/".$booking_id);?>" class="btn btn-success btn-sm btn-label waves-effect waves-light"><i class="ri-list-check label-icon align-middle fs-16 me-2"></i>Stage List</a>
               </div>
               <!-- end card header -->
               <div class="card-body">

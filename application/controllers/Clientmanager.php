@@ -3,7 +3,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Clientmanager extends CI_Controller {
 
-
 	public function __construct()
 	 {
 		parent::__construct();
@@ -342,11 +341,11 @@ class Clientmanager extends CI_Controller {
 			$qry = "";
 			$qry .= "SELECT a.*,b.stage_name FROM bkf_stage_payment_history a LEFT JOIN bkf_work_stages b ON a.stage_id = b.id where a.booking_id = ".$data['booking_id']." ";
 			if($_POST['stage_id']){
-			$qry .= "and a.stage_id = ".$_POST['stage_id']." ";
-			$data['stage_idCP_'] =$_POST['stage_id'];
+				$qry .= "and a.stage_id = ".$_POST['stage_id']." ";
+				$data['stage_idCP_'] =$_POST['stage_id'];
 			}
-			$qry .= "order by id desc";
-			
+
+			$qry .= "order by id desc";			
 			$data['payment_list'] = $this->Master_model->getCustom($qry);
 		}
 		
@@ -376,14 +375,7 @@ class Clientmanager extends CI_Controller {
 		}
 		return $html;
 	}
-
-	public function paymenthistory(){
-         
-		$this->load->view('header');
-		$this->load->view('top_sidebar');
-		$this->load->view('paymenthistory');
-    }
-
+	
 	public function viewgallery(){
          
 		$this->load->view('header');
@@ -391,20 +383,29 @@ class Clientmanager extends CI_Controller {
 		$this->load->view('viewgallery');
     }
 
-	
 	public function project_list(){
-         
+        
+		$qry = "";
+		$qry .= "SELECT a.id, a.booking_id, a.create_date AS aggr_date, b.client_name, b.mobile_no, b.email_id, c.work_start_on AS start_date, c.comp_period AS end_date FROM bkf_aggrement_form a ";
+		$qry .= "LEFT JOIN bkf_booking_form b ON a.booking_id = b.id LEFT JOIN bkf_commitment c ON  a.booking_id = c.booking_id ";
+		$qry .= "WHERE a.status = 1";
+		$data['project_list'] = $this->Master_model->getCustom($qry);
+
 		$this->load->view('header');
 		$this->load->view('top_sidebar');
-		$this->load->view('project_list');
+		$this->load->view('project_list', $data);
     }
 	public function manage_facility(){
 
 		$data['booking_id'] = $this->uri->segment(3);
 		
-         $qry = "SELECT * FROM bkf_facility_worktag where cat_id = 1 AND status = 1";
-			$data['facility_list'] = $this->Master_model->getCustom($qry);
-		
+        $qry = "SELECT * FROM bkf_facility_worktag where cat_id = 1 AND status = 1";
+		$data['facility_list'] = $this->Master_model->getCustom($qry);
+
+		$qry2 = "SELECT my_facility FROM bkf_aggrement_form WHERE booking_id = ".$data['booking_id']."";
+		$res = $this->Master_model->getCustom($qry2);
+		$data['my_facility'] = $res[0]->my_facility;
+		//echo $this->db->last_query();
 
 		$this->load->view('header');
 		$this->load->view('top_sidebar');
@@ -434,24 +435,94 @@ class Clientmanager extends CI_Controller {
 		
     }
 
+	public function ajax_my_facility(){
+		
+		$booking_id = $this->input->post("booking_id");
+
+		$qry = "";
+		$qry .= "SELECT a.id, a.name FROM bkf_facility_worktag a ";
+		$qry .= "WHERE FIND_IN_SET(a.id, (SELECT my_facility FROM bkf_aggrement_form WHERE booking_id = $booking_id)) ";
+		$qry .= "order by a.name asc";
+
+		$facility_list = $this->Master_model->getCustom($qry);
+
+		$html = "";
+		
+		if($facility_list){
+			$html .= '<h6 class="text-muted">Facilities included in project...</h6>';
+			foreach($facility_list as $res){
+				$html .= '<span class="badge badge-soft-success mt-2" style="font-size:15px;">'.$res->name.'</span>';
+				$html .= "&nbsp;&nbsp;";
+			}
+			echo $html;
+		}
+		else{
+			$html .= '<h6 class="text-muted">Facilities not included in project...</h6>';
+			echo $html;
+		}
+
+	}
+
 	public function manage_team(){
-         
+
+		$data['booking_id'] = $this->uri->segment(3);
+
+		$qry = "";
+		$qry .= "SELECT a.id, a.user_name, a.mobile, a.designation, b.user_type FROM tbl_users a ";
+		$qry .= "LEFT JOIN tbl_user_type b ON a.user_type = b.id WHERE a.status = 1 ";
+		$qry .= "AND NOT EXISTS (SELECT my_team FROM bkf_aggrement_form WHERE booking_id = ".$data['booking_id']." AND FIND_IN_SET(a.id, my_team)) ";
+		$qry .= " order by a.user_name asc";
+		$data["user_list"] = $this->Master_model->getCustom($qry);
+
+		$qry2 = "";
+		$qry2 .= "SELECT a.id, a.user_name, a.mobile, a.designation, b.user_type FROM tbl_users a ";
+		$qry2 .= "LEFT JOIN tbl_user_type b ON a.user_type = b.id WHERE a.status = 1 ";
+		$qry2 .= "AND  FIND_IN_SET(a.id, (SELECT my_team FROM bkf_aggrement_form WHERE booking_id = ".$data['booking_id'].")) ";
+		$qry2 .= " order by a.user_name asc";
+		$data['team_list'] = $this->Master_model->getCustom($qry2);
+
 		$this->load->view('header');
 		$this->load->view('top_sidebar');
-		$this->load->view('manage_team');
+		$this->load->view('manage_team', $data);
+
     }
 
+	public function ajax_my_team(){
 
+		//print_r($this->input->post());
+		$user_id = $this->input->post('user_id');
+		$booking_id = $this->input->post('booking_id');
+
+		$res = $this->Master_model->getCustom("select my_team from bkf_aggrement_form where booking_id = $booking_id")[0];
+		$team_arr = explode(',', $res->my_team);
+		array_push($team_arr, $user_id);
+		
+		$my_team = implode(",",$team_arr);
+		
+		$frm_data = array('my_team' => $my_team);
+		$where_arr = array("booking_id" => $booking_id);
+		$res = $this->Master_model->updateArr("bkf_aggrement_form", $frm_data, $where_arr);	
+	
+		if($res){
+
+			echo "~~~1~~~";
+		}
+		else{
+
+			echo "~~~0~~~";
+		}
+		
+	}
 
 
 	public function addteam(){
 
-		$data['result'] = $this->Master_model->getAll("tbl_employee_type");
+		$data['result'] = $this->Master_model->getAll("tbl_user_type");
    
 		$id = $this->uri->segment(3) ?? "";
 		if($id!="")
 		{
-		$data['editData'] = $this->Master_model->getDataById("tbl_employee", $id)[0];
+		$data['editData'] = $this->Master_model->getDataById("tbl_users", $id)[0];
 		}
    
 	   $this->load->view('header');
@@ -462,15 +533,15 @@ class Clientmanager extends CI_Controller {
    {
 
 	$id      = $this->input->post("id") ?? "";
-	$emp_name      = $this->input->post("emp_name") ?? "";
-	$emp_mobile   = $this->input->post("emp_mobile") ?? "";
-	$emp_type   = $this->input->post("emp_type") ?? "";
+	$user_name      = $this->input->post("user_name") ?? "";
+	$mobile   = $this->input->post("mobile") ?? "";
+	$user_type   = $this->input->post("user_type") ?? "";
 
 	$frm_data = array(
 		"id"=>$id,
-		"emp_name"=> $emp_name,
-		"emp_mobile"=> $emp_mobile,
-		"emp_type"=> $emp_type,
+		"user_name"=> $user_name,
+		"mobile"=> $mobile,
+		"user_type"=> $user_type,
 		"create_date"=> date("Y-m-d H:i:s"),
 		"ip" => $this->input->ip_address()
 		);
@@ -479,7 +550,7 @@ class Clientmanager extends CI_Controller {
 
 		$frm_data['create_date'] = date("Y-m-d H:i:s");
 		$frm_data['ip'] = $this->input->ip_address();               
-		$res = $this->Master_model->saveData("tbl_employee", $frm_data);                       
+		$res = $this->Master_model->saveData("tbl_users", $frm_data);                       
 		if($res)
 		{
 			echo "~~~1~~~";
@@ -492,7 +563,7 @@ class Clientmanager extends CI_Controller {
 	} else {
 		
 		$frm_data["update_date"] = date("Y-m-d H:i:s");
-		$res = $this->Master_model->updateData("tbl_employee", $frm_data);
+		$res = $this->Master_model->updateData("tbl_users", $frm_data);
 		if($res)
 		{    
 			echo "~~~2~~~";
@@ -509,7 +580,7 @@ class Clientmanager extends CI_Controller {
    
    public function teamlist(){
 		
-	   $qry = "SELECT * FROM tbl_employee where status = 1 ";
+	   $qry = "SELECT * FROM tbl_users where status = 1 ";
 	   $data['result'] = $this->Master_model->getCustom($qry);
    
 	   $this->load->view('header');
@@ -563,20 +634,23 @@ public function ajax_upload_certificate()
 
 }
 
+
+
    public function certificate_list(){
 
 		$booking_id = $this->uri->segment(3) ?? "";
 		$data = array();
-		if($booking_id!="")
+		if($booking_id !="")
 		{
 			$qry = "SELECT * FROM bkf_uploaded_certificate where booking_id = $booking_id AND status = 1 order by id asc";
-			$data['uploaded_certificate'] = $this->Master_model->getCustom($qry);
+			$data['result'] = $this->Master_model->getCustom($qry);
+			$data['booking_id'] = $booking_id;
 		}
 
 		$this->load->view('header');
 		$this->load->view('top_sidebar');
-		$this->load->view('upload_certificate',$data);
-}
+		$this->load->view('certificate_list',$data);
+	}
 
 
 

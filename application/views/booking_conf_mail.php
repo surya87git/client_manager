@@ -52,7 +52,6 @@
                     Please find your  <span style="color: #ac9c72; font-weight: bolder;">attached booking form...</span> 
                   </p>
               </div>  
-              <img src="<?php echo base_url();?>assets/email_images/Welcoome.png" alt="" style="width: 300px; height: 300px; align-items: center;"-->     
           </td>   
         </tr>
       </table>

@@ -24,7 +24,7 @@
             <div class="card">
               <div class="card-header align-items-center d-flex">
                 <h4 class="card-title mb-0 flex-grow-1"><span class="badge badge-soft-primary" style="font-size: 15px;">Ajay Jain</span></h4>
-                <a href="" class="btn btn-success btn-sm btn-label waves-effect waves-light"><i class="ri-list-check label-icon align-middle fs-16 me-2"></i>Stage List</a>
+                <a href="" class="btn btn-success btn-sm btn-label waves-effect waves-light"><i class="ri-list-check label-icon align-middle fs-16 me-2"></i>Certificate List</a>
               </div>
               <!-- end card header -->
               <div class="card-body">
@@ -94,49 +94,6 @@
         <!-----End of Add Stages--------->
 
         <!-----Add Stages--------->
-        <div class="row">
-          <div class="col-xl-12">
-            <div class="card">
-              <div class="card-header align-items-center d-flex">
-                <h4 class="card-title mb-0 flex-grow-1"><span class="badge badge-soft-primary" style="font-size: 15px;">Ajay Jain</span></h4>
-
-              </div>
-              <!-- end card header -->
-              <div class="card-body">
-              <div class="table-responsive table-card">
-            <table class="table table-nowrap table-striped-columns mb-0">
-                <thead class="table-light">
-                    <tr>
-                        <th scope="col">Stage Name</th>
-                        <th scope="col">Certificate Name</th>
-                        <th scope="col">Image</th>
-                        <th scope="col">Action</th>   
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><a href="#" class="fw-semibold">Stage 1 <br>
-                            <small>Footing</small></a></td>
-                        <td>Electricity Bill</td>
-                        <td><a href="" class="badge badge-soft-secondary"  data-bs-toggle="modal" data-bs-target=".bs-example-modal-sm">See Image</a></td>
-                        <td>
-                            <div class="hstack gap-3 flex-wrap">
-                                <a href="javascript:void(0);" class="link-success fs-15"><i class="ri-edit-2-line"></i></a>
-                                <a href="javascript:void(0);" class="link-danger fs-15"><i class="ri-delete-bin-line"></i></a>
-                            </div>
-                        </td>
-                    </tr>
-                
-                </tbody>
-            </table>
-</div>
-              </div>
-              <!-- end card-body -->
-            </div>
-            <!-- end card -->
-          </div>
-          <!-- end col -->
-        </div>
         <!-----End of Add Stages--------->
         
       </div>
@@ -251,12 +208,12 @@ $('#frmStage').validate({
                   if(spl_txt[1] == 1)
                   { 
                     alert("Successfully Saved...");                          
-                    window.location.href = "<?php echo base_url("index.php/clientmanager/upload_certificate/")?>"+spl_txt[3];
+                    window.location.href = "<?php echo base_url("index.php/clientmanager/certificate_list/$booking_id")?>";
                   }
                   else if(spl_txt[1] == 2)
                   { 
                     alert("Successfully Updated..."); 
-                    window.location.href = "<?php echo base_url("index.php/clientmanager/upload_certificate/")?>"+spl_txt[3];                  
+                    window.location.href = "<?php echo base_url("index.php/clientmanager/certificate_list/$booking_id")?>";                  
                   }
                   else
                   { 

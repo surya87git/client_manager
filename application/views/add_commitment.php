@@ -99,31 +99,33 @@
                                         <!--end row-->
                                         <!-- Start of row--->
                                         <div class="row mt-2">
-                                                <div class="col-md-6 mt-3">
-                                                    <div>                                                      
-                                                        <div>
-                                                          <label for="" class="form-label">Agreement Period</label>
-                                                          <input type="date" id="aggr_period" name="aggr_period" value="<?php echo $aggr_period;?>" class="form-control" placeholder="Agreement Period">
-                                                        </div>
-                                                    </div> 
-                                                </div>
-                                                <div class="col-md-6 mt-3">
-                                                    <div>                                                      
-                                                        <div>
-                                                          <label for="" class="form-label">Project Completion Period</label>
-                                                          <input type="date" id="comp_period" name="comp_period" value="<?php echo $comp_period;?>" class="form-control" placeholder="Project Completion Period" require>
-                                                        </div>
-                                                    </div> 
-                                                </div>
-                                                <div class="col-md-3 mt-3">
-                                                    <div>                                                      
-                                                        <div>
-                                                            <label for="" class="form-label">Work Start Date</label>
-                                                            <input type="date" id="work_start_on" name="work_start_on" value="<?php echo $work_start_on;?>" class="form-control" placeholder="Work on Site" require>
-                                                        </div>
-                                                    </div> 
-                                                </div>
-                                                <div class="col-md-3 mt-3">
+                                            <div class="col-md-3 mt-3">
+                                                <div>                                                      
+                                                    <div>
+                                                        <label for="" class="form-label">Agreement Period Up To </label>
+                                                        <input type="date" id="aggr_period" name="aggr_period" value="<?php echo $aggr_period;?>" class="form-control" placeholder="Agreement Period">
+                                                    </div>
+                                                </div> 
+                                            </div>
+                                            
+                                            <div class="col-md-3 mt-3">
+                                                <div>                                                      
+                                                    <div>
+                                                        <label for="" class="form-label">Work Start From</label>
+                                                        <input type="date" id="work_start_on" name="work_start_on" value="<?php echo $work_start_on;?>" class="form-control" placeholder="Work on Site" require>
+                                                    </div>
+                                                </div> 
+                                            </div>
+                                            <div class="col-md-3 mt-3">
+                                                <div>                                                      
+                                                    <div>
+                                                        <label for="" class="form-label">Project Completion Date</label>
+                                                        <input type="date" id="comp_period" name="comp_period" value="<?php echo $comp_period;?>" class="form-control" placeholder="Project Completion Period" require>
+                                                    </div>
+                                                </div> 
+                                            </div>
+                                        </div>
+                                                <!--div class="col-md-3 mt-3">
                                                     <div>                                                      
                                                         <div>
                                                             <label for="sba" class="form-label">Super Builtup Area</label>
@@ -138,9 +140,9 @@
                                                          <input type="number" id="est_cost" name="est_cost" value="<?php echo $est_cost;?>" class="form-control" placeholder="Project Estimate" require>
                                                        </div>
                                                     </div> 
-                                                </div>
+                                                </div-->
 
-                                        </div>
+                                        
                                         <!-- End of row--->
                                         <!-- star of row----->
                                         <div class="row mt-3">

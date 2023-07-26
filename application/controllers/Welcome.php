@@ -16,6 +16,8 @@ class Welcome extends CI_Controller {
 	    $this->load->model("Master_model");    
 	}
 
+
+	
 	public function ajax_client_review()
 	{
 		$booking_id = $this->input->post("bk_id");

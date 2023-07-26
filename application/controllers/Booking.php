@@ -12,12 +12,16 @@ class Booking extends CI_Controller {
 		$this->load->helper("form");
 		$this->load->helper("url");
 		$this->load->library('user_agent');
-		//$this->load->library('upload');
+		$this->load->library('master');
 		$this->load->database();
 	    $this->load->model("Master_model"); 
 		//$this->check_login();
 	}	 
 
+	public function chklib()
+	{
+		//echo $this->master->getWord(12309877);
+	}
 	public function check_login()
 	{
 		if(!isset($_COOKIE['emp_id'])){
@@ -148,6 +152,12 @@ class Booking extends CI_Controller {
 		$calc_id = $this->input->post("calc_id") ?? "";
 		$booking_link = $this->input->post("booking_link") ?? "";
 		
+		$qry = "SELECT * FROM tbl_cost_calculator_new where id = $calc_id";
+		$c_res = $this->Master_model->getCustom($qry)[0];
+		$current_date = date("Y-m-d H:i:s");
+
+		$expiry_date  = date('Y-m-d H:i:s', strtotime("+2 days"));
+
 		$frm_data = array(
 			"calc_id"=>$calc_id,
 			"booking_amt"=>$this->input->post("booking_amt") ?? "",
@@ -156,32 +166,59 @@ class Booking extends CI_Controller {
 			"email_id"=>$this->input->post("email_id") ?? "",
 			"pan_no"=>$this->input->post("pan_no") ?? "",
 			"aadhar_no"=>$this->input->post("aadhar_no") ?? "",
-			"booking_link"=> $booking_link
+			"booking_link"=> $booking_link,
+			"booking_timer"=> $expiry_date
 		);
 		
 		if($booking_id == "")
 		{		
-			$current_date = date("Y-m-d H:i:s");
+			
 			$frm_data["create_by"] = $_COOKIE['employee_name'] ?? "";
 			$frm_data["create_date"] = $current_date;
 			$frm_data["ip"] = $this->input->ip_address();
 			$res = $this->Master_model->saveData("bkf_booking_form", $frm_data);
 			$last_id = $this->db->insert_id();
 
+			$frm_plot = array(
+				"booking_id" => $last_id,
+				"plot_location" => $c_res->client_addr,			
+				"plot_size" => $c_res->total_area,
+				"num_road" => $c_res->road_facing,
+				"plot_depth"=> $c_res->depth,
+				"create_date"=> $current_date,
+				"ip"=> $this->input->ip_address()	
+			);
+
+			$this->Master_model->saveData("bkf_plot_details", $frm_plot);
+
 			$f_data = array("booking_id"=>$last_id, "booking_date"=>$current_date);
 			$where_arr = array("id"=>$calc_id);
-			$res = $this->Master_model->updateArr("tbl_cost_calculator_new", $f_data, $where_arr);		
+			$res = $this->Master_model->updateArr("tbl_cost_calculator_new", $f_data, $where_arr);	
+
+			$final_amt_in_word = $this->master->getWord($c_res->total_cost);
+
 			if($res){
 
+				$frm_data_2 = array(
+					"booking_id"=>$last_id,
+					"paid_booking_amt"=>$this->input->post("booking_amt") ?? "",
+					"offer_amt"=>$c_res->total_disc_cost,
+					"final_amt"=>$c_res->total_cost,
+					"final_amt_in_word"=>$final_amt_in_word,
+					"create_date" => $current_date,
+					"ip"=>$this->input->ip_address()
+				);
 
+				$res = $this->Master_model->saveData("bkf_booking_transaction", $frm_data_2);
 
 			}
+
 			echo "~~~1~~~".$last_id."~~~";
 		}
 		else
 		{
 			$frm_data["id"] = $this->input->post("bid");
-			$frm_data["update_date"] = date("Y-m-d H:i:s");
+			$frm_data["update_date"] = $current_date;
 			$res = $this->Master_model->updateData("bkf_booking_form", $frm_data);
 			echo "~~~2~~~0~~~";
 		}
@@ -191,17 +228,16 @@ class Booking extends CI_Controller {
 		$booking_id = $this->input->post("booking_id") ?? "";
 		$trans_id = $this->input->post("trans_id") ?? "";
 		$frm_data = array(
-			"booking_id" => $booking_id,
-			"paid_booking_amt" => $this->input->post("paid_booking_amt") ?? "",
 			"payment_mode" => $this->input->post("payment_mode") ?? "",		
 			"trans_id" => $trans_id,
 			"payment_date" => date("Y-m-d H:i:s"),
-			"create_date" => date("Y-m-d H:i:s"),
-			"ip" => $this->input->ip_address(),								
+			"update_date" => date("Y-m-d H:i:s")				
 		);
 		if($trans_id != "" && $booking_id != "")
 		{
-			$res = $this->Master_model->saveData("bkf_booking_transaction", $frm_data);
+			$where_arr = array("booking_id"=>$booking_id);
+			$res = $this->Master_model->updateArr("bkf_booking_transaction", $frm_data, $where_arr);
+			echo $this->db->last_query();
 			$last_id = $this->db->insert_id();
 			if($res)
 			{
@@ -218,6 +254,7 @@ class Booking extends CI_Controller {
 		}
 
 	}
+
 	public function ajax_client_info()
 	{			
 		$p_hno = $this->input->post("p_hno");
@@ -518,7 +555,6 @@ class Booking extends CI_Controller {
 		}		
 
 		echo $this->db->last_query();
-
 	}
 
 	public function file_upload($file_name, $tmp_name, $doc_type)
@@ -1504,6 +1540,10 @@ public function generate_booking_pdf($booking_id)
 		$this->load->view('new_header/header');
 		$this->load->view('top_sidebar');
 		$this->load->view('booking_list_2');
+	}
+	public function anubandh_pdf()
+	{
+		$this->load->view('anubandh_pdf');
 	}
 
 

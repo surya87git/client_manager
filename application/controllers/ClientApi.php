@@ -28,6 +28,14 @@ class ClientApi extends CI_Controller {
         //}
 
     }
+
+
+
+    public function get_name($tbl=NULL,$col=NULL,$id=NULL)
+    {
+        $name = $this->Master_model->getNameById($tbl,$col,$id); 
+        return $name;
+    }
     
     public function login(){
         
@@ -81,16 +89,44 @@ class ClientApi extends CI_Controller {
             return $this->output->set_status_header(401);
             exit;
         }   
+
+
+
+
+
+
         $data = array();
         
         $input_res = $this->Master_model->jsonData();
         $booking_id = $input_res['booking_id'];
+
+
+
+              $curr_date = date("Y-m-d");  
+              $fupdate_new = date('Y-m-d', strtotime($curr_date.' + 60 day'));
+               
+              // $curr_date = date("Y-m-d");  
+                          
+              $qry = "SELECT * from bkf_stage_details where id <> 0";
+              $qry .= " and DATE(end_date) BETWEEN '$curr_date' and '$fupdate_new'"; 
+              $qry .= " and booking_id = ".$input_res['booking_id'] ." and pending_amt > 0";  
+
+              $data['notification'] = $this->Master_model->getCustom($qry);
+
+              if($data['notification']){
+                $data['is_due'] = true;
+              }else
+              {
+                $data['is_due'] = false;
+              }
+
+
         
         $qry = "";
-        $qry .= "SELECT a.id AS booking_id,client_name,email_id,mobile_no,permanent_addr, DATE_FORMAT(a.create_date, '%d, %M %Y') AS booking_date, b.final_amt AS project_cost, DATE_FORMAT(c.aggr_period, '%d, %M %Y') AS aggrement_date, DATE_FORMAT(c.work_start_on, '%d, %M %Y') AS start_date, c.comp_period AS end_date ";
-        $qry .= "FROM bkf_booking_form a LEFT JOIN bkf_booking_transaction b ON a.id = b.booking_id ";
-        $qry .= "LEFT JOIN bkf_commitment c ON a.id = c.booking_id ";
-		$qry .= "where a.id = $booking_id";  
+        $qry .= "SELECT d.create_date AS aggrement_date, d.site_id, a.id AS booking_id,a.client_name,a.email_id,a.mobile_no,a.permanent_addr, DATE_FORMAT(a.create_date, '%d, %M %Y') AS booking_date, b.final_amt AS project_cost, ";
+        $qry .= "DATE_FORMAT(a.aggrement_date, '%d, %M %Y') AS aggrement_date,DATE_FORMAT(c.aggr_period, '%d, %M %Y') AS aggr_period, DATE_FORMAT(c.work_start_on, '%d, %M %Y') AS start_date, c.comp_period AS end_date ";
+        $qry .= "FROM bkf_booking_form a LEFT JOIN bkf_booking_transaction b ON a.id = b.booking_id LEFT JOIN bkf_commitment c ON a.id = c.booking_id LEFT JOIN bkf_aggrement_form AS d ON a.id = d.booking_id ";
+		    $qry .= "where a.id = $booking_id";  
 
         $data['client_info'] = $this->Master_model->getCustom($qry)[0];
 
@@ -106,6 +142,51 @@ class ClientApi extends CI_Controller {
         $this->output->set_content_type('application/json')->set_output(json_encode($merg_res));
         
     }
+public function notification()
+{
+          
+        if($this->$permission == 0){       
+            return $this->output->set_status_header(401);
+            exit;
+        }   
+
+
+
+
+
+
+        $data = array();
+        
+        $input_res = $this->Master_model->jsonData();
+        $booking_id = $input_res['booking_id'];
+
+
+              $curr_date = date("Y-m-d");  
+              $fupdate_new = date('Y-m-d', strtotime($curr_date.' + 60 day'));
+               
+              // $curr_date = date("Y-m-d");  
+                          
+              $qry = "SELECT * from bkf_stage_details where id <> 0";
+              $qry .= " and DATE(end_date) BETWEEN '$curr_date' and '$fupdate_new'"; 
+              $qry .= " and booking_id = ".$input_res['booking_id'] ." and pending_amt > 0";  
+
+              $data['notification_data'] = $this->Master_model->getCustom($qry);
+
+              if($data['notification_data']){
+                $data['is_due'] = true;
+             
+                $response = array('code' => 200, 'status' => 'success', 'message' => 'Success');
+              }
+              else{
+                $data['is_due'] = false;
+                $response = array('code' => 300, 'status' => 'error', 'message' => 'Data  Not Availble');
+              }
+
+              $merg_res = array_merge($data, $response);
+              $this->output->set_content_type('application/json')->set_output(json_encode($merg_res));
+
+
+}
 
 public function addonView(){
 
@@ -260,14 +341,39 @@ public function paymentHistory(){
 
 
 
+public function teamList(){
 
+  if($this->$permission == 0){       
+      return $this->output->set_status_header(401);
+      exit;
+  }   
+  $data = array();
+  
+  $input_res = $this->Master_model->jsonData();
+  $booking_id = $input_res['booking_id'];
+  
 
-public function get_name($tbl=NULL,$col=NULL,$id=NULL)
-	{
-		$name = $this->Master_model->getNameById($tbl,$col,$id); 
-		return $name;
-	}
+    $qry2 = "";
+    $qry2 .= "SELECT a.id, a.user_name, a.mobile, a.designation, b.user_type FROM tbl_users a ";
+    $qry2 .= "LEFT JOIN tbl_user_type b ON a.user_type = b.id WHERE a.status = 1 ";
+    $qry2 .= "AND  FIND_IN_SET(a.id, (SELECT my_team FROM bkf_aggrement_form WHERE booking_id = ".$booking_id.")) ";
+    $qry2 .= " order by a.user_name asc";
+    $data['result'] = $this->Master_model->getCustom($qry2);
+
+  if($data['result']){
+    $response = array('code' => 200, 'status' => 'success', 'message' => 'Success');
+  }
+  else{
+    $response = array('code' => 300, 'status' => 'error', 'message' => 'Data  Not Availble');
+  }
+
+  $merg_res = array_merge($data, $response);
+  $this->output->set_content_type('application/json')->set_output(json_encode($merg_res));
 
 }
 
+
+
+}
 ?>
+

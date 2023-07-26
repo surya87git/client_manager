@@ -63,6 +63,7 @@
                                 <div class="d-flex gap-2 align-items-center">
                                   <div class="flex-grow-1">
                                     <a href="javascript:void(0);" cid="<?php echo $row->id;?>" class="view" data-bs-toggle="modal" data-bs-target="#flipModal"><?php echo $row->client_name;?></a>
+                                  
                                   </div>
                                 </div>
                               </td>
@@ -75,7 +76,7 @@
                               <?php if($row->booking_id > 0 ){?>
                                 <a href="<?php echo base_url("index.php/booking/booking_details/$row->booking_id");?>" class="badge rounded-pill badge-soft-danger">Booked</a>
                               <?php }else{?>
-                                <a href="javascript:void(0);" tc="<?php echo $row->total_cost;?>" id="<?php echo $row->id;?>" class="badge rounded-pill badge-soft-success" data-bs-toggle="modal" data-bs-target="#myModal" >Book Now</a>
+                                <a href="javascript:void(0);" c_name="<?php echo $row->client_name;?>" c_mobile="<?php echo $row->client_mob;?>" tc="<?php echo $row->total_cost;?>" id="<?php echo $row->id;?>" class="badge rounded-pill badge-soft-success" data-bs-toggle="modal" data-bs-target="#myModal" >Book Now</a>
                               <?php }?>
                               </td>
                               <td nowrap>
@@ -163,20 +164,21 @@
                                 </div>
                             </div>
                             <br>
+
                             <p class="text-danger mt-2" style="text-align: center;"><b> Total Booking Amount: Rs. <span id="html_booking_amt">3,00,000</span>/-</b></p>
                             <hr style="border-top: 1px solid red;">
                             <div class="row mt-2">
                               <div class="col-md-12 mt-2">
                                 <label for="">Enter Name</label>
-                                <input type="text" id="client_name" name="client_name" class="form-control" placeholder="Enter Name" required>
+                                <input type="text" readonly id="client_name" name="client_name" class="form-control" placeholder="Enter Name" required>
                               </div>
                               <div class="col-md-6 mt-2">
                                 <label for="">Enter Mobile No.</label>
-                                <input type="number"  id="mobile_no" name="mobile_no" class="form-control" placeholder="Enter Mobile number" required>
+                                <input type="number" readonly id="mobile_no" name="mobile_no" class="form-control" placeholder="Enter Mobile number" required>
                               </div>
                               <div class="col-md-6 mt-2">
                                 <label for="">Enter Email Address</label>
-                                <input type="email"  id="email_id" name="email_id" class="form-control" placeholder="Enter Email Address" required>
+                                <input type="email" id="email_id" name="email_id" class="form-control" placeholder="Enter Email Address" required>
                               </div>
                               <div class="col-md-6 mt-2">
                                 <label for="">Enter Adhaar Card No.</label>
@@ -225,7 +227,7 @@
                               <h6 class="mb-3">Payment Mode</h6>
                               <div class="my-2">
                               <div class="form-check form-check-inline">
-                                <input type="radio" id="chk_upi" name="payment_mode" value="UPI/QR" class="form-check-input">
+                                <input type="radio" id="chk_upi" checked name="payment_mode" value="UPI/QR" class="form-check-input">
                                 <label for="chk_upi" class="form-check-label">UPI/QR Code</label>
                               </div>
                               <div class="form-check form-check-inline">
@@ -242,7 +244,7 @@
                               <div class="col-12 mt-3" id="" style="">
                                 <span class="text-primary">Click the below button to make a payment</span>
                                 <div class="col-12 mt-2">
-                                  <a href="https://tinyurl.com/2olo7rbw" target="_blank" class="btn btn-sm  btn-primary"> <i class=" ri-bank-card-fill" aria-hidden="true"></i>&nbsp;&nbsp;Rs. 3,00,000/- Pay Now</a>
+                                  <a href="javascript:void(0);" id="payment_link" target="_blank" class="btn btn-sm  btn-primary"> <i class=" ri-bank-card-fill" aria-hidden="true"></i>&nbsp;&nbsp;Rs. <span id="pay_amt">3,00,000</span>/- Pay Now</a>
                                 </div>
                               </div>
                               </center>
@@ -371,6 +373,7 @@ $(document).ready(function(){
               $("#html_booking_amt").html(booking_amt);
               $("#booking_amt").val(amt);
               $("#paid_booking_amt").val(amt);
+              $("#pay_amt").html(amt);
           }
           else if(amt_type == "percent"){            
               var tc = $("#total_cost").val();  
@@ -379,6 +382,7 @@ $(document).ready(function(){
               $("#html_booking_amt").html(booking_amt);
               $("#booking_amt").val(amt);
               $("#paid_booking_amt").val(amt);
+              $("#pay_amt").html(amt);
           }
 
         }           
@@ -387,8 +391,14 @@ $(document).ready(function(){
 
   $(document).on("click", ".badge", function(){
 
+    var c_name = $(this).attr("c_name");
+    var c_mobile = $(this).attr("c_mobile");
+
     var id = $(this).attr("id");
     var tc = $(this).attr("tc");
+
+    $("#client_name").val(c_name);
+    $("#mobile_no").val(c_mobile);
     $("#total_cost").val(tc);
     $("#calc_id").val(id);
 
@@ -456,7 +466,7 @@ $('#frmBooking').validate({
                     if(booking_type == "btn_submit"){
                     ///**------Send Mail--------------------- */
                       $.ajax({ 
-                            url: "<?php echo site_url('mail/send_booking_mail')?>", 
+                            url: "<?php echo site_url('mail/send_quick_booking_mail')?>", 
                             type: "POST",
                             data: ({booking_id: booking_id, mail_type: "link"}),
                             beforeSend: function(){
@@ -466,12 +476,16 @@ $('#frmBooking').validate({
                             },
                             success: function(data)
                             {
-                              console.log("~~~~!"+data);
+                              console.log("~~~~!-->"+data);
 
+                              //return false;
                               $("#div_loader").html("Successfully Sent...");;
                               setTimeout(() => {
                                 $("#div_mail").show();
-                                $("#div_loader").hide();        
+                                $("#div_loader").hide(); 
+                                
+                                //window.location.href = "<?php //echo base_url();?>index.php/booking/booking_details/"+booking_id;
+
                               }, 5000);  
                             },
                             error: function() {                       
@@ -491,6 +505,10 @@ $('#frmBooking').validate({
                     }
                     else{
                       alert("Successfully Saved...");
+
+                      var booking_link = $("#booking_link").val();
+                      $("#payment_link").attr("href", booking_link);
+
                        $('#myModal').modal('hide');                      
                        $('#paynow').modal('show');                    
                     }
@@ -550,7 +568,7 @@ $('#frmTrans').validate({
     },
     submitHandler: function(form) {      
       var url = "<?php echo site_url('booking/ajax_quick_transaction')?>";
-      var frmdata = $("#frmTrans").serialize(); //new FormData($('#costForm')[0]);//$("#followupForm").serialize();  
+      var frmdata = $("#frmTrans").serialize();  
           $.ajax({
               type: "POST",
               url: url,
@@ -563,7 +581,7 @@ $('#frmTrans').validate({
                 if(spl_txt[1] == 1)
                 { 
                   alert("Successfully Saved...");
-                  window.location.href = "<?php echo base_url();?>index.php/booking/booking_details/"+booking_id;
+                  //window.location.href = "<?php //echo base_url();?>index.php/booking/booking_details/"+booking_id;
                 }
                 else if(spl_txt[1] == 2)
                 { 

@@ -31,6 +31,7 @@ $client_name = $CI->get_name("bkf_booking_form","client_name",$booking_id);
             <div class="card">
               <div class="card-header align-items-center d-flex">
                 <h4 class="card-title mb-0 flex-grow-1"><?php echo $client_name?></h4>
+                <a href="<?php echo base_url("index.php/clientmanager/project_list/".$booking_id)?>" class="btn btn-primary btn-sm btn-label waves-effect waves-light"><i class="ri-file-list-fill label-icon align-middle fs-16 me-2"></i>Project List</a>&nbsp;&nbsp;
                 <a href="<?php echo base_url("index.php/clientmanager/payment_history/".$booking_id)?>" class="btn btn-success btn-sm btn-label waves-effect waves-light"><i class=" ri-file-list-fill label-icon align-middle fs-16 me-2"></i>Payment History</a>&nbsp;&nbsp;
                 <a href="<?php echo base_url("index.php/clientmanager/manage_stage_details/".$booking_id)?>" class="btn btn-success btn-sm btn-label waves-effect waves-light"><i class=" ri-file-add-fill label-icon align-middle fs-16 me-2"></i>Add Stage</a>
               </div>
@@ -80,7 +81,7 @@ $client_name = $CI->get_name("bkf_booking_form","client_name",$booking_id);
                           $running_status = $CI->getStatus($res->running_status);
                         ?>
                         <tr>
-                            <td class="text-primary"><b id="lbl_stage_name_<?php echo $res->id;?>"><?php echo $stage_name;?></b><br>
+                            <td class="text-primary"><b id="lbl_stage_name_<?php echo $res->id;?>" data-bs-toggle="modal" data-bs-target="#myModal"><?php echo $stage_name;?></b><br>
                               <!--small class="text-info">Stage Number: 1</small-->
                             </td>
                             <td><?php echo $start_date;?><br>
@@ -215,6 +216,38 @@ $client_name = $CI->get_name("bkf_booking_form","client_name",$booking_id);
       </div>
     </div>
     <!-----End of Pay Now Modal--------->
+
+    <!-----Details Modal----->
+        <div id="myModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myModalLabel">Stage Details</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h5 class="fs-15" style="text-decoration:underline;">
+                            Work Tag we provided
+                        </h5>
+                        <ul>
+                          <li>Brick Work</li>
+                          <li>Label Casting</li>
+                          <li>Lorem</li>
+                          <li>Lorems</li>
+                        </ul>
+                        <h5 style="text-decoration:underline;">Stage Description:</h5>
+                        <span>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary ">Done</button>
+                    </div>
+
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+    <!-----End of Details Modal----->
 
     <footer class="footer">
       <div class="container-fluid">
